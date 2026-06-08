@@ -13,8 +13,11 @@ type Props = CollectionEntry<'blog'>;
 
 const post = Astro.props;
 const { Content } = await render(post);
+
+// 읽기 시간 추정용 본문 글자수 (마크다운 원문 길이로 근사).
+const charCount = post.body?.length ?? 0;
 ---
 
-<BlogPost {...post.data}>
+<BlogPost {...post.data} charCount={charCount}>
 	<Content />
 </BlogPost>

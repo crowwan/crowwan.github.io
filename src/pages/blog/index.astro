@@ -9,105 +9,115 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '../../consts';
 const posts = (await getCollection('blog')).sort(
 	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
+
+// 발행 연도별 그룹핑 (내림차순).
+type Post = (typeof posts)[number];
+const groups = new Map<number, Post[]>();
+for (const post of posts) {
+	const year = post.data.pubDate.getFullYear();
+	if (!groups.has(year)) groups.set(year, []);
+	groups.get(year)!.push(post);
+}
+const years = [...groups.keys()].sort((a, b) => b - a);
+
+// MM.DD 짧은 날짜 (아카이브용).
+const shortDate = (d: Date) =>
+	`${String(d.getMonth() + 1).padStart(2, '0')}.${String(d.getDate()).padStart(2, '0')}`;
 ---
 
 <!doctype html>
 <html lang="ko">
 	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-		<style>
-			main {
-				width: 960px;
-			}
-			ul {
-				display: flex;
-				flex-wrap: wrap;
-				gap: 2rem;
-				list-style-type: none;
-				margin: 0;
-				padding: 0;
-			}
-			ul li {
-				width: calc(50% - 1rem);
-			}
-			ul li * {
-				text-decoration: none;
-				transition: 0.2s ease;
-			}
-			ul li:first-child {
-				width: 100%;
-				margin-bottom: 1rem;
-				text-align: center;
-			}
-			ul li:first-child img {
-				width: 100%;
-			}
-			ul li:first-child .title {
-				font-size: 2.369rem;
-			}
-			ul li img {
-				margin-bottom: 0.5rem;
-				border-radius: 12px;
-			}
-			ul li a {
-				display: block;
-			}
-			.title {
-				margin: 0;
-				color: rgb(var(--black));
-				line-height: 1;
-			}
-			.date {
-				margin: 0;
-				color: rgb(var(--gray));
-			}
-			ul li a:hover h4,
-			ul li a:hover .date {
-				color: rgb(var(--accent));
-			}
-			ul a:hover img {
-				box-shadow: var(--box-shadow);
-			}
-			@media (max-width: 720px) {
-				ul {
-					gap: 0.5em;
-				}
-				ul li {
-					width: 100%;
-					text-align: center;
-				}
-				ul li:first-child {
-					margin-bottom: 0;
-				}
-				ul li:first-child .title {
-					font-size: 1.563em;
-				}
-			}
-		</style>
+		<BaseHead title={`Blog · ${SITE_TITLE}`} description={SITE_DESCRIPTION} />
 	</head>
 	<body>
 		<Header />
 		<main>
-			<section>
-				<ul>
-					{
-						posts.map((post) => (
-							<li>
-								<a href={`/blog/${post.id}/`}>
-									{post.data.heroImage && (
-										<img width={720} height={360} src={post.data.heroImage} alt="" loading="lazy" />
-									)}
-									<h4 class="title">{post.data.title}</h4>
-									<p class="date">
-										<FormattedDate date={post.data.pubDate} />
-									</p>
-								</a>
-							</li>
-						))
-					}
-				</ul>
-			</section>
+			<header class="page-head reveal">
+				<h1 class="mono">blog</h1>
+				<p class="count mono">{posts.length}개의 글</p>
+			</header>
+
+			{
+				years.map((year, gi) => (
+					<section class="year-group">
+						<div class="year-head reveal" style={`animation-delay: ${gi * 80}ms`}>
+							<h2 class="year mono">{year}</h2>
+							<span class="year-count mono">{groups.get(year)!.length}</span>
+						</div>
+						<ol class="index-list">
+							{groups.get(year)!.map((post) => (
+								<li>
+									<a class="index-row" href={`/blog/${post.id}/`}>
+										<span class="index-num">·</span>
+										<span class="index-date">{shortDate(post.data.pubDate)}</span>
+										<span class="index-title">
+											{post.data.title}
+											<span class="arrow" aria-hidden="true">
+												→
+											</span>
+										</span>
+										<span class="index-tags">
+											{(post.data.tags ?? []).slice(0, 2).map((tag) => (
+												<span class="tag">{tag}</span>
+											))}
+										</span>
+									</a>
+								</li>
+							))}
+						</ol>
+					</section>
+				))
+			}
 		</main>
 		<Footer />
 	</body>
 </html>
+
+<style>
+	.page-head {
+		display: flex;
+		align-items: baseline;
+		gap: 0.9rem;
+		margin-bottom: 2.5em;
+		padding-bottom: 1em;
+		border-bottom: 1px solid var(--border);
+	}
+	.page-head h1 {
+		font-size: 2.4rem;
+		font-weight: 700;
+		letter-spacing: -0.03em;
+		margin: 0;
+	}
+	.count {
+		font-size: 0.82rem;
+		color: var(--fg-muted);
+	}
+
+	.year-group {
+		margin-bottom: 2.5em;
+	}
+	.year-head {
+		display: flex;
+		align-items: baseline;
+		gap: 0.8rem;
+		margin-bottom: 0.4em;
+	}
+	.year {
+		font-size: 1.6rem;
+		font-weight: 700;
+		letter-spacing: -0.02em;
+		color: var(--fg);
+		margin: 0;
+	}
+	.year-count {
+		font-size: 0.78rem;
+		color: var(--fg-faint);
+	}
+	a.index-row {
+		text-decoration: none;
+	}
+	.index-list li {
+		list-style: none;
+	}
+</style>

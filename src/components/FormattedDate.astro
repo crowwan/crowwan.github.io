@@ -4,14 +4,22 @@ interface Props {
 }
 
 const { date } = Astro.props;
+
+// YYYY.MM.DD 형식(모노). ko-KR 점 구분.
+const formatted = date
+	.toLocaleDateString('ko-KR', {
+		year: 'numeric',
+		month: '2-digit',
+		day: '2-digit',
+	})
+	.replace(/\.\s?/g, '.')
+	.replace(/\.$/, '');
 ---
 
-<time datetime={date.toISOString()}>
-	{
-		date.toLocaleDateString('ko-KR', {
-			year: 'numeric',
-			month: 'long',
-			day: 'numeric',
-		})
+<time datetime={date.toISOString()}>{formatted}</time>
+
+<style>
+	time {
+		font-family: var(--font-mono);
 	}
-</time>
+</style>

@@ -20,42 +20,117 @@ const recentPosts = (await getCollection('blog'))
 	<body>
 		<Header />
 		<main>
-			<h1>crowwan 블로그</h1>
-			<p>매일 마크다운으로 쌓아 가는 개발 기록입니다. 전체 글은 <a href="/blog">블로그</a>에서 볼 수 있습니다.</p>
+			<section class="hero">
+				<p class="hero-eyebrow reveal mono" style="animation-delay: 0ms">~/crowwan</p>
+				<h1 class="hero-name reveal" style="animation-delay: 80ms">crowwan</h1>
+				<p class="hero-tagline reveal" style="animation-delay: 160ms">
+					매일의 개발 기록을 마크다운으로 쌓아 갑니다.
+				</p>
+				<p class="hero-sub reveal mono" style="animation-delay: 240ms">
+					dev · claude · automation · tdd
+				</p>
+			</section>
 
-			<h2>최근 글</h2>
-			<ul class="recent">
-				{
-					recentPosts.map((post) => (
-						<li>
-							<a href={`/blog/${post.id}/`}>{post.data.title}</a>
-							<span class="date">
-								<FormattedDate date={post.data.pubDate} />
-							</span>
-						</li>
-					))
-				}
-			</ul>
+			<section class="recent">
+				<div class="recent-head reveal" style="animation-delay: 300ms">
+					<h2 class="mono">최근 글</h2>
+					<a class="all-link mono" href="/blog">전체 글 보기 →</a>
+				</div>
+
+				<ol class="index-list">
+					{
+						recentPosts.map((post, i) => (
+							<li>
+								<a
+									class="index-row reveal"
+									href={`/blog/${post.id}/`}
+									style={`animation-delay: ${360 + i * 60}ms`}
+								>
+									<span class="index-num">{String(i + 1).padStart(3, '0')}</span>
+									<span class="index-date">
+										<FormattedDate date={post.data.pubDate} />
+									</span>
+									<span class="index-title">
+										{post.data.title}
+										<span class="arrow" aria-hidden="true">→</span>
+									</span>
+									<span class="index-tags">
+										{(post.data.tags ?? []).slice(0, 2).map((tag) => (
+											<span class="tag">{tag}</span>
+										))}
+									</span>
+								</a>
+							</li>
+						))
+					}
+				</ol>
+			</section>
 		</main>
 		<Footer />
 	</body>
 </html>
 
 <style>
-	.recent {
-		list-style: none;
-		padding: 0;
+	.hero {
+		padding: 2.5em 0 3em;
 	}
-	.recent li {
+	.hero-eyebrow {
+		font-size: 0.85rem;
+		color: var(--fg-faint);
+		margin: 0 0 0.6em;
+	}
+	.hero-name {
+		font-family: var(--font-mono);
+		font-size: clamp(3rem, 12vw, 5.2rem);
+		font-weight: 700;
+		line-height: 1;
+		letter-spacing: -0.04em;
+		margin: 0;
+		color: var(--fg);
+	}
+	.hero-tagline {
+		font-size: 1.15rem;
+		color: var(--fg);
+		margin: 0.8em 0 0.3em;
+		max-width: 34ch;
+	}
+	.hero-sub {
+		font-size: 0.85rem;
+		color: var(--fg-muted);
+		margin: 0;
+		letter-spacing: 0.02em;
+	}
+
+	.recent-head {
 		display: flex;
+		align-items: baseline;
 		justify-content: space-between;
-		gap: 1em;
-		padding: 0.5em 0;
-		border-bottom: 1px solid rgb(var(--gray-light));
+		gap: 1rem;
+		margin-bottom: 0.6em;
 	}
-	.recent .date {
-		color: rgb(var(--gray));
-		white-space: nowrap;
-		font-size: 0.9em;
+	.recent-head h2 {
+		font-size: 0.95rem;
+		font-weight: 500;
+		color: var(--fg-muted);
+		letter-spacing: 0.02em;
+		margin: 0;
+	}
+	.all-link {
+		font-size: 0.82rem;
+		color: var(--fg-muted);
+		transition: color 0.18s ease;
+	}
+	.all-link:hover {
+		color: var(--accent);
+	}
+	/* 인덱스 행 자체가 링크이므로 텍스트 데코 제거. */
+	a.index-row {
+		text-decoration: none;
+	}
+	.index-list {
+		counter-reset: none;
+	}
+	.index-list li {
+		list-style: none;
 	}
 </style>

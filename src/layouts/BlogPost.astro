@@ -5,81 +5,158 @@ import Footer from '../components/Footer.astro';
 import FormattedDate from '../components/FormattedDate.astro';
 import Header from '../components/Header.astro';
 
-type Props = CollectionEntry<'blog'>['data'];
+type Props = CollectionEntry<'blog'>['data'] & {
+	// 읽기 시간 추정을 위한 본문 글자수(선택).
+	charCount?: number;
+};
 
-const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
+const { title, description, pubDate, updatedDate, heroImage, tags, charCount } = Astro.props;
+
+// 한글 글자수 기반 읽기 시간 추정 (분당 약 500자).
+const readingMinutes = charCount ? Math.max(1, Math.round(charCount / 500)) : null;
 ---
 
 <html lang="ko">
 	<head>
-		<BaseHead title={title} description={description ?? ''} />
-		<style>
-			main {
-				width: calc(100% - 2em);
-				max-width: 100%;
-				margin: 0;
-			}
-			.hero-image {
-				width: 100%;
-			}
-			.hero-image img {
-				display: block;
-				margin: 0 auto;
-				border-radius: 12px;
-				box-shadow: var(--box-shadow);
-			}
-			.prose {
-				width: 720px;
-				max-width: calc(100% - 2em);
-				margin: auto;
-				padding: 1em;
-				color: rgb(var(--gray-dark));
-			}
-			.title {
-				margin-bottom: 1em;
-				padding: 1em 0;
-				text-align: center;
-				line-height: 1;
-			}
-			.title h1 {
-				margin: 0 0 0.5em 0;
-			}
-			.date {
-				margin-bottom: 0.5em;
-				color: rgb(var(--gray));
-			}
-			.last-updated-on {
-				font-style: italic;
-			}
-		</style>
+		<BaseHead title={title} description={description ?? ''} image={heroImage} />
 	</head>
 
 	<body>
+		<div class="progress-bar" id="reading-progress"></div>
 		<Header />
 		<main>
 			<article>
-				<div class="hero-image">
-					{heroImage && <img width={1020} height={510} src={heroImage} alt="" loading="lazy" />}
-				</div>
-				<div class="prose">
-					<div class="title">
-						<div class="date">
-							<FormattedDate date={pubDate} />
-							{
-								updatedDate && (
-									<div class="last-updated-on">
-										Last updated on <FormattedDate date={updatedDate} />
-									</div>
-								)
-							}
-						</div>
-						<h1>{title}</h1>
-						<hr />
+				<header class="post-head reveal">
+					<div class="meta mono">
+						<FormattedDate date={pubDate} />
+						{readingMinutes && <span class="sep">·</span>}
+						{readingMinutes && <span>{readingMinutes}분 읽기</span>}
+						{
+							updatedDate && (
+								<span class="updated">
+									<span class="sep">·</span>updated <FormattedDate date={updatedDate} />
+								</span>
+							)
+						}
 					</div>
+					<h1>{title}</h1>
+					{
+						tags && tags.length > 0 && (
+							<div class="post-tags">
+								{tags.map((tag) => (
+									<span class="tag">{tag}</span>
+								))}
+							</div>
+						)
+					}
+					<hr />
+				</header>
+
+				{
+					heroImage && (
+						<div class="hero-image reveal">
+							<img src={heroImage} alt="" loading="lazy" />
+						</div>
+					)
+				}
+
+				<div class="prose reveal">
 					<slot />
 				</div>
+
+				<nav class="post-nav">
+					<a class="back mono" href="/blog">← 목록으로</a>
+				</nav>
 			</article>
 		</main>
 		<Footer />
+
+		<script is:inline>
+			// 스크롤 기반 읽기 진행도 표시.
+			(function () {
+				const bar = document.getElementById('reading-progress');
+				if (!bar) return;
+				const onScroll = () => {
+					const doc = document.documentElement;
+					const scrollTop = doc.scrollTop || document.body.scrollTop;
+					const height = doc.scrollHeight - doc.clientHeight;
+					const ratio = height > 0 ? scrollTop / height : 0;
+					bar.style.transform = 'scaleX(' + Math.min(1, Math.max(0, ratio)) + ')';
+				};
+				document.addEventListener('scroll', onScroll, { passive: true });
+				onScroll();
+			})();
+		</script>
+
+		<style>
+			.progress-bar {
+				position: fixed;
+				top: 0;
+				left: 0;
+				right: 0;
+				height: 2px;
+				background: var(--accent);
+				transform-origin: 0 0;
+				transform: scaleX(0);
+				z-index: 100;
+				box-shadow: 0 0 8px var(--accent-glow);
+			}
+			.post-head {
+				margin-bottom: 1.5em;
+			}
+			.meta {
+				display: flex;
+				flex-wrap: wrap;
+				align-items: center;
+				gap: 0.5em;
+				font-size: 0.82rem;
+				color: var(--fg-muted);
+				margin-bottom: 1em;
+			}
+			.meta .sep {
+				color: var(--fg-faint);
+			}
+			.post-head h1 {
+				font-size: clamp(1.9rem, 6vw, 2.7rem);
+				font-weight: 800;
+				letter-spacing: -0.025em;
+				line-height: 1.2;
+				margin: 0 0 0.6em;
+			}
+			.post-tags {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 0.45rem;
+				margin-bottom: 1.2em;
+			}
+			.post-head hr {
+				margin: 1.5em 0 0;
+				border-top: 1px solid var(--border);
+			}
+			.hero-image {
+				margin: 0 auto 2em;
+				max-width: var(--prose-width);
+			}
+			.hero-image img {
+				display: block;
+				width: 100%;
+				border-radius: 12px;
+				border: 1px solid var(--border);
+			}
+			.post-nav {
+				max-width: var(--prose-width);
+				margin: 4em auto 0;
+				padding-top: 1.5em;
+				border-top: 1px solid var(--border);
+			}
+			.back {
+				font-size: 0.85rem;
+				color: var(--fg-muted);
+				transition: color 0.18s ease;
+			}
+			.back:hover {
+				color: var(--accent);
+			}
+		</style>
 	</body>
 </html>
