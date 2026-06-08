@@ -1,0 +1,61 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import FormattedDate from '../components/FormattedDate.astro';
+import Header from '../components/Header.astro';
+import { getCollection } from 'astro:content';
+import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+
+// 최근 글 5개 (발행일 역순).
+const recentPosts = (await getCollection('blog'))
+	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+	.slice(0, 5);
+---
+
+<!doctype html>
+<html lang="ko">
+	<head>
+		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+	</head>
+	<body>
+		<Header />
+		<main>
+			<h1>crowwan 블로그</h1>
+			<p>매일 마크다운으로 쌓아 가는 개발 기록입니다. 전체 글은 <a href="/blog">블로그</a>에서 볼 수 있습니다.</p>
+
+			<h2>최근 글</h2>
+			<ul class="recent">
+				{
+					recentPosts.map((post) => (
+						<li>
+							<a href={`/blog/${post.id}/`}>{post.data.title}</a>
+							<span class="date">
+								<FormattedDate date={post.data.pubDate} />
+							</span>
+						</li>
+					))
+				}
+			</ul>
+		</main>
+		<Footer />
+	</body>
+</html>
+
+<style>
+	.recent {
+		list-style: none;
+		padding: 0;
+	}
+	.recent li {
+		display: flex;
+		justify-content: space-between;
+		gap: 1em;
+		padding: 0.5em 0;
+		border-bottom: 1px solid rgb(var(--gray-light));
+	}
+	.recent .date {
+		color: rgb(var(--gray));
+		white-space: nowrap;
+		font-size: 0.9em;
+	}
+</style>

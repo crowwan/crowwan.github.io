@@ -1,0 +1,24 @@
+{
+  "name": "crowwan.github.io",
+  "type": "module",
+  "version": "0.0.1",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "dev": "astro dev --port 7777",
+    "build": "astro build",
+    "preview": "astro preview --port 7777",
+    "astro": "astro",
+    "new": "node scripts/new-post.mjs",
+    "migrate": "node scripts/migrate-velog.mjs",
+    "commit-history": "node scripts/commit-by-date.mjs"
+  },
+  "dependencies": {
+    "@astrojs/mdx": "^6.0.2",
+    "@astrojs/rss": "^4.0.18",
+    "@astrojs/sitemap": "^3.7.3",
+    "astro": "^6.4.4",
+    "sharp": "^0.34.3"
+  }
+}
