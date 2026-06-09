@@ -94,20 +94,20 @@ const years = [...groups.keys()].sort((a, b) => b - a);
 		margin: 0 0 0.7em;
 	}
 	.page-title {
-		font-family: var(--font-display);
-		font-weight: 700;
-		font-size: clamp(2.6rem, 8vw, 4rem);
-		line-height: 1.05;
-		letter-spacing: -0.02em;
+		font-family: var(--font-sans);
+		font-weight: 800;
+		font-size: clamp(2.2rem, 6.5vw, 3.2rem);
+		line-height: 1.2;
+		letter-spacing: -0.03em;
+		color: var(--text-strong);
 		margin: 0;
 	}
 	.page-count {
-		font-family: var(--font-ui);
-		font-size: 0.78rem;
+		font-family: var(--font-sans);
+		font-size: 0.92rem;
 		font-weight: 600;
-		text-transform: uppercase;
-		letter-spacing: 0.12em;
-		color: var(--ink-faint);
+		letter-spacing: -0.01em;
+		color: var(--text-meta);
 		margin: 0.7em 0 0;
 	}
 
@@ -118,23 +118,22 @@ const years = [...groups.keys()].sort((a, b) => b - a);
 		display: flex;
 		align-items: baseline;
 		gap: 0.9rem;
-		padding-bottom: 0.4em;
-		margin-bottom: 0.2em;
+		padding-bottom: 0.8em;
+		margin-bottom: 0.4em;
 	}
 	.year {
-		font-family: var(--font-display);
-		font-weight: 700;
-		font-size: clamp(2.4rem, 7vw, 3.4rem);
+		font-family: var(--font-sans);
+		font-weight: 800;
+		font-size: clamp(1.8rem, 5vw, 2.4rem);
 		line-height: 1;
-		letter-spacing: -0.02em;
-		color: var(--ink);
+		letter-spacing: -0.03em;
+		color: var(--text-strong);
 	}
 	.year-count {
-		font-family: var(--font-ui);
-		font-size: 0.72rem;
+		font-family: var(--font-sans);
+		font-size: 0.85rem;
 		font-weight: 600;
-		text-transform: uppercase;
-		letter-spacing: 0.12em;
-		color: var(--ink-faint);
+		letter-spacing: -0.01em;
+		color: var(--text-meta);
 	}
 </style>

@@ -1,35 +1,56 @@
 /*
-  crowwan 블로그 — "따뜻한 라이트 에디토리얼 매거진" 디자인 시스템.
-  크림 페이퍼 배경, 큰 세리프 헤드라인, 드롭캡/헤어라인/올캡스 메타,
-  러스트 단색 강조. 글(타이포)이 주인공인 잡지형 블로그.
+  crowwan 블로그 — "토스(Toss)풍 미니멀" 디자인 시스템.
+  Pretendard 산세리프, 화이트~라이트그레이 배경, 굵은 고딕 위계,
+  넉넉한 여백, 부드러운 카드 그림자. 러스트 단색 강조 유지.
 */
 
 :root {
 	color-scheme: light;
 
-	/* ── 컬러 (크림 페이퍼) ── */
-	--paper: #f6f1e7; /* 따뜻한 크림/아이보리 배경 */
-	--paper-2: #efe9db; /* 살짝 진한 톤 — 카드/구분/인라인코드 */
-	--ink: #1c1814; /* 거의 검정, 웜 — 본문 텍스트 */
-	--ink-soft: #4a443c; /* 부제/메타/발췌 */
-	--ink-faint: #8a8174; /* 캡션/연도/번호 */
-	--rule: rgba(28, 24, 20, 0.14); /* 헤어라인 룰/보더 */
-	--rule-strong: rgba(28, 24, 20, 0.28);
-	--accent: #b5432a; /* 러스트/벽돌빛 vermilion — 유일한 강조색 */
-	--accent-deep: #8f3320;
+	/* ── 배경/표면 ── */
+	--bg: #ffffff; /* 메인 배경 */
+	--surface: #f9fafb; /* 옅은 표면 — 카드/인라인 */
+	--surface-2: #f2f4f6; /* 살짝 진한 표면 — 칩/헤더 hover */
 
-	/* 코드 카드(다크) 배경 — vesper shiki 톤. */
+	/* ── 보더 ── */
+	--border: #e5e8eb; /* 기본 보더 */
+	--border-faint: #f2f4f6; /* 옅은 보더 */
+
+	/* ── 텍스트 (토스 그레이스케일) ── */
+	--text-strong: #191f28; /* 제목/강조 */
+	--text: #333d4b; /* 본문 */
+	--text-2: #4e5968; /* 부제/발췌 */
+	--text-meta: #6b7684; /* 메타/보조 */
+	--text-faint: #8b95a1; /* 캡션/연도/번호 */
+
+	/* ── 강조색 (러스트 유지) ── */
+	--accent: #b5432a;
+	--accent-deep: #8f3320;
+	--accent-soft: rgba(181, 67, 42, 0.08);
+
+	/* 코드 카드(다크) 배경. */
 	--code-bg: #101010;
 
+	/* ── 그림자 (부드럽고 낮은 채도) ── */
+	--shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.04);
+	--shadow-md: 0 4px 16px rgba(23, 31, 40, 0.06);
+	--shadow-lg: 0 8px 28px rgba(23, 31, 40, 0.08);
+
+	/* ── 라운드 ── */
+	--radius-sm: 8px;
+	--radius-md: 12px;
+	--radius-lg: 16px;
+	--radius-xl: 20px;
+
 	/* ── 타이포 ── */
-	--font-display: 'Fraunces', 'Noto Serif KR', serif; /* 디스플레이 헤드라인 */
-	--font-serif: 'Noto Serif KR', 'Nanum Myeongjo', serif; /* 본문 명조 */
-	--font-ui: 'Pretendard Variable', Pretendard, -apple-system, system-ui, sans-serif; /* 메타/라벨 */
-	--font-mono: 'JetBrains Mono', 'D2Coding', ui-monospace, monospace; /* 코드 */
+	--font-sans:
+		'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, system-ui, 'Apple SD Gothic Neo',
+		'Segoe UI', Roboto, sans-serif;
+	--font-mono: 'JetBrains Mono', 'D2Coding', ui-monospace, monospace;
 
 	/* ── 레이아웃 ── */
 	--content-width: 760px;
-	--prose-width: 668px;
+	--prose-width: 680px;
 }
 
 *,
@@ -39,45 +60,47 @@
 }
 
 html {
-	scrollbar-color: var(--rule-strong) transparent;
+	scrollbar-color: var(--border) transparent;
 }
 
 body {
-	font-family: var(--font-serif);
+	font-family: var(--font-sans);
 	margin: 0;
 	padding: 0;
 	min-height: 100vh;
 	text-align: left;
-	background-color: var(--paper);
-	color: var(--ink);
-	font-size: 18px;
+	background-color: var(--bg);
+	color: var(--text);
+	font-size: 17px;
 	line-height: 1.7;
+	letter-spacing: -0.01em;
 	word-wrap: break-word;
 	overflow-wrap: break-word;
 	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
 	text-rendering: optimizeLegibility;
 }
 
 ::selection {
 	background: var(--accent);
-	color: var(--paper);
+	color: #fff;
 }
 
-/* 스크롤바 페이퍼 톤. */
+/* 스크롤바. */
 ::-webkit-scrollbar {
 	width: 11px;
 	height: 11px;
 }
 ::-webkit-scrollbar-track {
-	background: var(--paper);
+	background: var(--bg);
 }
 ::-webkit-scrollbar-thumb {
-	background: var(--rule-strong);
+	background: var(--border);
 	border-radius: 6px;
-	border: 3px solid var(--paper);
+	border: 3px solid var(--bg);
 }
 ::-webkit-scrollbar-thumb:hover {
-	background: var(--ink-faint);
+	background: var(--text-faint);
 }
 
 main {
@@ -87,7 +110,7 @@ main {
 	padding: 3.5em 1.2em 6em;
 }
 
-/* ── 제목 기본 (세리프) ── */
+/* ── 제목 기본 (굵은 고딕) ── */
 h1,
 h2,
 h3,
@@ -95,17 +118,17 @@ h4,
 h5,
 h6 {
 	margin: 0 0 0.5rem 0;
-	color: var(--ink);
-	line-height: 1.18;
-	font-family: var(--font-display);
+	color: var(--text-strong);
+	line-height: 1.3;
+	font-family: var(--font-sans);
 	font-weight: 700;
-	letter-spacing: -0.01em;
+	letter-spacing: -0.02em;
 }
 
 strong,
 b {
 	font-weight: 700;
-	color: var(--ink);
+	color: var(--text-strong);
 }
 
 a {
@@ -132,58 +155,55 @@ code {
 
 hr {
 	border: none;
-	border-top: 1px solid var(--rule);
+	border-top: 1px solid var(--border);
 	margin: 2.6em 0;
 }
 
 /* ── 올캡스 메타/라벨 유틸 ── */
 .eyebrow,
 .kicker {
-	font-family: var(--font-ui);
-	font-size: 0.72rem;
-	font-weight: 600;
+	font-family: var(--font-sans);
+	font-size: 0.74rem;
+	font-weight: 700;
 	text-transform: uppercase;
-	letter-spacing: 0.14em;
-	color: var(--ink-faint);
+	letter-spacing: 0.1em;
+	color: var(--text-meta);
 }
 .mono {
 	font-family: var(--font-mono);
 }
 
-/* ── 태그 칩 (올캡스 헤어라인) ── */
+/* ── 태그 칩 (토스풍 라운드 필) ── */
 .tag {
-	font-family: var(--font-ui);
-	font-size: 0.68rem;
-	font-weight: 500;
+	font-family: var(--font-sans);
+	font-size: 0.78rem;
+	font-weight: 600;
 	line-height: 1;
-	letter-spacing: 0.08em;
-	text-transform: uppercase;
-	color: var(--ink-soft);
-	border: 1px solid var(--rule);
-	border-radius: 2px;
-	padding: 0.4em 0.7em;
+	letter-spacing: -0.01em;
+	color: var(--text-meta);
+	background: var(--surface-2);
+	border: 1px solid transparent;
+	border-radius: 999px;
+	padding: 0.5em 0.85em;
 	white-space: nowrap;
 	transition:
 		color 0.18s ease,
-		border-color 0.18s ease;
+		background-color 0.18s ease;
 }
 
 /*
   ══════════════════════════════════════
-   매거진 기사 리스트 (홈 / 블로그 아카이브 공용)
-   각 글 = 올캡스 메타 → 큰 세리프 제목 → 발췌 → 헤어라인
+   글 리스트 (홈 / 블로그 아카이브 공용)
+   토스풍 카드 — 메타 → 굵은 제목 → 발췌
   ══════════════════════════════════════
 */
 .article-list {
 	list-style: none;
 	margin: 0;
 	padding: 0;
-}
-.article-list > li {
-	border-top: 1px solid var(--rule);
-}
-.article-list > li:last-child {
-	border-bottom: 1px solid var(--rule);
+	display: flex;
+	flex-direction: column;
+	gap: 0.9rem;
 }
 
 a.article {
@@ -195,9 +215,22 @@ a.article {
 		'excerpt thumb';
 	column-gap: 1.6rem;
 	align-items: start;
-	padding: 2em 0.2em;
-	color: var(--ink);
+	padding: 1.6em 1.6em;
+	background: var(--bg);
+	border: 1px solid var(--border);
+	border-radius: var(--radius-lg);
+	box-shadow: var(--shadow-sm);
+	color: var(--text-strong);
 	text-decoration: none;
+	transition:
+		box-shadow 0.2s ease,
+		transform 0.2s ease,
+		border-color 0.2s ease;
+}
+a.article:hover {
+	box-shadow: var(--shadow-md);
+	border-color: var(--border);
+	transform: translateY(-2px);
 }
 a.article.no-thumb {
 	grid-template-columns: 1fr;
@@ -212,31 +245,30 @@ a.article.no-thumb {
 	display: flex;
 	flex-wrap: wrap;
 	align-items: center;
-	gap: 0.7rem;
-	font-family: var(--font-ui);
-	font-size: 0.72rem;
+	gap: 0.55rem;
+	font-family: var(--font-sans);
+	font-size: 0.8rem;
 	font-weight: 600;
-	letter-spacing: 0.12em;
-	text-transform: uppercase;
-	color: var(--ink-faint);
-	margin-bottom: 0.7em;
+	letter-spacing: -0.01em;
+	color: var(--text-meta);
+	margin-bottom: 0.6em;
 }
 .article-meta .cat {
 	color: var(--accent);
-	letter-spacing: 0.1em;
+	font-weight: 700;
 }
 .article-meta .dot {
-	color: var(--rule-strong);
+	color: var(--text-faint);
 }
 
 .article-title {
 	grid-area: title;
-	font-family: var(--font-display);
-	font-weight: 600;
-	font-size: clamp(1.5rem, 3.4vw, 1.95rem);
-	line-height: 1.22;
-	letter-spacing: -0.012em;
-	color: var(--ink);
+	font-family: var(--font-sans);
+	font-weight: 700;
+	font-size: clamp(1.3rem, 3vw, 1.6rem);
+	line-height: 1.35;
+	letter-spacing: -0.02em;
+	color: var(--text-strong);
 	margin: 0;
 	transition: color 0.18s ease;
 }
@@ -246,12 +278,12 @@ a.article:hover .article-title {
 
 .article-excerpt {
 	grid-area: excerpt;
-	font-family: var(--font-serif);
-	font-size: 1rem;
-	line-height: 1.7;
-	color: var(--ink-soft);
-	margin: 0.7em 0 0;
-	max-width: 58ch;
+	font-family: var(--font-sans);
+	font-size: 0.98rem;
+	line-height: 1.65;
+	color: var(--text-2);
+	margin: 0.55em 0 0;
+	max-width: 60ch;
 }
 
 .article-thumb {
@@ -259,23 +291,22 @@ a.article:hover .article-title {
 	width: 132px;
 	height: 96px;
 	object-fit: cover;
-	border-radius: 2px;
-	filter: saturate(0.92);
+	border-radius: var(--radius-md);
 	align-self: center;
 }
 
 /* 첫 글(피처) — 더 크게. */
 a.article.feature {
-	padding: 2.4em 0.2em 2.6em;
+	padding: 2em 1.8em;
 }
 a.article.feature .article-title {
-	font-size: clamp(2rem, 5.5vw, 3.1rem);
-	font-weight: 700;
-	line-height: 1.12;
+	font-size: clamp(1.7rem, 4.5vw, 2.3rem);
+	font-weight: 800;
+	line-height: 1.25;
 }
 a.article.feature .article-excerpt {
-	font-size: 1.12rem;
-	margin-top: 1em;
+	font-size: 1.05rem;
+	margin-top: 0.8em;
 }
 
 @media (max-width: 720px) {
@@ -287,18 +318,18 @@ a.article.feature .article-excerpt {
 			'meta'
 			'title'
 			'excerpt';
-		padding: 1.7em 0;
+		padding: 1.4em 1.3em;
 	}
 	.article-thumb {
 		width: 100%;
 		height: 180px;
-		margin-bottom: 0.4em;
+		margin-bottom: 0.5em;
 	}
 }
 
 /*
   ══════════════════════════════════════
-   페이지 로드 staggered reveal + 호버
+   페이지 로드 staggered reveal
   ══════════════════════════════════════
 */
 @keyframes reveal-up {
@@ -331,65 +362,55 @@ a.article.feature .article-excerpt {
 
 /*
   ══════════════════════════════════════
-   .prose — 글 본문 타이포그래피 (매거진)
+   .prose — 글 본문 타이포그래피 (토스풍 산세리프)
   ══════════════════════════════════════
 */
 .prose {
 	width: var(--prose-width);
 	max-width: 100%;
 	margin: 0 auto;
-	color: var(--ink);
-	font-family: var(--font-serif);
-	font-size: 1.075rem;
-	line-height: 1.9;
+	color: var(--text);
+	font-family: var(--font-sans);
+	font-size: 1.0625rem;
+	line-height: 1.8;
+	letter-spacing: -0.01em;
 }
 .prose > * + * {
-	margin-top: 1.3em;
-}
-
-/* 드롭캡 — 첫 문단 첫 글자. 한글에도 자연스럽게. */
-.prose > p:first-of-type::first-letter {
-	float: left;
-	font-family: var(--font-display);
-	font-weight: 700;
-	color: var(--accent);
-	font-size: 3.4em;
-	line-height: 0.82;
-	padding: 0.06em 0.1em 0 0;
-	margin-right: 0.02em;
+	margin-top: 1.25em;
 }
 
 .prose h2,
 .prose h3,
 .prose h4 {
-	font-family: var(--font-display);
+	font-family: var(--font-sans);
+	color: var(--text-strong);
 	margin-top: 2.2em;
-	margin-bottom: 0.55em;
+	margin-bottom: 0.6em;
 	scroll-margin-top: 5rem;
-	line-height: 1.25;
+	line-height: 1.4;
+	letter-spacing: -0.02em;
 }
 .prose h2 {
-	font-size: 1.7rem;
-	font-weight: 700;
-	padding-top: 0.4em;
-	border-top: 1px solid var(--rule);
+	font-size: 1.6rem;
+	font-weight: 800;
 }
 .prose h3 {
-	font-size: 1.34rem;
-	font-weight: 600;
+	font-size: 1.3rem;
+	font-weight: 700;
 }
 .prose h4 {
-	font-size: 1.12rem;
-	font-weight: 600;
+	font-size: 1.1rem;
+	font-weight: 700;
 }
 
 /* 링크 — 러스트 + 언더라인 오프셋, 호버 시 진해짐 + 하이라이트. */
 .prose a:where(:not(.no-underline)) {
 	color: var(--accent);
+	font-weight: 500;
 	text-decoration: underline;
 	text-decoration-thickness: 1px;
 	text-underline-offset: 3px;
-	text-decoration-color: var(--rule-strong);
+	text-decoration-color: var(--border);
 	transition:
 		color 0.2s ease,
 		background-color 0.2s ease,
@@ -398,58 +419,44 @@ a.article.feature .article-excerpt {
 .prose a:where(:not(.no-underline)):hover {
 	color: var(--accent-deep);
 	text-decoration-color: var(--accent);
-	background-color: rgba(181, 67, 42, 0.08);
+	background-color: var(--accent-soft);
 }
 
-/* blockquote — 매거진 풀쿼트. 보더 대신 타이포로. */
+/* blockquote — 토스풍 표면 카드 + 좌측 강조 보더. */
 .prose blockquote {
-	position: relative;
-	margin: 1.8em 0;
-	padding: 0.2em 0 0.2em 2.2rem;
-	font-family: var(--font-serif);
-	font-style: italic;
-	font-size: 1.12rem;
-	line-height: 1.8;
-	color: var(--ink-soft);
-}
-.prose blockquote::before {
-	content: '\201C';
-	position: absolute;
-	left: -0.18rem;
-	top: -0.2em;
-	font-family: var(--font-display);
-	font-style: italic;
-	font-weight: 600;
-	font-size: 3.4rem;
-	line-height: 1;
-	color: var(--accent);
-	opacity: 0.55;
+	margin: 1.6em 0;
+	padding: 1em 1.3em;
+	background: var(--surface);
+	border-left: 3px solid var(--accent);
+	border-radius: var(--radius-sm);
+	font-size: 1rem;
+	line-height: 1.75;
+	color: var(--text-2);
 }
 .prose blockquote p:last-child {
 	margin-bottom: 0;
 }
 
-/* 인라인 코드 — 페이퍼-2 배경, 모노, 작게. */
+/* 인라인 코드 — 옅은 표면 배경, 모노, 작게. */
 .prose :not(pre) > code {
 	font-family: var(--font-mono);
-	font-size: 0.84em;
-	background: var(--paper-2);
+	font-size: 0.85em;
+	background: var(--surface-2);
 	color: var(--accent-deep);
-	border: 1px solid var(--rule);
-	border-radius: 4px;
-	padding: 0.1em 0.38em;
+	border-radius: 6px;
+	padding: 0.12em 0.4em;
 }
 
 /* 코드 블록 — 라이트 본문 속 다크 카드. */
 .prose pre {
 	background: var(--code-bg) !important;
-	border: 1px solid var(--rule-strong);
-	border-radius: 8px;
+	border-radius: var(--radius-md);
 	padding: 1.3em 1.4em;
 	overflow-x: auto;
 	font-size: 0.86rem;
 	line-height: 1.7;
 	margin: 1.8em 0;
+	box-shadow: var(--shadow-md);
 }
 .prose pre code {
 	all: unset;
@@ -458,22 +465,22 @@ a.article.feature .article-excerpt {
 	white-space: pre-wrap;
 }
 
-/* 이미지 — 풀폭 가능, 캡션. */
+/* 이미지 — 라운드 카드. */
 .prose img {
 	display: block;
 	margin: 1.9em auto;
-	border-radius: 4px;
-	border: 1px solid var(--rule);
+	border-radius: var(--radius-md);
+	border: 1px solid var(--border);
 }
 .prose figure {
 	margin: 1.9em 0;
 }
 .prose figcaption {
-	font-family: var(--font-ui);
-	font-size: 0.7rem;
-	text-transform: uppercase;
-	letter-spacing: 0.12em;
-	color: var(--ink-faint);
+	font-family: var(--font-sans);
+	font-size: 0.82rem;
+	font-weight: 500;
+	letter-spacing: -0.01em;
+	color: var(--text-faint);
 	text-align: center;
 	margin-top: 0.7em;
 }
@@ -489,37 +496,36 @@ a.article.feature .article-excerpt {
 	color: var(--accent);
 }
 
-/* hr — 가운데 장식. */
+/* hr — 옅은 라인. */
 .prose hr {
 	border: none;
-	text-align: center;
-	margin: 2.8em 0;
-}
-.prose hr::before {
-	content: '\25C6';
-	color: var(--accent);
-	font-size: 0.7rem;
-	letter-spacing: 0.5em;
+	border-top: 1px solid var(--border);
+	margin: 2.6em 0;
 }
 
 .prose table {
 	width: 100%;
 	border-collapse: collapse;
-	font-family: var(--font-ui);
-	font-size: 0.92rem;
+	font-family: var(--font-sans);
+	font-size: 0.94rem;
 	margin: 1.8em 0;
+	border: 1px solid var(--border);
+	border-radius: var(--radius-md);
+	overflow: hidden;
 }
 .prose th,
 .prose td {
-	border: 1px solid var(--rule);
-	padding: 0.6em 0.85em;
+	border-bottom: 1px solid var(--border);
+	padding: 0.7em 0.9em;
 	text-align: left;
 }
+.prose tr:last-child td {
+	border-bottom: none;
+}
 .prose thead th {
-	background: var(--paper-2);
-	color: var(--ink);
-	font-weight: 600;
-	border-bottom-color: var(--rule-strong);
+	background: var(--surface);
+	color: var(--text-strong);
+	font-weight: 700;
 }
 
 /* ── 접근성 ── */
@@ -538,16 +544,14 @@ a.article.feature .article-excerpt {
 
 @media (max-width: 720px) {
 	body {
-		font-size: 17px;
+		font-size: 16px;
 	}
 	main {
 		padding: 2em 1.1em 4.5em;
 	}
 	.prose {
-		font-size: 1.04rem;
-		line-height: 1.85;
-	}
-	.prose > p:first-of-type::first-letter {
-		font-size: 3em;
+		font-size: 1.0125rem;
+		line-height: 1.78;
 	}
 }
+</content>

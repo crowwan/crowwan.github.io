@@ -18,7 +18,7 @@ const ogImage = image ? new URL(image, Astro.url).toString() : undefined;
 <!-- Global Metadata -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<meta name="theme-color" content="#f6f1e7" />
+<meta name="theme-color" content="#ffffff" />
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 <link rel="icon" href="/favicon.ico" />
 <link rel="sitemap" href="/sitemap-index.xml" />
@@ -31,10 +31,8 @@ const ogImage = image ? new URL(image, Astro.url).toString() : undefined;
 <meta name="generator" content={Astro.generator} />
 
 <!--
-	Web fonts (에디토리얼 매거진):
-	- Fraunces      : 영문 디스플레이 헤드라인/큰 숫자/이탤릭 강조
-	- Noto Serif KR : 한글 제목 + 본문 명조
-	- Pretendard    : UI 메타/올캡스 라벨/태그/내비
+	Web fonts (토스풍 미니멀):
+	- Pretendard    : 본문 + 제목 (산세리프)
 	- JetBrains Mono: 코드 전용
 -->
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -45,7 +43,7 @@ const ogImage = image ? new URL(image, Astro.url).toString() : undefined;
 />
 <link
 	rel="stylesheet"
-	href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,400..900&family=Noto+Serif+KR:wght@300;400;500;600;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap"
+	href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap"
 />
 
 <!-- Canonical URL -->
