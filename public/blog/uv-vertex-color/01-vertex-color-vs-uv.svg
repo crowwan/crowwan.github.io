@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 380" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif">
+  <defs>
+    <linearGradient id="vcFill" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#dc2626"/>
+      <stop offset="50%" stop-color="#16a34a"/>
+      <stop offset="100%" stop-color="#2563eb"/>
+    </linearGradient>
+  </defs>
+  <rect width="760" height="380" fill="#fafafa"/>
+  <text x="380" y="34" text-anchor="middle" font-size="20" font-weight="700" fill="#111827">메시에 색을 입히는 두 가지 방법</text>
+
+  <!-- Left: vertex color -->
+  <rect x="24" y="58" width="340" height="290" rx="12" fill="#ffffff" stroke="#e5e7eb"/>
+  <text x="194" y="90" text-anchor="middle" font-size="16" font-weight="700" fill="#dc2626">① Vertex color</text>
+  <text x="194" y="112" text-anchor="middle" font-size="12.5" fill="#6b7280">정점이 색을 직접 들고 있다</text>
+  <polygon points="194,150 110,290 278,290" fill="url(#vcFill)" fill-opacity="0.85" stroke="#9ca3af"/>
+  <circle cx="194" cy="150" r="9" fill="#dc2626" stroke="#fff" stroke-width="2"/>
+  <circle cx="110" cy="290" r="9" fill="#16a34a" stroke="#fff" stroke-width="2"/>
+  <circle cx="278" cy="290" r="9" fill="#2563eb" stroke="#fff" stroke-width="2"/>
+  <text x="194" y="332" text-anchor="middle" font-size="12.5" fill="#374151">파일 하나면 색까지 끝 — 이미지 불필요</text>
+
+  <!-- Right: UV + texture -->
+  <rect x="396" y="58" width="340" height="290" rx="12" fill="#ffffff" stroke="#e5e7eb"/>
+  <text x="566" y="90" text-anchor="middle" font-size="16" font-weight="700" fill="#2563eb">② UV + 텍스처 이미지</text>
+  <text x="566" y="112" text-anchor="middle" font-size="12.5" fill="#6b7280">메시엔 좌표만, 색은 별도 이미지</text>
+  <!-- mesh outline -->
+  <polygon points="470,150 426,270 540,270" fill="none" stroke="#9ca3af" stroke-width="1.5"/>
+  <circle cx="470" cy="150" r="5" fill="#374151"/>
+  <circle cx="426" cy="270" r="5" fill="#374151"/>
+  <circle cx="540" cy="270" r="5" fill="#374151"/>
+  <text x="470" y="142" text-anchor="middle" font-size="10.5" fill="#374151">(u,v)</text>
+  <!-- texture image -->
+  <rect x="600" y="160" width="100" height="100" fill="#fde68a" stroke="#9ca3af"/>
+  <rect x="600" y="160" width="50" height="50" fill="#fca5a5"/>
+  <rect x="650" y="210" width="50" height="50" fill="#93c5fd"/>
+  <circle cx="664" cy="186" r="5" fill="#111827"/>
+  <text x="650" y="280" text-anchor="middle" font-size="11" fill="#6b7280">텍스처 이미지</text>
+  <!-- arrow mesh->image -->
+  <path d="M 470 150 C 540 120, 600 150, 658 184" fill="none" stroke="#2563eb" stroke-width="1.6" stroke-dasharray="4 3"/>
+  <polygon points="658,184 649,180 652,189" fill="#2563eb"/>
+  <text x="566" y="332" text-anchor="middle" font-size="12.5" fill="#374151">UV가 없으면 어디서 색을 떠올지 모른다</text>
+</svg>

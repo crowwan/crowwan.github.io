@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 330" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif">
+  <rect width="760" height="330" fill="#fafafa"/>
+  <text x="380" y="34" text-anchor="middle" font-size="20" font-weight="700" fill="#111827">vertex color 정규화 — 흰색과 색 왜곡</text>
+  <text x="380" y="56" text-anchor="middle" font-size="12.5" fill="#6b7280">색 값은 0~255인데, three.js의 색 속성은 0~1을 기대한다 (개념 예시)</text>
+
+  <!-- Card 1: raw 0~255, no normalize -->
+  <rect x="24" y="78" width="226" height="222" rx="12" fill="#ffffff" stroke="#e5e7eb"/>
+  <text x="137" y="106" text-anchor="middle" font-size="14.5" font-weight="700" fill="#374151">안 줄이면 (raw 0~255)</text>
+  <text x="137" y="128" text-anchor="middle" font-size="12" fill="#6b7280">(200,120,60) 그대로 전달</text>
+  <rect x="77" y="142" width="120" height="80" fill="#ffffff" stroke="#9ca3af"/>
+  <text x="137" y="188" text-anchor="middle" font-size="13" fill="#9ca3af">전부 흰색</text>
+  <text x="137" y="252" text-anchor="middle" font-size="11.5" fill="#dc2626">값 &gt; 1 → 모두 1로 잘림(clamp)</text>
+  <text x="137" y="272" text-anchor="middle" font-size="11.5" fill="#dc2626">→ 흰색. "0~1이라"가 아니라</text>
+  <text x="137" y="290" text-anchor="middle" font-size="11.5" fill="#dc2626">"0~255라" 흰색</text>
+
+  <!-- Card 2: channel-wise min-max (wrong) -->
+  <rect x="267" y="78" width="226" height="222" rx="12" fill="#ffffff" stroke="#fecaca"/>
+  <text x="380" y="106" text-anchor="middle" font-size="14.5" font-weight="700" fill="#dc2626">채널별 min-max ✗</text>
+  <text x="380" y="128" text-anchor="middle" font-size="12" fill="#6b7280">R/maxR, G/maxG, B/maxB</text>
+  <rect x="320" y="142" width="120" height="80" fill="#f38040" stroke="#9ca3af"/>
+  <text x="380" y="252" text-anchor="middle" font-size="11.5" fill="#dc2626">채널마다 다른 값으로 나눔</text>
+  <text x="380" y="272" text-anchor="middle" font-size="11.5" fill="#dc2626">→ R:G:B 비율 깨짐</text>
+  <text x="380" y="290" text-anchor="middle" font-size="11.5" fill="#dc2626">→ 색이 틀어짐(탁한 톤)</text>
+
+  <!-- Card 3: uniform /255 (right) -->
+  <rect x="510" y="78" width="226" height="222" rx="12" fill="#ffffff" stroke="#bbf7d0"/>
+  <text x="623" y="106" text-anchor="middle" font-size="14.5" font-weight="700" fill="#16a34a">균일 ÷255 ✓</text>
+  <text x="623" y="128" text-anchor="middle" font-size="12" fill="#6b7280">R/255, G/255, B/255</text>
+  <rect x="563" y="142" width="120" height="80" fill="#c87830" stroke="#9ca3af"/>
+  <text x="623" y="252" text-anchor="middle" font-size="11.5" fill="#16a34a">모든 채널 같은 값으로 나눔</text>
+  <text x="623" y="272" text-anchor="middle" font-size="11.5" fill="#16a34a">→ R:G:B 비율 보존</text>
+  <text x="623" y="290" text-anchor="middle" font-size="11.5" fill="#16a34a">→ 원래 색 그대로 (VTK 동일)</text>
+</svg>
