@@ -5,6 +5,7 @@ import FormattedDate from '../components/FormattedDate.astro';
 import Header from '../components/Header.astro';
 import { getCollection } from 'astro:content';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import { getExcerpt } from '../utils/excerpt';
 
 // 최근 글 5개 (발행일 역순).
 const recentPosts = (await getCollection('blog'))
@@ -20,50 +21,50 @@ const recentPosts = (await getCollection('blog'))
 	<body>
 		<Header />
 		<main>
-			<section class="hero">
-				<p class="hero-eyebrow reveal mono" style="animation-delay: 0ms">~/crowwan</p>
-				<h1 class="hero-name reveal" style="animation-delay: 80ms">crowwan</h1>
-				<p class="hero-tagline reveal" style="animation-delay: 160ms">
-					매일의 개발 기록을 마크다운으로 쌓아 갑니다.
-				</p>
-				<p class="hero-sub reveal mono" style="animation-delay: 240ms">
-					dev · claude · automation · tdd
+			<section class="masthead">
+				<p class="eyebrow reveal" style="animation-delay: 0ms">DEV JOURNAL · SINCE 2022</p>
+				<h1 class="masthead-title reveal" style="animation-delay: 90ms">
+					오늘의 생각을<br /><em>기록</em>합니다
+				</h1>
+				<p class="masthead-sub reveal" style="animation-delay: 180ms">
+					매일의 개발 기록을 마크다운으로 쌓아 갑니다 — 클로드, 자동화, 그리고 읽는 맛.
 				</p>
 			</section>
 
-			<section class="recent">
-				<div class="recent-head reveal" style="animation-delay: 300ms">
-					<h2 class="mono">최근 글</h2>
-					<a class="all-link mono" href="/blog">전체 글 보기 →</a>
-				</div>
+			<hr class="masthead-rule reveal" style="animation-delay: 260ms" />
 
-				<ol class="index-list">
+			<section class="recent">
+				<p class="section-label eyebrow reveal" style="animation-delay: 300ms">최근 글</p>
+				<ul class="article-list">
 					{
-						recentPosts.map((post, i) => (
-							<li>
-								<a
-									class="index-row reveal"
-									href={`/blog/${post.id}/`}
-									style={`animation-delay: ${360 + i * 60}ms`}
-								>
-									<span class="index-num">{String(i + 1).padStart(3, '0')}</span>
-									<span class="index-date">
-										<FormattedDate date={post.data.pubDate} />
-									</span>
-									<span class="index-title">
-										{post.data.title}
-										<span class="arrow" aria-hidden="true">→</span>
-									</span>
-									<span class="index-tags">
-										{(post.data.tags ?? []).slice(0, 2).map((tag) => (
-											<span class="tag">{tag}</span>
-										))}
-									</span>
-								</a>
-							</li>
-						))
+						recentPosts.map((post, i) => {
+							const excerpt = getExcerpt(post.data.description, post.body);
+							const cat = post.data.tags?.[0];
+							const isFeature = i === 0;
+							return (
+								<li>
+									<a
+										class:list={['article', 'reveal', { feature: isFeature, 'no-thumb': true }]}
+										href={`/blog/${post.id}/`}
+										style={`animation-delay: ${360 + i * 70}ms`}
+									>
+										<div class="article-meta">
+											{cat && <span class="cat">{cat}</span>}
+											{cat && <span class="dot" aria-hidden="true">·</span>}
+											<FormattedDate date={post.data.pubDate} />
+										</div>
+										<h2 class="article-title">{post.data.title}</h2>
+										{excerpt && <p class="article-excerpt">{excerpt}</p>}
+									</a>
+								</li>
+							);
+						})
 					}
-				</ol>
+				</ul>
+
+				<a class="all-link reveal" href="/blog" style="animation-delay: 760ms">
+					전체 글 보기 <span aria-hidden="true">→</span>
+				</a>
 			</section>
 		</main>
 		<Footer />
@@ -71,66 +72,54 @@ const recentPosts = (await getCollection('blog'))
 </html>
 
 <style>
-	.hero {
-		padding: 2.5em 0 3em;
+	.masthead {
+		padding: 1.5em 0 1.8em;
 	}
-	.hero-eyebrow {
-		font-size: 0.85rem;
-		color: var(--fg-faint);
-		margin: 0 0 0.6em;
+	.masthead .eyebrow {
+		margin: 0 0 1.2em;
 	}
-	.hero-name {
-		font-family: var(--font-mono);
-		font-size: clamp(3rem, 12vw, 5.2rem);
+	.masthead-title {
+		font-family: var(--font-display);
 		font-weight: 700;
-		line-height: 1;
-		letter-spacing: -0.04em;
+		font-size: clamp(3.5rem, 12vw, 6rem);
+		line-height: 1.02;
+		letter-spacing: -0.025em;
 		margin: 0;
-		color: var(--fg);
+		color: var(--ink);
 	}
-	.hero-tagline {
-		font-size: 1.15rem;
-		color: var(--fg);
-		margin: 0.8em 0 0.3em;
-		max-width: 34ch;
+	.masthead-title em {
+		font-style: italic;
+		color: var(--accent);
 	}
-	.hero-sub {
-		font-size: 0.85rem;
-		color: var(--fg-muted);
-		margin: 0;
-		letter-spacing: 0.02em;
+	.masthead-sub {
+		font-family: var(--font-serif);
+		font-size: 1.18rem;
+		line-height: 1.65;
+		color: var(--ink-soft);
+		margin: 1.2em 0 0;
+		max-width: 36ch;
+	}
+	.masthead-rule {
+		margin: 1.8em 0 0;
 	}
 
-	.recent-head {
-		display: flex;
-		align-items: baseline;
-		justify-content: space-between;
-		gap: 1rem;
-		margin-bottom: 0.6em;
+	.section-label {
+		margin: 2.4em 0 0.2em;
 	}
-	.recent-head h2 {
-		font-size: 0.95rem;
-		font-weight: 500;
-		color: var(--fg-muted);
-		letter-spacing: 0.02em;
-		margin: 0;
-	}
+
 	.all-link {
-		font-size: 0.82rem;
-		color: var(--fg-muted);
+		display: inline-block;
+		margin-top: 2.4em;
+		font-family: var(--font-ui);
+		font-size: 0.78rem;
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.14em;
+		color: var(--accent);
+		text-decoration: none;
 		transition: color 0.18s ease;
 	}
 	.all-link:hover {
-		color: var(--accent);
-	}
-	/* 인덱스 행 자체가 링크이므로 텍스트 데코 제거. */
-	a.index-row {
-		text-decoration: none;
-	}
-	.index-list {
-		counter-reset: none;
-	}
-	.index-list li {
-		list-style: none;
+		color: var(--accent-deep);
 	}
 </style>

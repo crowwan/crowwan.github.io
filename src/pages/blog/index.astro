@@ -5,6 +5,7 @@ import Footer from '../../components/Footer.astro';
 import FormattedDate from '../../components/FormattedDate.astro';
 import Header from '../../components/Header.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../../consts';
+import { getExcerpt } from '../../utils/excerpt';
 
 const posts = (await getCollection('blog')).sort(
 	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
@@ -19,53 +20,64 @@ for (const post of posts) {
 	groups.get(year)!.push(post);
 }
 const years = [...groups.keys()].sort((a, b) => b - a);
-
-// MM.DD 짧은 날짜 (아카이브용).
-const shortDate = (d: Date) =>
-	`${String(d.getMonth() + 1).padStart(2, '0')}.${String(d.getDate()).padStart(2, '0')}`;
 ---
 
 <!doctype html>
 <html lang="ko">
 	<head>
-		<BaseHead title={`Blog · ${SITE_TITLE}`} description={SITE_DESCRIPTION} />
+		<BaseHead title={`글 · ${SITE_TITLE}`} description={SITE_DESCRIPTION} />
 	</head>
 	<body>
 		<Header />
 		<main>
 			<header class="page-head reveal">
-				<h1 class="mono">blog</h1>
-				<p class="count mono">{posts.length}개의 글</p>
+				<p class="eyebrow">아카이브</p>
+				<h1 class="page-title">전체 글</h1>
+				<p class="page-count">{posts.length}편의 기록</p>
 			</header>
 
 			{
 				years.map((year, gi) => (
 					<section class="year-group">
-						<div class="year-head reveal" style={`animation-delay: ${gi * 80}ms`}>
-							<h2 class="year mono">{year}</h2>
-							<span class="year-count mono">{groups.get(year)!.length}</span>
+						<div class="year-head reveal" style={`animation-delay: ${gi * 70}ms`}>
+							<span class="year">{year}</span>
+							<span class="year-count">{groups.get(year)!.length}편</span>
 						</div>
-						<ol class="index-list">
-							{groups.get(year)!.map((post) => (
-								<li>
-									<a class="index-row" href={`/blog/${post.id}/`}>
-										<span class="index-num">·</span>
-										<span class="index-date">{shortDate(post.data.pubDate)}</span>
-										<span class="index-title">
-											{post.data.title}
-											<span class="arrow" aria-hidden="true">
-												→
-											</span>
-										</span>
-										<span class="index-tags">
-											{(post.data.tags ?? []).slice(0, 2).map((tag) => (
-												<span class="tag">{tag}</span>
-											))}
-										</span>
-									</a>
-								</li>
-							))}
-						</ol>
+						<ul class="article-list">
+							{groups.get(year)!.map((post) => {
+								const excerpt = getExcerpt(post.data.description, post.body);
+								const cat = post.data.tags?.[0];
+								const hasThumb = Boolean(post.data.heroImage);
+								return (
+									<li>
+										<a
+											class:list={['article', { 'no-thumb': !hasThumb }]}
+											href={`/blog/${post.id}/`}
+										>
+											<div class="article-meta">
+												{cat && <span class="cat">{cat}</span>}
+												{cat && (
+													<span class="dot" aria-hidden="true">
+														·
+													</span>
+												)}
+												<FormattedDate date={post.data.pubDate} />
+											</div>
+											<h2 class="article-title">{post.data.title}</h2>
+											{excerpt && <p class="article-excerpt">{excerpt}</p>}
+											{hasThumb && (
+												<img
+													class="article-thumb"
+													src={post.data.heroImage}
+													alt=""
+													loading="lazy"
+												/>
+											)}
+										</a>
+									</li>
+								);
+							})}
+						</ul>
 					</section>
 				))
 			}
@@ -76,48 +88,53 @@ const shortDate = (d: Date) =>
 
 <style>
 	.page-head {
-		display: flex;
-		align-items: baseline;
-		gap: 0.9rem;
-		margin-bottom: 2.5em;
-		padding-bottom: 1em;
-		border-bottom: 1px solid var(--border);
+		margin-bottom: 2.6em;
 	}
-	.page-head h1 {
-		font-size: 2.4rem;
+	.page-head .eyebrow {
+		margin: 0 0 0.7em;
+	}
+	.page-title {
+		font-family: var(--font-display);
 		font-weight: 700;
-		letter-spacing: -0.03em;
+		font-size: clamp(2.6rem, 8vw, 4rem);
+		line-height: 1.05;
+		letter-spacing: -0.02em;
 		margin: 0;
 	}
-	.count {
-		font-size: 0.82rem;
-		color: var(--fg-muted);
+	.page-count {
+		font-family: var(--font-ui);
+		font-size: 0.78rem;
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.12em;
+		color: var(--ink-faint);
+		margin: 0.7em 0 0;
 	}
 
 	.year-group {
-		margin-bottom: 2.5em;
+		margin-bottom: 3em;
 	}
 	.year-head {
 		display: flex;
 		align-items: baseline;
-		gap: 0.8rem;
-		margin-bottom: 0.4em;
+		gap: 0.9rem;
+		padding-bottom: 0.4em;
+		margin-bottom: 0.2em;
 	}
 	.year {
-		font-size: 1.6rem;
+		font-family: var(--font-display);
 		font-weight: 700;
+		font-size: clamp(2.4rem, 7vw, 3.4rem);
+		line-height: 1;
 		letter-spacing: -0.02em;
-		color: var(--fg);
-		margin: 0;
+		color: var(--ink);
 	}
 	.year-count {
-		font-size: 0.78rem;
-		color: var(--fg-faint);
-	}
-	a.index-row {
-		text-decoration: none;
-	}
-	.index-list li {
-		list-style: none;
+		font-family: var(--font-ui);
+		font-size: 0.72rem;
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.12em;
+		color: var(--ink-faint);
 	}
 </style>
