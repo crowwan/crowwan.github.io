@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="660" height="300" viewBox="0 0 660 300" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif">
+<rect width="660" height="300" fill="#f6f3ec" rx="8"/>
+<text x="36" y="36" fill="#2a2620" font-size="15.5" font-weight="600">배포당 흘려보낸 결함 (CFR)</text>
+<line x1="36" y1="52" x2="624" y2="52" stroke="#ddd5c4" stroke-width="1"/>
+
+<text x="70" y="92" fill="#938b7b" font-size="11">결함 수 ↑</text>
+<line x1="70" y1="80" x2="70" y2="246" stroke="#cfc7b5" stroke-width="1.5"/>
+<line x1="70" y1="246" x2="620" y2="246" stroke="#cfc7b5" stroke-width="1.5"/>
+<text x="612" y="268" fill="#938b7b" font-size="11" text-anchor="end">배포 →</text>
+
+<line x1="70" y1="140" x2="620" y2="140" stroke="#b35a38" stroke-width="1.3" stroke-dasharray="6 5"/>
+<text x="616" y="134" fill="#b35a38" font-size="11" text-anchor="end">관리 한계 (control limit)</text>
+<line x1="70" y1="200" x2="620" y2="200" stroke="#b8b0a1" stroke-width="1" stroke-dasharray="3 4"/>
+<text x="616" y="216" fill="#938b7b" font-size="11" text-anchor="end">평소 범위</text>
+
+<polyline points="100,202 161,194 222,208 283,150 344,108 405,176 466,190 527,200 588,184" fill="none" stroke="#2a2620" stroke-width="1.6"/>
+<circle cx="100" cy="202" r="3.5" fill="#8a8478"/>
+<circle cx="161" cy="194" r="3.5" fill="#8a8478"/>
+<circle cx="222" cy="208" r="3.5" fill="#8a8478"/>
+<circle cx="283" cy="150" r="3.5" fill="#8a8478"/>
+<circle cx="344" cy="108" r="6.5" fill="#b35a38"/>
+<text x="344" y="92" fill="#b35a38" font-size="11.5" text-anchor="middle" font-weight="600">사고 배포</text>
+<circle cx="405" cy="176" r="3.5" fill="#8a8478"/>
+<circle cx="466" cy="190" r="3.5" fill="#8a8478"/>
+<circle cx="527" cy="200" r="3.5" fill="#8a8478"/>
+<circle cx="588" cy="184" r="3.5" fill="#8a8478"/>
+
+<text x="36" y="288" fill="#938b7b" font-size="11.5">관리 한계를 넘는 배포만 ‘통계적으로 비정상 = 사고 배포’ — 절대 점수가 아니라 추세를 본다</text>
+</svg>

@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="516" viewBox="0 0 720 516" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif">
+<rect width="720" height="516" fill="#f6f3ec" rx="8"/>
+<text x="36" y="34" fill="#2a2620" font-size="15.5" font-weight="600">목표의 계층 — 명세 보장에서 작업 단위까지</text>
+<text x="36" y="55" fill="#938b7b" font-size="12">위로 갈수록 ‘왜’, 아래로 갈수록 ‘어떻게’ — 목표가 작업 단위로 내려온다</text>
+<line x1="36" y1="66" x2="684" y2="66" stroke="#ddd5c4" stroke-width="1"/>
+
+<rect x="36" y="80" width="648" height="76" fill="#fffdf8" stroke="#e4ddcd" stroke-width="1" rx="8"/>
+<rect x="36" y="80" width="5" height="76" fill="#5f7355" rx="2"/>
+<text x="60" y="108" fill="#938b7b" font-size="11" letter-spacing="0.5">궁극 목표</text>
+<text x="60" y="134" fill="#2a2620" font-size="15.5" font-weight="600">우리 코드가 명세를 충실히 따른다는 것을 보장한다</text>
+
+<text x="394" y="174" fill="#7a7466" font-size="12.5" text-anchor="middle" font-style="italic">↓  그걸 어떻게 증명하나?</text>
+
+<rect x="36" y="188" width="648" height="76" fill="#fffdf8" stroke="#e4ddcd" stroke-width="1" rx="8"/>
+<rect x="36" y="188" width="5" height="76" fill="#8a8478" rx="2"/>
+<text x="60" y="214" fill="#938b7b" font-size="11" letter-spacing="0.5">증명 수단</text>
+<text x="60" y="236" fill="#2a2620" font-size="15.5" font-weight="600">그것을 ‘테스트 코드’로 증명한다</text>
+<text x="60" y="256" fill="#6f6a5f" font-size="12.5">기존 테스트 검수 → 좋은 테스트로 → 유지보수</text>
+
+<text x="394" y="282" fill="#7a7466" font-size="12.5" text-anchor="middle" font-style="italic">↓  무엇부터 손대나?</text>
+
+<rect x="36" y="296" width="648" height="76" fill="#fffdf8" stroke="#e4ddcd" stroke-width="1" rx="8"/>
+<rect x="36" y="296" width="5" height="76" fill="#8a8478" rx="2"/>
+<text x="60" y="322" fill="#938b7b" font-size="11" letter-spacing="0.5">작업</text>
+<text x="60" y="344" fill="#2a2620" font-size="15.5" font-weight="600">지금은 안 도는 dev e2e 자산부터 되살린다</text>
+<text x="60" y="364" fill="#6f6a5f" font-size="12.5">e2e는 비싸다 — 기본 기능에 집중</text>
+
+<text x="394" y="390" fill="#7a7466" font-size="12.5" text-anchor="middle" font-style="italic">↓  ‘기본 기능’의 기준은?</text>
+
+<rect x="36" y="402" width="648" height="76" fill="#fffdf8" stroke="#e4ddcd" stroke-width="1" rx="8"/>
+<rect x="36" y="402" width="5" height="76" fill="#b35a38" rx="2"/>
+<text x="60" y="428" fill="#938b7b" font-size="11" letter-spacing="0.5">작업 단위</text>
+<text x="60" y="450" fill="#2a2620" font-size="15.5" font-weight="600">TC 우선순위 1·2 = ‘기본 기능’의 기준</text>
+<text x="60" y="470" fill="#6f6a5f" font-size="12.5">우선순위 1을 e2e로 → 불필요하면 낮은 레벨로 push down</text>
+
+<text x="36" y="502" fill="#938b7b" font-size="11.5">※ ‘e2e부터 → push down’은 레거시(되살리기) 국면 한정 — 신규 코드는 처음부터 낮은 레벨로</text>
+</svg>
