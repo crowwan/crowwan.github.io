@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 410" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L8,3 L0,6 z" fill="#9aa0a6"/>
+    </marker>
+  </defs>
+  <rect width="620" height="410" fill="#ffffff"/>
+
+  <!-- Controller -->
+  <rect x="205" y="26" width="210" height="52" rx="9" fill="#e3f0ff" stroke="#1565c0" stroke-width="2"/>
+  <text x="310" y="58" text-anchor="middle" font-size="16" font-weight="600" fill="#0d3c75">CheckoutController</text>
+
+  <!-- arrow -> Service -->
+  <line x1="310" y1="78" x2="310" y2="124" stroke="#9aa0a6" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="326" y="106" font-size="13" fill="#5f6b76">호출</text>
+
+  <!-- Service -->
+  <rect x="205" y="126" width="210" height="52" rx="9" fill="#e3f0ff" stroke="#1565c0" stroke-width="2"/>
+  <text x="310" y="158" text-anchor="middle" font-size="16" font-weight="600" fill="#0d3c75">OrderService</text>
+
+  <!-- branch to repo / mailer -->
+  <path d="M270,178 C220,215 185,225 175,266" fill="none" stroke="#9aa0a6" stroke-width="2" marker-end="url(#arr)"/>
+  <path d="M350,178 C400,215 435,225 445,266" fill="none" stroke="#9aa0a6" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- repo -->
+  <rect x="80" y="268" width="190" height="52" rx="9" fill="#fff1e6" stroke="#e65100" stroke-width="2"/>
+  <text x="175" y="293" text-anchor="middle" font-size="15" font-weight="600" fill="#a64200">repo</text>
+  <text x="175" y="311" text-anchor="middle" font-size="12" fill="#a64200">협력객체</text>
+
+  <!-- mailer -->
+  <rect x="350" y="268" width="190" height="52" rx="9" fill="#fff1e6" stroke="#e65100" stroke-width="2"/>
+  <text x="445" y="293" text-anchor="middle" font-size="15" font-weight="600" fill="#a64200">mailer</text>
+  <text x="445" y="311" text-anchor="middle" font-size="12" fill="#a64200">협력객체</text>
+
+  <!-- annotations -->
+  <text x="430" y="104" font-size="12.5" fill="#1565c0">Controller는 Service의 <tspan font-weight="700">클라이언트</tspan></text>
+  <text x="470" y="225" font-size="12.5" fill="#1565c0">Service는 repo의 <tspan font-weight="700">클라이언트</tspan></text>
+
+  <!-- legend -->
+  <rect x="150" y="356" width="16" height="16" rx="3" fill="#e3f0ff" stroke="#1565c0" stroke-width="2"/>
+  <text x="174" y="369" font-size="13" fill="#33414d">클라이언트 (호출하는 쪽)</text>
+  <rect x="370" y="356" width="16" height="16" rx="3" fill="#fff1e6" stroke="#e65100" stroke-width="2"/>
+  <text x="394" y="369" font-size="13" fill="#33414d">협력객체 (호출당하는 쪽)</text>
+</svg>

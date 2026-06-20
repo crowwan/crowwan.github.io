@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 740 400" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L8,3 L0,6 z" fill="#9aa0a6"/>
+    </marker>
+  </defs>
+  <rect width="740" height="400" fill="#ffffff"/>
+
+  <!-- SUT center -->
+  <rect x="295" y="150" width="150" height="60" rx="10" fill="#eef2f6" stroke="#5f6b76" stroke-width="2.5"/>
+  <text x="370" y="186" text-anchor="middle" font-size="16" font-weight="700" fill="#33414d">SUT</text>
+
+  <!-- In (left) -->
+  <rect x="30" y="150" width="180" height="60" rx="10" fill="#e3f0ff" stroke="#1565c0" stroke-width="2"/>
+  <text x="120" y="176" text-anchor="middle" font-size="14.5" font-weight="600" fill="#0d3c75">들어오는 입력</text>
+  <text x="120" y="196" text-anchor="middle" font-size="12.5" fill="#0d3c75">환율·설정 읽기</text>
+  <line x1="210" y1="180" x2="291" y2="180" stroke="#9aa0a6" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="250" y="170" text-anchor="middle" font-size="12.5" font-weight="600" fill="#1565c0">stub / fake</text>
+  <text x="250" y="205" text-anchor="middle" font-size="11.5" fill="#7a8590">검증 X</text>
+
+  <!-- Ext (right) unmanaged -->
+  <rect x="530" y="150" width="180" height="60" rx="10" fill="#ffebee" stroke="#c62828" stroke-width="2"/>
+  <text x="620" y="176" text-anchor="middle" font-size="14.5" font-weight="600" fill="#b71c1c">나가는 unmanaged</text>
+  <text x="620" y="196" text-anchor="middle" font-size="12.5" fill="#b71c1c">이메일·메시지 버스</text>
+  <line x1="449" y1="180" x2="526" y2="180" stroke="#9aa0a6" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="488" y="170" text-anchor="middle" font-size="12.5" font-weight="600" fill="#c62828">mock</text>
+  <text x="488" y="205" text-anchor="middle" font-size="11.5" fill="#7a8590">메시지 검증</text>
+
+  <!-- DB (bottom) managed -->
+  <rect x="280" y="300" width="180" height="60" rx="10" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
+  <text x="370" y="326" text-anchor="middle" font-size="14.5" font-weight="600" fill="#1b5e20">나가는 managed</text>
+  <text x="370" y="346" text-anchor="middle" font-size="12.5" fill="#1b5e20">내 DB 쓰기</text>
+  <line x1="370" y1="210" x2="370" y2="296" stroke="#9aa0a6" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="470" y="250" font-size="12.5" font-weight="600" fill="#2e7d32">real / fake</text>
+  <text x="470" y="270" font-size="11.5" fill="#7a8590">최종 상태 검증</text>
+
+  <!-- title -->
+  <text x="370" y="40" text-anchor="middle" font-size="16" font-weight="700" fill="#33414d">의존성은 방향에 따라 3종</text>
+  <text x="370" y="62" text-anchor="middle" font-size="12.5" fill="#7a8590">들어오는 건 입력만 / 나가는 것만 검증, 그중 managed는 상태·unmanaged는 메시지</text>
+</svg>

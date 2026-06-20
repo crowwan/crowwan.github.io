@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 660 380" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L8,3 L0,6 z" fill="#e65100"/>
+    </marker>
+  </defs>
+  <rect width="660" height="380" fill="#ffffff"/>
+
+  <!-- UNIT region -->
+  <rect x="30" y="70" width="270" height="250" rx="14" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
+  <text x="165" y="100" text-anchor="middle" font-size="16" font-weight="700" fill="#1b5e20">프로세스 안 — UNIT</text>
+
+  <rect x="100" y="125" width="130" height="46" rx="9" fill="#ffffff" stroke="#2e7d32" stroke-width="2"/>
+  <text x="165" y="153" text-anchor="middle" font-size="14" font-weight="600" fill="#1b5e20">SUT</text>
+  <rect x="60" y="200" width="100" height="44" rx="9" fill="#ffffff" stroke="#2e7d32" stroke-width="1.8"/>
+  <text x="110" y="227" text-anchor="middle" font-size="13" fill="#1b5e20">fake repo</text>
+  <rect x="180" y="200" width="100" height="44" rx="9" fill="#ffffff" stroke="#2e7d32" stroke-width="1.8"/>
+  <text x="230" y="227" text-anchor="middle" font-size="13" fill="#1b5e20">mock mailer</text>
+  <text x="165" y="290" text-anchor="middle" font-size="12.5" fill="#33414d">빠름 · 격리됨 · I/O 없음</text>
+
+  <!-- boundary -->
+  <line x1="330" y1="58" x2="330" y2="332" stroke="#e65100" stroke-width="2.5" stroke-dasharray="7 6"/>
+  <text x="330" y="350" text-anchor="middle" font-size="12.5" font-weight="700" fill="#e65100">이 선을 넘는 순간 integration</text>
+
+  <!-- INTEGRATION region -->
+  <rect x="360" y="70" width="270" height="250" rx="14" fill="#fff1e6" stroke="#e65100" stroke-width="2"/>
+  <text x="495" y="100" text-anchor="middle" font-size="16" font-weight="700" fill="#a64200">프로세스 밖 — INTEGRATION</text>
+
+  <rect x="410" y="135" width="170" height="46" rx="9" fill="#ffffff" stroke="#e65100" stroke-width="2"/>
+  <text x="495" y="163" text-anchor="middle" font-size="14" fill="#a64200">real DB (Postgres)</text>
+  <rect x="410" y="200" width="170" height="46" rx="9" fill="#ffffff" stroke="#e65100" stroke-width="2"/>
+  <text x="495" y="228" text-anchor="middle" font-size="14" fill="#a64200">real SMTP</text>
+  <text x="495" y="290" text-anchor="middle" font-size="12.5" fill="#33414d">실물 의존성 · 느림 · 환경 필요</text>
+
+  <!-- crossing arrow -->
+  <line x1="250" y1="153" x2="405" y2="158" stroke="#e65100" stroke-width="2.2" marker-end="url(#arr)"/>
+
+  <text x="330" y="40" text-anchor="middle" font-size="15.5" font-weight="700" fill="#33414d">경계 = 부품 수가 아니라 "프로세스 밖을 건드리나"</text>
+</svg>

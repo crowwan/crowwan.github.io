@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 380" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif">
+  <defs>
+    <marker id="arrS" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L7,3 L0,6 z" fill="#7a8590"/>
+    </marker>
+  </defs>
+  <rect width="700" height="380" fill="#ffffff"/>
+
+  <!-- divider -->
+  <line x1="350" y1="40" x2="350" y2="330" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4 5"/>
+
+  <!-- ===== Mockist (left) ===== -->
+  <text x="175" y="44" text-anchor="middle" font-size="16" font-weight="700" fill="#b71c1c">Mockist — solitary</text>
+  <text x="175" y="66" text-anchor="middle" font-size="12.5" fill="#5f6b76">SUT를 격리, 협력객체는 mock</text>
+
+  <rect x="110" y="92" width="130" height="50" rx="9" fill="#e3f0ff" stroke="#1565c0" stroke-width="2"/>
+  <text x="175" y="123" text-anchor="middle" font-size="15" font-weight="700" fill="#0d3c75">SUT</text>
+
+  <!-- dashed (mock) connectors -->
+  <line x1="140" y1="142" x2="95" y2="222" stroke="#c62828" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#arrS)"/>
+  <line x1="210" y1="142" x2="255" y2="222" stroke="#c62828" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#arrS)"/>
+
+  <rect x="40" y="224" width="110" height="48" rx="9" fill="#ffebee" stroke="#c62828" stroke-width="2" stroke-dasharray="5 4"/>
+  <text x="95" y="253" text-anchor="middle" font-size="14" fill="#b71c1c">협력 A′ (mock)</text>
+  <rect x="200" y="224" width="110" height="48" rx="9" fill="#ffebee" stroke="#c62828" stroke-width="2" stroke-dasharray="5 4"/>
+  <text x="255" y="253" text-anchor="middle" font-size="14" fill="#b71c1c">협력 B′ (mock)</text>
+
+  <text x="175" y="310" text-anchor="middle" font-size="12.5" fill="#7a8590">호출(interaction)을 검증 → 구현 결합</text>
+
+  <!-- ===== Classicist (right) ===== -->
+  <text x="525" y="44" text-anchor="middle" font-size="16" font-weight="700" fill="#1b5e20">Classicist — sociable</text>
+  <text x="525" y="66" text-anchor="middle" font-size="12.5" fill="#5f6b76">실제 객체와 함께, 결과(상태)를 검증</text>
+
+  <rect x="460" y="92" width="130" height="50" rx="9" fill="#e3f0ff" stroke="#1565c0" stroke-width="2"/>
+  <text x="525" y="123" text-anchor="middle" font-size="15" font-weight="700" fill="#0d3c75">SUT</text>
+
+  <!-- solid (real) connectors -->
+  <line x1="490" y1="142" x2="445" y2="222" stroke="#2e7d32" stroke-width="2" marker-end="url(#arrS)"/>
+  <line x1="560" y1="142" x2="605" y2="222" stroke="#2e7d32" stroke-width="2" marker-end="url(#arrS)"/>
+
+  <rect x="390" y="224" width="110" height="48" rx="9" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
+  <text x="445" y="253" text-anchor="middle" font-size="14" fill="#1b5e20">협력 A (real)</text>
+  <rect x="550" y="224" width="110" height="48" rx="9" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
+  <text x="605" y="253" text-anchor="middle" font-size="14" fill="#1b5e20">협력 B (real)</text>
+
+  <text x="525" y="310" text-anchor="middle" font-size="12.5" fill="#7a8590">상태(state)를 검증 → 리팩토링 내성 ↑</text>
+
+  <!-- footnote -->
+  <text x="350" y="356" text-anchor="middle" font-size="12" fill="#9aa0a6">점선 = mock(가짜·호출검증) · 실선 = real(실제·상태검증)</text>
+</svg>

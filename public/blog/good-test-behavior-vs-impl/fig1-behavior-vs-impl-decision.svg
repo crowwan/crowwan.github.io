@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 470" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L8,3 L0,6 z" fill="#9aa0a6"/>
+    </marker>
+  </defs>
+  <rect width="640" height="470" fill="#ffffff"/>
+
+  <!-- A: 테스트가 깨졌다 -->
+  <rect x="215" y="22" width="210" height="52" rx="9" fill="#e3f0ff" stroke="#1565c0" stroke-width="2"/>
+  <text x="320" y="54" text-anchor="middle" font-size="16" font-weight="600" fill="#0d3c75">테스트가 깨졌다</text>
+
+  <!-- arrow A->B -->
+  <line x1="320" y1="74" x2="320" y2="104" stroke="#9aa0a6" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- B: 동작이 바뀌었나 -->
+  <rect x="205" y="106" width="230" height="56" rx="9" fill="#eef2f6" stroke="#5f6b76" stroke-width="2"/>
+  <text x="320" y="140" text-anchor="middle" font-size="16" font-weight="600" fill="#33414d">동작이 바뀌었나?</text>
+
+  <!-- branch arrows -->
+  <path d="M250,162 C200,195 175,200 165,222" fill="none" stroke="#9aa0a6" stroke-width="2" marker-end="url(#arr)"/>
+  <path d="M390,162 C450,195 470,200 478,212" fill="none" stroke="#9aa0a6" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="205" y="196" text-anchor="middle" font-size="14" font-weight="700" fill="#2e7d32">예</text>
+  <text x="452" y="190" text-anchor="middle" font-size="14" font-weight="700" fill="#c62828">아니오</text>
+
+  <!-- YES: 보호 성공 -->
+  <rect x="35" y="224" width="270" height="92" rx="9" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
+  <text x="170" y="252" text-anchor="middle" font-size="15" font-weight="700" fill="#1b5e20">보호 성공 ✅ (true positive)</text>
+  <text x="170" y="276" text-anchor="middle" font-size="13.5" fill="#33414d">동작이 정말 바뀌었으니</text>
+  <text x="170" y="296" text-anchor="middle" font-size="13.5" fill="#33414d">깨지는 게 옳다 — 고치거나 갱신</text>
+
+  <!-- NO: 거짓 빨간불 -->
+  <rect x="335" y="214" width="290" height="92" rx="9" fill="#ffebee" stroke="#c62828" stroke-width="2"/>
+  <text x="480" y="242" text-anchor="middle" font-size="15" font-weight="700" fill="#b71c1c">거짓 빨간불 ❌ (false positive)</text>
+  <text x="480" y="266" text-anchor="middle" font-size="13.5" fill="#33414d">동작은 그대로인데 깨졌다</text>
+  <text x="480" y="286" text-anchor="middle" font-size="13.5" fill="#33414d">= 테스트가 구현에 결합됨</text>
+
+  <!-- arrow NO -> C -->
+  <line x1="480" y1="306" x2="480" y2="346" stroke="#9aa0a6" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- C: 내성 붕괴 -->
+  <rect x="335" y="348" width="290" height="86" rx="9" fill="#fdecea" stroke="#b71c1c" stroke-width="2.5"/>
+  <text x="480" y="382" text-anchor="middle" font-size="15" font-weight="700" fill="#8e1a16">리팩토링 내성 붕괴</text>
+  <text x="480" y="406" text-anchor="middle" font-size="13.5" fill="#5a2520">= 나쁜 테스트의 결정적 신호</text>
+</svg>
