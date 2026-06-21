@@ -1,7 +1,10 @@
 ---
 // 모든 페이지가 <BaseHead /> 를 통해 global.css 와 메타/폰트를 공유한다.
 import '../styles/global.css';
-import { SITE_TITLE } from '../consts';
+import { SITE_TITLE, GA_MEASUREMENT_ID } from '../consts';
+
+// 로컬 개발/프리뷰 통계 오염 방지 — 실제 배포(PROD)에서만 추적한다.
+const enableAnalytics = import.meta.env.PROD;
 
 interface Props {
 	title: string;
@@ -29,6 +32,27 @@ const ogImage = image ? new URL(image, Astro.url).toString() : undefined;
 	href={new URL('rss.xml', Astro.site)}
 />
 <meta name="generator" content={Astro.generator} />
+
+<!-- Google Analytics 4 (gtag.js) — PROD 빌드에서만 주입 -->
+{
+	enableAnalytics && (
+		<>
+			<script
+				is:inline
+				async
+				src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
+			/>
+			<script is:inline define:vars={{ GA_MEASUREMENT_ID }}>
+				window.dataLayer = window.dataLayer || [];
+				function gtag() {
+					dataLayer.push(arguments);
+				}
+				gtag('js', new Date());
+				gtag('config', GA_MEASUREMENT_ID);
+			</script>
+		</>
+	)
+}
 
 <!--
 	Web fonts (토스풍 미니멀):
