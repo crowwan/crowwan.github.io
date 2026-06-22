@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 360" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif">
+  <defs>
+    <linearGradient id="dial" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#e3f0ff"/>
+      <stop offset="1" stop-color="#e8f5e9"/>
+    </linearGradient>
+    <marker id="arr2" markerWidth="11" markerHeight="11" refX="8" refY="3.5" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L9,3.5 L0,7 z" fill="#7a8590"/>
+    </marker>
+  </defs>
+  <rect width="760" height="360" fill="#ffffff"/>
+
+  <text x="380" y="32" text-anchor="middle" font-size="16" font-weight="700" fill="#33414d">단위 ↔ 통합은 다이얼 — 협력 조각을 mock하느냐 real로 두느냐</text>
+  <text x="380" y="52" text-anchor="middle" font-size="12.5" fill="#7a8590">다이얼은 하나뿐: 이 조각을 가짜로 둘까, real로 둘까. mock을 덜 할수록 통합 쪽</text>
+
+  <!-- dial bar -->
+  <rect x="50" y="82" width="150" height="52" rx="9" fill="#e3f0ff" stroke="#1565c0" stroke-width="2"/>
+  <text x="125" y="104" text-anchor="middle" font-size="13.5" font-weight="700" fill="#0d3c75">전부 mock</text>
+  <text x="125" y="122" text-anchor="middle" font-size="12" fill="#0d3c75">= 단위</text>
+  <rect x="560" y="82" width="160" height="52" rx="9" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
+  <text x="640" y="104" text-anchor="middle" font-size="13.5" font-weight="700" fill="#1b5e20">전부 real</text>
+  <text x="640" y="122" text-anchor="middle" font-size="12" fill="#1b5e20">= 통합 · e2e</text>
+  <rect x="205" y="101" width="350" height="14" rx="7" fill="url(#dial)" stroke="#cdd3d9" stroke-width="1"/>
+  <line x1="215" y1="108" x2="548" y2="108" stroke="#7a8590" stroke-width="2" marker-end="url(#arr2)"/>
+
+  <!-- pieces -->
+  <text x="60" y="172" font-size="13" font-weight="700" fill="#33414d">real로 켤수록 통합이 되는 조각:</text>
+  <rect x="60" y="184" width="150" height="34" rx="7" fill="#eef2f6" stroke="#5f6b76" stroke-width="1.5"/>
+  <text x="135" y="206" text-anchor="middle" font-size="12.5" fill="#33414d">자식 컴포넌트</text>
+  <rect x="222" y="184" width="110" height="34" rx="7" fill="#eef2f6" stroke="#5f6b76" stroke-width="1.5"/>
+  <text x="277" y="206" text-anchor="middle" font-size="12.5" fill="#33414d">provider</text>
+  <rect x="344" y="184" width="90" height="34" rx="7" fill="#eef2f6" stroke="#5f6b76" stroke-width="1.5"/>
+  <text x="389" y="206" text-anchor="middle" font-size="12.5" fill="#33414d">store</text>
+  <rect x="446" y="184" width="90" height="34" rx="7" fill="#eef2f6" stroke="#5f6b76" stroke-width="1.5"/>
+  <text x="491" y="206" text-anchor="middle" font-size="12.5" fill="#33414d">route</text>
+
+  <!-- network exception -->
+  <rect x="60" y="240" width="640" height="78" rx="9" fill="#fff8e6" stroke="#e0a800" stroke-width="2"/>
+  <text x="80" y="268" font-size="13.5" font-weight="700" fill="#9a6700">⚠ network 만 예외</text>
+  <text x="80" y="291" font-size="12.5" fill="#5a4a20">MSW로 real 자리에 둬도 계약은 '가정'에 머문다 — 컴포넌트 레벨은 네트워크 계약을 검증 못 함.</text>
+  <text x="80" y="309" font-size="12.5" fill="#5a4a20">진짜 검증은 contract test / e2e 로 올라가야 한다.</text>
+</svg>

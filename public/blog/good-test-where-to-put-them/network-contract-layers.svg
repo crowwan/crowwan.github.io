@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 450" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif">
+  <rect width="720" height="450" fill="#ffffff"/>
+
+  <text x="360" y="32" text-anchor="middle" font-size="16" font-weight="700" fill="#33414d">네트워크 계약은 소비자 / 제공자로 갈린다</text>
+
+  <!-- consumer half -->
+  <rect x="55" y="58" width="285" height="78" rx="9" fill="#e3f0ff" stroke="#1565c0" stroke-width="2"/>
+  <text x="197" y="84" text-anchor="middle" font-size="14" font-weight="700" fill="#0d3c75">소비자 측 기대</text>
+  <text x="197" y="105" text-anchor="middle" font-size="11.5" fill="#0d3c75">"우리 프론트는 이 shape를 기대"</text>
+  <text x="197" y="124" text-anchor="middle" font-size="12" font-weight="600" fill="#2e7d32">✓ 컴포넌트 MSW가 고정</text>
+
+  <!-- provider half -->
+  <rect x="380" y="58" width="285" height="78" rx="9" fill="#ffebee" stroke="#c62828" stroke-width="2"/>
+  <text x="522" y="84" text-anchor="middle" font-size="14" font-weight="700" fill="#b71c1c">제공자 측 실재</text>
+  <text x="522" y="105" text-anchor="middle" font-size="11.5" fill="#b71c1c">"백엔드가 진짜 그 shape를 주나"</text>
+  <text x="522" y="124" text-anchor="middle" font-size="12" font-weight="600" fill="#8e1a16">✗ 컴포넌트는 못 봄</text>
+
+  <text x="360" y="166" text-anchor="middle" font-size="12.5" font-weight="600" fill="#7a8590">컴포넌트 레벨은 소비자 절반만 본다 — 제공자 절반은 누가 메우나?</text>
+
+  <!-- ladder -->
+  <text x="360" y="200" text-anchor="middle" font-size="13.5" font-weight="700" fill="#33414d">3단 분업 (push-down)</text>
+
+  <!-- e2e top (좁음) -->
+  <rect x="250" y="214" width="220" height="46" rx="8" fill="#ffebee" stroke="#c62828" stroke-width="2"/>
+  <text x="360" y="242" text-anchor="middle" font-size="12.5" font-weight="700" fill="#b71c1c">e2e — critical path만</text>
+
+  <!-- contract mid -->
+  <rect x="180" y="266" width="360" height="46" rx="8" fill="#f3e5f5" stroke="#7b1fa2" stroke-width="2"/>
+  <text x="360" y="288" text-anchor="middle" font-size="12.5" font-weight="700" fill="#6a1b9a">contract test — 계약 실재</text>
+  <text x="360" y="304" text-anchor="middle" font-size="10.5" fill="#6a1b9a">스키마 · Pact, 실제 네트워크 없이 싸게</text>
+
+  <!-- component bottom (넓음) -->
+  <rect x="110" y="318" width="500" height="46" rx="8" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
+  <text x="360" y="340" text-anchor="middle" font-size="12.5" font-weight="700" fill="#1b5e20">컴포넌트 레벨 MSW — 소비자 로직</text>
+  <text x="360" y="356" text-anchor="middle" font-size="10.5" fill="#1b5e20">이 응답이 오면 잘 그리나, 많이 · 빠르게</text>
+
+  <text x="360" y="398" text-anchor="middle" font-size="11.5" fill="#7a8590">제공자 측 절반을 e2e로 다 떠넘기지 말고 — contract test로 싸게 메운다</text>
+  <text x="360" y="420" text-anchor="middle" font-size="11" fill="#9aa0a6">아래일수록 많고 싸고 빠르다 · 위일수록 적고 비싸다</text>
+</svg>
