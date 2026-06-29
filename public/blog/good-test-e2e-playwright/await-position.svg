@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 380" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif">
+  <rect width="760" height="380" fill="#ffffff"/>
+
+  <text x="380" y="32" text-anchor="middle" font-size="16" font-weight="700" fill="#33414d">flaky를 가르는 건 await의 '위치'다</text>
+  <text x="380" y="52" text-anchor="middle" font-size="12.5" fill="#7a8590">단언에 즉시평가를 쓰면 그 순간의 스냅샷이라 retry가 빠진다.</text>
+
+  <!-- BAD -->
+  <rect x="36" y="78" width="688" height="128" rx="10" fill="#fdecea" stroke="#c62828" stroke-width="2"/>
+  <text x="56" y="104" font-size="13.5" font-weight="700" fill="#b71c1c">❌ 즉시평가 — await가 '안쪽'</text>
+  <rect x="56" y="116" width="360" height="32" rx="6" fill="#ffffff" stroke="#e8a9a2" stroke-width="1"/>
+  <text x="70" y="137" font-size="12.5" font-family="ui-monospace, monospace" fill="#b71c1c">expect(await loc.isVisible()).toBe(true)</text>
+  <!-- timeline bad -->
+  <line x1="440" y1="132" x2="700" y2="132" stroke="#c62828" stroke-width="1.5"/>
+  <circle cx="470" cy="132" r="5" fill="#c62828"/>
+  <text x="470" y="120" text-anchor="middle" font-size="10.5" fill="#b71c1c">평가(1회)</text>
+  <text x="600" y="120" text-anchor="middle" font-size="10.5" fill="#9a6700">요소는 여기서 등장</text>
+  <circle cx="640" cy="132" r="5" fill="#e0a800"/>
+  <text x="585" y="172" font-size="12" fill="#b71c1c">→ 한 점에서 떠본 값. 요소가 늦으면 실패 (flaky)</text>
+  <text x="70" y="194" font-size="12" fill="#7a4a44">retry 없음 — 타이밍에 따라 결과가 들쭉날쭉</text>
+
+  <!-- GOOD -->
+  <rect x="36" y="222" width="688" height="128" rx="10" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
+  <text x="56" y="248" font-size="13.5" font-weight="700" fill="#1b5e20">✅ web-first — await가 'expect 전체' 앞</text>
+  <rect x="56" y="260" width="300" height="32" rx="6" fill="#ffffff" stroke="#a5d6a7" stroke-width="1"/>
+  <text x="70" y="281" font-size="12.5" font-family="ui-monospace, monospace" fill="#1b5e20">await expect(loc).toBeVisible()</text>
+  <!-- timeline good -->
+  <line x1="380" y1="276" x2="700" y2="276" stroke="#2e7d32" stroke-width="1.5"/>
+  <circle cx="410" cy="276" r="4" fill="#81c784"/>
+  <circle cx="450" cy="276" r="4" fill="#81c784"/>
+  <circle cx="490" cy="276" r="4" fill="#81c784"/>
+  <circle cx="530" cy="276" r="4" fill="#81c784"/>
+  <text x="470" y="264" text-anchor="middle" font-size="10.5" fill="#2e7d32">조건 만족까지 폴링(retry)</text>
+  <circle cx="600" cy="276" r="6" fill="#2e7d32"/>
+  <text x="600" y="264" text-anchor="middle" font-size="10.5" fill="#1b5e20">충족 → 통과</text>
+  <text x="70" y="318" font-size="12" fill="#33543a">요소가 늦게 떠도 기다렸다가 잡는다 — 실제 사용자처럼.</text>
+</svg>

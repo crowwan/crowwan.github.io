@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 360" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif">
+  <defs>
+    <marker id="tg" markerWidth="11" markerHeight="11" refX="8" refY="3.5" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L9,3.5 L0,7 z" fill="#5f6b76"/>
+    </marker>
+    <marker id="tr" markerWidth="11" markerHeight="11" refX="8" refY="3.5" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L9,3.5 L0,7 z" fill="#2e7d32"/>
+    </marker>
+  </defs>
+  <rect width="760" height="360" fill="#ffffff"/>
+
+  <text x="380" y="32" text-anchor="middle" font-size="16" font-weight="700" fill="#33414d">진짜 입력은 가려진 요소를 못 누른다 — receives events</text>
+  <text x="380" y="52" text-anchor="middle" font-size="12.5" fill="#7a8590">Playwright는 좌표로 실제 입력을 쏜다. 합성 이벤트는 타겟을 직접 지정해 가림을 무시한다.</text>
+
+  <!-- stage: button under modal -->
+  <rect x="250" y="200" width="260" height="120" rx="10" fill="#f4f6f8" stroke="#cdd3d9" stroke-width="1.5"/>
+  <text x="380" y="222" text-anchor="middle" font-size="11.5" fill="#7a8590">페이지</text>
+  <rect x="300" y="248" width="160" height="44" rx="8" fill="#e3f0ff" stroke="#1565c0" stroke-width="2"/>
+  <text x="380" y="275" text-anchor="middle" font-size="13" font-weight="700" fill="#0d3c75">Submit 버튼</text>
+  <!-- modal overlay covering button -->
+  <rect x="270" y="232" width="220" height="76" rx="8" fill="#37474f" fill-opacity="0.82" stroke="#263238" stroke-width="1.5"/>
+  <text x="380" y="266" text-anchor="middle" font-size="12.5" font-weight="700" fill="#ffffff">모달 오버레이</text>
+  <text x="380" y="285" text-anchor="middle" font-size="11" fill="#cfd8dc">(버튼을 가린다)</text>
+
+  <!-- synthetic event path -->
+  <rect x="40" y="92" width="300" height="50" rx="9" fill="#eef2f6" stroke="#5f6b76" stroke-width="1.5"/>
+  <text x="60" y="113" font-size="12.5" font-weight="700" fill="#33414d">합성 이벤트 (dispatchEvent)</text>
+  <text x="60" y="131" font-size="11.5" fill="#5f6b76">타겟 직접 지정 · isTrusted=false</text>
+  <path d="M190,142 C200,180 280,250 320,262" fill="none" stroke="#5f6b76" stroke-width="2" stroke-dasharray="5,4" marker-end="url(#tg)"/>
+  <text x="150" y="178" font-size="11.5" fill="#5f6b76">모달을 뚫고 버튼에 도달 ✓</text>
+
+  <!-- trusted event path -->
+  <rect x="420" y="92" width="300" height="50" rx="9" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
+  <text x="440" y="113" font-size="12.5" font-weight="700" fill="#1b5e20">진짜 입력 (Playwright click)</text>
+  <text x="440" y="131" font-size="11.5" fill="#2e7d32">좌표로 발사 · 결과적으로 isTrusted=true</text>
+  <path d="M560,142 L470,228" fill="none" stroke="#2e7d32" stroke-width="2.5" marker-end="url(#tr)"/>
+  <text x="540" y="200" font-size="11.5" fill="#1b5e20">모달에 막힘 ✗</text>
+  <text x="470" y="218" text-anchor="middle" font-size="18" font-weight="700" fill="#c62828">✕</text>
+
+  <text x="380" y="345" text-anchor="middle" font-size="12.5" fill="#5a4a20">실제 사용자가 가린 버튼을 못 누르듯 — 이래서 e2e가 신뢰도 있는 검증이 된다.</text>
+</svg>

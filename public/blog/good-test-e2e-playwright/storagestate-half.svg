@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 360" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif">
+  <defs>
+    <marker id="sp" markerWidth="11" markerHeight="11" refX="8" refY="3.5" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L9,3.5 L0,7 z" fill="#9a6700"/>
+    </marker>
+  </defs>
+  <rect width="760" height="360" fill="#ffffff"/>
+
+  <text x="380" y="32" text-anchor="middle" font-size="16" font-weight="700" fill="#33414d">storageState는 인증의 '절반'만 복원한다</text>
+  <text x="380" y="52" text-anchor="middle" font-size="12.5" fill="#7a8590">브라우저 측 저장소만 떠놨다 다시 심는다. 서버 측 세션은 건드리지 못한다.</text>
+
+  <!-- divider -->
+  <line x1="380" y1="74" x2="380" y2="300" stroke="#cdd3d9" stroke-width="1.5" stroke-dasharray="6,5"/>
+  <text x="200" y="92" text-anchor="middle" font-size="12.5" font-weight="700" fill="#1565c0">브라우저 측</text>
+  <text x="560" y="92" text-anchor="middle" font-size="12.5" font-weight="700" fill="#5f6b76">서버 측</text>
+
+  <!-- browser box -->
+  <rect x="44" y="104" width="300" height="150" rx="10" fill="#e3f0ff" stroke="#1565c0" stroke-width="2"/>
+  <rect x="66" y="120" width="256" height="28" rx="6" fill="#ffffff" stroke="#90b8e0" stroke-width="1"/>
+  <text x="194" y="139" text-anchor="middle" font-size="12.5" fill="#0d3c75">cookie</text>
+  <rect x="66" y="154" width="256" height="28" rx="6" fill="#ffffff" stroke="#90b8e0" stroke-width="1"/>
+  <text x="194" y="173" text-anchor="middle" font-size="12.5" fill="#0d3c75">localStorage</text>
+  <rect x="66" y="188" width="256" height="28" rx="6" fill="#ffffff" stroke="#90b8e0" stroke-width="1"/>
+  <text x="194" y="207" text-anchor="middle" font-size="12.5" fill="#0d3c75">IndexedDB</text>
+  <text x="194" y="240" text-anchor="middle" font-size="12.5" font-weight="700" fill="#1b5e20">✓ storageState가 JSON으로 복원</text>
+
+  <!-- server box -->
+  <rect x="416" y="104" width="300" height="150" rx="10" fill="#eef2f6" stroke="#5f6b76" stroke-width="1.5"/>
+  <rect x="438" y="150" width="256" height="56" rx="8" fill="#ffffff" stroke="#b8c0c8" stroke-width="1"/>
+  <text x="566" y="175" text-anchor="middle" font-size="12.5" fill="#33414d">세션 저장소</text>
+  <text x="566" y="194" text-anchor="middle" font-size="11" fill="#7a8590">(서버사이드 세션)</text>
+  <text x="566" y="240" text-anchor="middle" font-size="12.5" font-weight="700" fill="#9a6700">✗ storageState가 못 건드림</text>
+
+  <!-- pointer arrow cookie -> server session -->
+  <path d="M322,134 C370,134 380,178 436,178" fill="none" stroke="#9a6700" stroke-width="2" stroke-dasharray="5,4" marker-end="url(#sp)"/>
+  <text x="380" y="126" text-anchor="middle" font-size="10.5" fill="#9a6700">쿠키 = 서버 세션을 가리키는 포인터</text>
+
+  <!-- bottom note -->
+  <rect x="44" y="278" width="672" height="64" rx="9" fill="#fff8e6" stroke="#e0a800" stroke-width="2"/>
+  <text x="64" y="302" font-size="12.5" fill="#5a4a20"><tspan font-weight="700">토큰 방식</tspan>(JWT in localStorage): 충분  ·  <tspan font-weight="700">서버 세션 방식</tspan>: 서버 측도 맞춰야 인증 성립</text>
+  <text x="64" y="324" font-size="12.5" fill="#5a4a20"><tspan font-weight="700">메모리 토큰</tspan>: 저장소가 아니라 못 잡음 → refresh 쿠키로 재발급, 없으면 헤더 주입(신뢰도 trade-off)</text>
+</svg>
