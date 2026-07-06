@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 380" font-family="system-ui, -apple-system, 'Segoe UI', 'Apple SD Gothic Neo', sans-serif">
+  <defs>
+    <marker id="ar" markerWidth="11" markerHeight="11" refX="8" refY="3.5" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L9,3.5 L0,7 z" fill="#7a8590"/>
+    </marker>
+  </defs>
+  <rect width="760" height="380" fill="#ffffff"/>
+  <text x="380" y="34" text-anchor="middle" font-size="18" font-weight="700" fill="#33414d">타입 소거 — 타입은 검사할 때만 살고, 실행엔 없다</text>
+  <text x="380" y="56" text-anchor="middle" font-size="12.5" fill="#7a8590">변환(emit)되면 타입 표기는 흔적도 없이 사라진다</text>
+
+  <!-- Left box: TS -->
+  <rect x="45" y="86" width="300" height="120" rx="10" fill="#ffffff" stroke="#5f6b76" stroke-width="1.5"/>
+  <text x="60" y="110" font-size="12" font-weight="700" fill="#33414d">TypeScript (.ts)</text>
+  <text x="62" y="140" font-size="13.5" font-family="ui-monospace, 'SF Mono', Menlo, monospace" fill="#33414d">let x<tspan fill="#dc2626">: number</tspan> = 5</text>
+  <text x="62" y="166" font-size="13.5" font-family="ui-monospace, 'SF Mono', Menlo, monospace" fill="#dc2626">interface User { id: number }</text>
+  <text x="62" y="192" font-size="11" fill="#9ca3af">빨간 부분 = 타입 표기</text>
+
+  <!-- arrow -->
+  <line x1="352" y1="146" x2="410" y2="146" stroke="#7a8590" stroke-width="2" marker-end="url(#ar)"/>
+  <text x="381" y="134" text-anchor="middle" font-size="11" fill="#7a8590">변환</text>
+
+  <!-- Right box: JS -->
+  <rect x="416" y="86" width="300" height="120" rx="10" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
+  <text x="431" y="110" font-size="12" font-weight="700" fill="#1b5e20">JavaScript (.js) — 실행되는 것</text>
+  <text x="433" y="140" font-size="13.5" font-family="ui-monospace, 'SF Mono', Menlo, monospace" fill="#1b5e20">let x = 5</text>
+  <text x="433" y="166" font-size="12.5" fill="#9ca3af" text-decoration="line-through">interface User { ... }</text>
+  <text x="433" y="192" font-size="11" fill="#16a34a">타입 표기·interface 전부 제거됨</text>
+
+  <!-- callouts -->
+  <rect x="45" y="240" width="330" height="110" rx="9" fill="#e8f5e9" stroke="#2e7d32" stroke-width="1.5"/>
+  <text x="65" y="268" font-size="13.5" font-weight="700" fill="#1b5e20">런타임 비용 0</text>
+  <text x="65" y="292" font-size="12" fill="#33414d">번들을 키우지도 느리게 하지도 않는다.</text>
+  <text x="65" y="312" font-size="12" fill="#33414d">"TS를 쓰면 앱이 느려지나?" 는 성립 안 함</text>
+  <text x="65" y="332" font-size="12" fill="#33414d">— 돌아가는 건 그냥 JS다.</text>
+
+  <rect x="386" y="240" width="330" height="110" rx="9" fill="#fff8e6" stroke="#e0a800" stroke-width="1.5"/>
+  <text x="406" y="268" font-size="13.5" font-weight="700" fill="#9a6700">런타임 검증이 아니다</text>
+  <text x="406" y="292" font-size="12" fill="#5a4a20">실행 중엔 타입이 이미 사라져 없다.</text>
+  <text x="406" y="312" font-size="12" fill="#5a4a20">서버 JSON 같은 외부 데이터는</text>
+  <text x="406" y="332" font-size="12" fill="#5a4a20">타입이 못 지킨다 → Zod 같은 검증기 필요</text>
+</svg>

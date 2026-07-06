@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 360" font-family="system-ui, -apple-system, 'Segoe UI', 'Apple SD Gothic Neo', sans-serif">
+  <defs>
+    <marker id="ar" markerWidth="11" markerHeight="11" refX="8" refY="3.5" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L9,3.5 L0,7 z" fill="#7a8590"/>
+    </marker>
+    <marker id="arR" markerWidth="11" markerHeight="11" refX="8" refY="3.5" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L9,3.5 L0,7 z" fill="#dc2626"/>
+    </marker>
+  </defs>
+  <rect width="760" height="360" fill="#ffffff"/>
+  <text x="380" y="34" text-anchor="middle" font-size="18" font-weight="700" fill="#33414d">JIT — 인터프리터로 시작해, 뜨거운 코드만 기계어로</text>
+  <text x="380" y="56" text-anchor="middle" font-size="12.5" fill="#7a8590">빠른 시작(인터프리트) + 빠른 실행(컴파일)의 하이브리드 · 단, 관찰(워밍업)이 있어야 이득</text>
+
+  <!-- box 1 -->
+  <rect x="40" y="104" width="200" height="70" rx="10" fill="#e3f0ff" stroke="#1565c0" stroke-width="2"/>
+  <text x="140" y="132" text-anchor="middle" font-size="13.5" font-weight="700" fill="#0d3c75">① 인터프리터로 시작</text>
+  <text x="140" y="153" text-anchor="middle" font-size="11" fill="#0d3c75">바이트코드로 바로 실행</text>
+  <line x1="244" y1="139" x2="286" y2="139" stroke="#7a8590" stroke-width="2" marker-end="url(#ar)"/>
+  <!-- box 2 -->
+  <rect x="290" y="104" width="180" height="70" rx="10" fill="#eef2f6" stroke="#5f6b76" stroke-width="1.5"/>
+  <text x="380" y="132" text-anchor="middle" font-size="13.5" font-weight="700" fill="#33414d">② 실행하며 관찰</text>
+  <text x="380" y="153" text-anchor="middle" font-size="11" fill="#5f6b76">자주 불리나? 타입은?</text>
+  <line x1="474" y1="139" x2="516" y2="139" stroke="#7a8590" stroke-width="2" marker-end="url(#ar)"/>
+  <!-- box 3 -->
+  <rect x="520" y="104" width="200" height="70" rx="10" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
+  <text x="620" y="132" text-anchor="middle" font-size="13.5" font-weight="700" fill="#1b5e20">③ 뜨거운 코드 → 기계어</text>
+  <text x="620" y="153" text-anchor="middle" font-size="11" fill="#1b5e20">관찰 근거로 최적화 (빠름)</text>
+
+  <!-- deopt loop back -->
+  <path d="M 620 174 C 620 232, 140 232, 140 176" fill="none" stroke="#dc2626" stroke-width="1.8" stroke-dasharray="6 4" marker-end="url(#arR)"/>
+  <text x="380" y="228" text-anchor="middle" font-size="12" font-weight="700" fill="#dc2626">가정이 깨지면 → 역최적화(deopt), 인터프리터로 복귀</text>
+
+  <!-- bottom note -->
+  <rect x="40" y="272" width="680" height="56" rx="9" fill="#fff8e6" stroke="#e0a800" stroke-width="1.5"/>
+  <text x="60" y="298" font-size="12.5" font-weight="700" fill="#9a6700">⚠ 짧게 돌고 죽는 프로그램은 워밍업 이득을 못 본다</text>
+  <text x="60" y="317" font-size="12" fill="#5a4a20">예) tsc 1회 실행 — JIT가 최적화를 끝내기 전에 프로세스 종료. (반면 서버·tsserver는 계속 살아 워밍업 이득을 봄)</text>
+</svg>
