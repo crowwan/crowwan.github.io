@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 430" font-family="system-ui, -apple-system, 'Segoe UI', 'Apple SD Gothic Neo', sans-serif">
+  <defs>
+    <marker id="ar" markerWidth="11" markerHeight="11" refX="8" refY="3.5" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L9,3.5 L0,7 z" fill="#7a8590"/>
+    </marker>
+  </defs>
+  <rect width="820" height="430" fill="#ffffff"/>
+  <text x="410" y="34" text-anchor="middle" font-size="18" font-weight="700" fill="#33414d">결함은 왼쪽에서 잡을수록 싸다 — Shift Left</text>
+  <text x="410" y="56" text-anchor="middle" font-size="12.5" fill="#7a8590">발견 단계가 오른쪽으로 갈수록 수정 비용·난이도가 커진다</text>
+
+  <!-- ① IDE (lowest, cheapest) -->
+  <text x="130" y="290" text-anchor="middle" font-size="12.5" font-weight="700" fill="#1b5e20">① IDE 실시간</text>
+  <rect x="40" y="298" width="180" height="66" rx="10" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
+  <text x="130" y="326" text-anchor="middle" font-size="13" font-weight="700" fill="#1b5e20">타이핑 즉시</text>
+  <text x="130" y="346" text-anchor="middle" font-size="10.5" fill="#1b5e20">내 손 안 · 가장 쌈</text>
+
+  <!-- ② compile -->
+  <text x="325" y="240" text-anchor="middle" font-size="12.5" font-weight="700" fill="#2e7d32">② 컴파일</text>
+  <rect x="235" y="248" width="180" height="66" rx="10" fill="#eef7ee" stroke="#5aa15e" stroke-width="2"/>
+  <text x="325" y="276" text-anchor="middle" font-size="12.5" font-weight="700" fill="#2e7d32">tsc --noEmit</text>
+  <text x="325" y="296" text-anchor="middle" font-size="10.5" fill="#4a7d4d">작업 후 · 로컬</text>
+
+  <!-- ③ CI -->
+  <text x="520" y="190" text-anchor="middle" font-size="12.5" font-weight="700" fill="#9a6700">③ CI</text>
+  <rect x="430" y="198" width="180" height="66" rx="10" fill="#fff8e6" stroke="#e0a800" stroke-width="2"/>
+  <text x="520" y="226" text-anchor="middle" font-size="12.5" font-weight="700" fill="#9a6700">PR · 머지</text>
+  <text x="520" y="246" text-anchor="middle" font-size="10.5" fill="#9a6700">린트 + 컴파일 + 테스트</text>
+
+  <!-- ④ QA (highest, most expensive) -->
+  <text x="715" y="140" text-anchor="middle" font-size="12.5" font-weight="700" fill="#a02020">④ QA</text>
+  <rect x="625" y="148" width="180" height="66" rx="10" fill="#fdecea" stroke="#d64545" stroke-width="2"/>
+  <text x="715" y="176" text-anchor="middle" font-size="13" font-weight="700" fill="#a02020">배포와 엮임</text>
+  <text x="715" y="196" text-anchor="middle" font-size="10.5" fill="#a02020">가장 비쌈 · 느림</text>
+
+  <!-- ascending step connectors -->
+  <line x1="220" y1="320" x2="235" y2="290" stroke="#c7ced4" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <line x1="415" y1="270" x2="430" y2="240" stroke="#c7ced4" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <line x1="610" y1="220" x2="625" y2="190" stroke="#c7ced4" stroke-width="1.5" stroke-dasharray="4 4"/>
+
+  <!-- cost arrow -->
+  <line x1="40" y1="398" x2="792" y2="398" stroke="#7a8590" stroke-width="2.5" marker-end="url(#ar)"/>
+  <text x="40" y="420" font-size="12" fill="#2e7d32" font-weight="700">싸다 · 빠르다</text>
+  <text x="790" y="420" text-anchor="end" font-size="12" fill="#a02020" font-weight="700">수정 비용 · 난이도 증가</text>
+</svg>
