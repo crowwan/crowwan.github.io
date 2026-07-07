@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 430" font-family="system-ui, -apple-system, 'Segoe UI', 'Apple SD Gothic Neo', sans-serif">
+  <defs>
+    <marker id="ar2" markerWidth="12" markerHeight="12" refX="8" refY="3.5" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L9,3.5 L0,7 z" fill="#1565c0"/>
+    </marker>
+  </defs>
+  <rect width="820" height="430" fill="#ffffff"/>
+  <text x="410" y="34" text-anchor="middle" font-size="18" font-weight="700" fill="#33414d">타입 만들기의 역할 분담</text>
+  <text x="410" y="56" text-anchor="middle" font-size="12.5" fill="#7a8590">내가 짜는 건 약 10줄 · 어려운 재귀·조립은 i18next가 이미 짜뒀다</text>
+
+  <!-- left group: I write -->
+  <rect x="30" y="82" width="330" height="298" rx="12" fill="#f7fafd" stroke="#bfdbfe" stroke-width="1.5"/>
+  <text x="195" y="106" text-anchor="middle" font-size="13.5" font-weight="700" fill="#0d3c75">내가 짠다 (약 10줄)</text>
+
+  <rect x="52" y="122" width="286" height="66" rx="9" fill="#e3f0ff" stroke="#1565c0" stroke-width="2"/>
+  <text x="195" y="148" text-anchor="middle" font-size="13" font-weight="700" fill="#0d3c75">① JSON을 타입으로</text>
+  <text x="195" y="169" text-anchor="middle" font-size="10.5" fill="#0d3c75">resolveJsonModule + typeof import</text>
+
+  <rect x="52" y="200" width="286" height="66" rx="9" fill="#e3f0ff" stroke="#1565c0" stroke-width="2"/>
+  <text x="195" y="226" text-anchor="middle" font-size="13" font-weight="700" fill="#0d3c75">② 런타임 병합 반영</text>
+  <text x="195" y="247" text-anchor="middle" font-size="10.5" fill="#0d3c75">Omit + intersection(&amp;)</text>
+
+  <rect x="52" y="278" width="286" height="66" rx="9" fill="#e3f0ff" stroke="#1565c0" stroke-width="2"/>
+  <text x="195" y="304" text-anchor="middle" font-size="13" font-weight="700" fill="#0d3c75">③ 라이브러리에 꽂기</text>
+  <text x="195" y="325" text-anchor="middle" font-size="10.5" fill="#0d3c75">declare module (선언 병합)</text>
+
+  <!-- middle arrow -->
+  <line x1="368" y1="231" x2="452" y2="231" stroke="#1565c0" stroke-width="2.5" marker-end="url(#ar2)"/>
+  <text x="410" y="222" text-anchor="middle" font-size="10.5" font-weight="700" fill="#1565c0">Resources</text>
+  <text x="410" y="252" text-anchor="middle" font-size="10.5" fill="#7a8590">(재료) 넘김</text>
+
+  <!-- right group: i18next does -->
+  <rect x="460" y="82" width="330" height="298" rx="12" fill="#f4faf4" stroke="#86efac" stroke-width="1.5"/>
+  <text x="625" y="106" text-anchor="middle" font-size="13.5" font-weight="700" fill="#1b5e20">i18next가 자동으로</text>
+
+  <rect x="482" y="122" width="286" height="66" rx="9" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
+  <text x="625" y="148" text-anchor="middle" font-size="13" font-weight="700" fill="#1b5e20">중첩 키 평탄화 (a.b.c)</text>
+  <text x="625" y="169" text-anchor="middle" font-size="10.5" fill="#1b5e20">keyof + 인덱스 접근 + 재귀</text>
+
+  <rect x="482" y="200" width="286" height="66" rx="9" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
+  <text x="625" y="226" text-anchor="middle" font-size="13" font-weight="700" fill="#1b5e20">네임스페이스 조립 (ns:key)</text>
+  <text x="625" y="247" text-anchor="middle" font-size="10.5" fill="#1b5e20">템플릿 리터럴 타입</text>
+
+  <rect x="482" y="278" width="286" height="66" rx="9" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
+  <text x="625" y="304" text-anchor="middle" font-size="13" font-weight="700" fill="#1b5e20">복수형 · context · keyPrefix</text>
+  <text x="625" y="325" text-anchor="middle" font-size="10.5" fill="#1b5e20">조건부 타입 + infer</text>
+</svg>
