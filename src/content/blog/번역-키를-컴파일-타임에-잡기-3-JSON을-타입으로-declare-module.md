@@ -210,7 +210,7 @@ declare module 'i18next' {
 
 ![선언 병합 — i18next 가 export 한 빈 interface CustomTypeOptions {} 와, 우리가 declare module 'i18next' 안에 선언한 같은 이름 interface(resources: typeof en)가 TypeScript 에 의해 하나로 합쳐진다. 그 결과 t 의 key 파라미터가 유효 키 union 으로 좁혀진다](/blog/i18n-json-to-type/declaration-merge.svg)
 
-> ⚠️ 주의 두 가지. (1) 전역에 그냥 `interface CustomTypeOptions {}`를 쓰면 i18next의 것과 **안 합쳐진다** — 반드시 `declare module 'i18next'`로 감싸야 한다. (2) 이 선언은 **ambient(전역)** 라 import 없이 프로그램 전체에 적용된다. 편리하지만, 이게 어디까지 전파되는지·barrel로 export하면 왜 다른 앱까지 오염되는지는 **모듈 augmentation의 평가 방식**을 알아야 안전하게 다룰 수 있다 — 이 주제는 별도 글(#4)에서 판다.
+> ⚠️ 주의 두 가지. (1) 전역에 그냥 `interface CustomTypeOptions {}`를 쓰면 i18next의 것과 **안 합쳐진다** — 반드시 `declare module 'i18next'`로 감싸야 한다. (2) 이 선언은 **ambient(전역)** 라 import 없이 프로그램 전체에 적용된다. 편리하지만, 이게 어디까지 전파되는지·barrel로 export하면 왜 다른 앱까지 오염되는지는 **모듈 augmentation의 평가 방식**을 알아야 안전하게 다룰 수 있다 — 이 주제는 이 시리즈 뒤 글에서 따로 판다.
 
 ## 5. Step 4·5 — 네임스페이스·구분자, 그리고 런타임 병합
 
@@ -269,4 +269,4 @@ declare module 'i18next' {
 - **Step 2**: 중첩 평탄화·ns 조립은 i18next가 `keyof`·인덱스 접근·조건부 타입·템플릿 리터럴·재귀로 처리한다. 우리는 재료만 넘긴다. (재귀 타입엔 `T extends object ?` 가드가 필요하다는 실전 함정도 봤다.)
 - **Step 3~5**: `declare module`로 `CustomTypeOptions`에 선언 병합. ns/구분자·런타임 병합은 옵션.
 
-다음 글에서는 남은 두 조각을 판다. (1) **동적 키**(`t(변수)`)가 왜 타입을 "과하게 막고", union/enum으로 어떻게 안전하게 좁히는가. (2) **모듈 augmentation**이 빌드 시 어떻게 평가되고, 어디까지 전파되며, barrel export가 왜 다른 앱까지 타입을 오염시키는가.
+여기까지 오면서 `keyof`·조건부 타입·템플릿 리터럴을 **썼지만**, 왜 그게 동작하는지는 파고들지 않았다. 다음 글(#4)에서는 그 밑바닥을 판다 — **"타입은 값의 집합이다"** 하나로 union·`extends`·조건부·분배·`never`를 꿰고, i18next의 실제 타입 한 줄을 직접 읽어낸다. 그 사고법이 잡히면 남는 두 조각 — **동적 키**(`t(변수)`)와 **모듈 augmentation**(빌드 시 평가·전파·barrel 오염) — 은 그 뒤 글에서 판다.

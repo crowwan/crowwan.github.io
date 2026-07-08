@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 430" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">
+  <rect width="720" height="430" fill="#ffffff"/>
+  <text x="360" y="30" text-anchor="middle" font-size="16" font-weight="700" fill="#1e293b">곱집합: 전체 곱(넓음) vs 네임스페이스별 곱(정확)</text>
+  <text x="360" y="52" text-anchor="middle" font-size="12" fill="#64748b">common: { ok, cancel }    ·    user: { name, email }</text>
+
+  <!-- LEFT: naive global product (wrong) -->
+  <rect x="24" y="72" width="320" height="330" rx="12" fill="#fef2f2" stroke="#ef4444" stroke-width="1.5"/>
+  <text x="184" y="98" text-anchor="middle" font-size="14" font-weight="700" fill="#b91c1c">❌ 순진한 전체 곱  ns × 키</text>
+  <text x="184" y="118" text-anchor="middle" font-size="11" fill="#7f1d1d">{common,user} × {ok,cancel,name,email} = 8</text>
+
+  <text x="184" y="150" text-anchor="middle" font-size="13" fill="#15803d">common:ok ✅</text>
+  <text x="184" y="174" text-anchor="middle" font-size="13" fill="#15803d">common:cancel ✅</text>
+  <text x="184" y="198" text-anchor="middle" font-size="13" fill="#dc2626">common:name ❌ (없는 키)</text>
+  <text x="184" y="222" text-anchor="middle" font-size="13" fill="#dc2626">common:email ❌ (없는 키)</text>
+  <text x="184" y="246" text-anchor="middle" font-size="13" fill="#dc2626">user:ok ❌ (없는 키)</text>
+  <text x="184" y="270" text-anchor="middle" font-size="13" fill="#dc2626">user:cancel ❌ (없는 키)</text>
+  <text x="184" y="294" text-anchor="middle" font-size="13" fill="#15803d">user:name ✅</text>
+  <text x="184" y="318" text-anchor="middle" font-size="13" fill="#15803d">user:email ✅</text>
+  <text x="184" y="360" text-anchor="middle" font-size="12" fill="#b91c1c">존재하지 않는 조합까지 유효 → 오타를 못 잡음</text>
+
+  <!-- RIGHT: per-namespace product (correct) -->
+  <rect x="376" y="72" width="320" height="330" rx="12" fill="#f0fdf4" stroke="#22c55e" stroke-width="1.5"/>
+  <text x="536" y="98" text-anchor="middle" font-size="14" font-weight="700" fill="#15803d">✅ 네임스페이스별 곱</text>
+  <text x="536" y="118" text-anchor="middle" font-size="11" fill="#166534">각 ns × 자기 키만 → 합집합 = 4</text>
+
+  <text x="536" y="152" text-anchor="middle" font-size="12" font-weight="700" fill="#166534">common × { ok, cancel }</text>
+  <text x="536" y="176" text-anchor="middle" font-size="13" fill="#15803d">common:ok ✅</text>
+  <text x="536" y="200" text-anchor="middle" font-size="13" fill="#15803d">common:cancel ✅</text>
+
+  <text x="536" y="242" text-anchor="middle" font-size="12" font-weight="700" fill="#166534">user × { name, email }</text>
+  <text x="536" y="266" text-anchor="middle" font-size="13" fill="#15803d">user:name ✅</text>
+  <text x="536" y="290" text-anchor="middle" font-size="13" fill="#15803d">user:email ✅</text>
+
+  <text x="536" y="360" text-anchor="middle" font-size="12" fill="#15803d">Keys[ns] 인덱스 접근이 그 ns 의 키만 집음</text>
+  <text x="536" y="380" text-anchor="middle" font-size="12" fill="#15803d">→ common:name 같은 교차 조합은 안 생김</text>
+</svg>
