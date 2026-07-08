@@ -1,5 +1,7 @@
 ---
 title: "번역 키를 컴파일 타임에 잡기 #1 — TypeScript는 언제 무엇을 하는가"
+series: "번역 키를 컴파일 타임에 잡기"
+seriesOrder: 1
 pubDate: 2026-07-06
 description: "t('user.profile.title')의 오타는 왜 컴파일도 테스트도 다 통과하고 런타임에야 조용히 터질까. 그걸 타입만으로 잡고 싶어서, 먼저 TypeScript가 언제 무엇을 하는지 — 컴파일·실행 모델과 타입 소거부터 다시 봤다."
 tags: ["TypeScript", "i18n", "회고"]

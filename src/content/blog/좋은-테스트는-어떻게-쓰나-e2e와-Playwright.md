@@ -1,5 +1,7 @@
 ---
 title: "좋은 테스트는 어떻게 쓰나 — e2e와 Playwright"
+series: "좋은 테스트"
+seriesOrder: 3
 pubDate: 2026-06-29
 description: "1·2편이 '무엇을, 어디에'였다면 이번 편은 '그래서 어떻게 쓰나'다. e2e를 Playwright로 — 왜 그렇게 생겨먹었는지 따라가면 e2e의 본질이 보인다."
 tags: ["테스트", "Playwright", "회고"]

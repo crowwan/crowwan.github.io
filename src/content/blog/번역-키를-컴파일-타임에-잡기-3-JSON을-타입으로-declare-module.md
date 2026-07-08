@@ -1,5 +1,7 @@
 ---
 title: "번역 키를 컴파일 타임에 잡기 #3 — JSON을 타입으로, 도구 없이 declare module로 키 잠그기"
+series: "번역 키를 컴파일 타임에 잡기"
+seriesOrder: 3
 pubDate: 2026-07-08
 description: "번역 키를 타입으로 잠그려고 코드 생성기부터 떠올렸는데, 막상 해보니 내가 직접 짠 건 열 줄 남짓이었다. 중첩 키 평탄화 같은 어려운 부분은 i18next 타입이 이미 다 해두고 있었다."
 tags: ["TypeScript", "i18n", "회고"]

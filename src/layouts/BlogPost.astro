@@ -1,20 +1,31 @@
 ---
-import type { CollectionEntry } from 'astro:content';
+import { type CollectionEntry, getCollection } from 'astro:content';
 import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import FormattedDate from '../components/FormattedDate.astro';
 import Header from '../components/Header.astro';
+import { SERIES } from '../consts';
+import { getSeriesPosts } from '../utils/series';
 
 type Props = CollectionEntry<'blog'>['data'] & {
 	// 읽기 시간 추정을 위한 본문 글자수(선택).
 	charCount?: number;
 };
 
-const { title, description, pubDate, updatedDate, heroImage, tags, charCount } = Astro.props;
+const { title, description, pubDate, updatedDate, heroImage, tags, series, charCount } =
+	Astro.props;
 
 // 한글 글자수 기반 읽기 시간 추정 (분당 약 500자).
 const readingMinutes = charCount ? Math.max(1, Math.round(charCount / 500)) : null;
 const category = tags?.[0];
+
+// 시리즈 목차 박스 데이터.
+// series 가 있고 SERIES 에 등록됐을 때만 같은 시리즈 글을 불러 순서대로 나열한다.
+const seriesMeta = series ? SERIES[series] : undefined;
+const seriesPosts =
+	series && seriesMeta ? getSeriesPosts(await getCollection('blog'), series) : [];
+// 현재 글은 제목으로 식별한다(레이아웃에는 글 id 가 넘어오지 않는다).
+const currentSeriesIndex = seriesPosts.findIndex((post) => post.data.title === title);
 ---
 
 <html lang="ko">
@@ -71,6 +82,44 @@ const category = tags?.[0];
 				<div class="prose reveal">
 					<slot />
 				</div>
+
+				{
+					seriesMeta && seriesPosts.length > 0 && (
+						<aside class="series-box reveal">
+							<div class="series-box-head">
+								<span class="eyebrow">연재</span>
+								<a class="series-name" href={`/series/${seriesMeta.slug}/`}>
+									{series}
+								</a>
+								<span class="series-progress">
+									{seriesPosts.length}편 중 {currentSeriesIndex + 1}번째
+								</span>
+							</div>
+							<ol class="series-items">
+								{seriesPosts.map((post, i) => {
+									const isCurrent = post.data.title === title;
+									const seq = post.data.seriesOrder ?? i + 1;
+									return (
+										<li class:list={['series-item', { current: isCurrent }]}>
+											{isCurrent ? (
+												<span class="series-item-current" aria-current="true">
+													<span class="seq">{seq}.</span>
+													<span class="series-item-title">{post.data.title}</span>
+													<span class="here">현재</span>
+												</span>
+											) : (
+												<a class="series-item-link" href={`/blog/${post.id}/`}>
+													<span class="seq">{seq}.</span>
+													<span class="series-item-title">{post.data.title}</span>
+												</a>
+											)}
+										</li>
+									);
+								})}
+							</ol>
+						</aside>
+					)
+				}
 
 				<nav class="post-nav">
 					<a class="back" href="/blog"><span aria-hidden="true">←</span> 목록으로</a>
@@ -164,6 +213,92 @@ const category = tags?.[0];
 				width: 100%;
 				border-radius: var(--radius-lg);
 				border: 1px solid var(--border);
+			}
+			.series-box {
+				max-width: var(--prose-width);
+				margin: 3.5em auto 0;
+				padding: 1.5em 1.6em;
+				background: var(--surface);
+				border: 1px solid var(--border);
+				border-radius: var(--radius-lg);
+			}
+			.series-box-head {
+				display: flex;
+				flex-wrap: wrap;
+				align-items: baseline;
+				gap: 0.6rem;
+				margin-bottom: 1em;
+				padding-bottom: 0.9em;
+				border-bottom: 1px solid var(--border);
+			}
+			.series-name {
+				font-family: var(--font-sans);
+				font-weight: 800;
+				font-size: 1.05rem;
+				letter-spacing: -0.02em;
+				color: var(--text-strong);
+				text-decoration: none;
+				transition: color 0.18s ease;
+			}
+			.series-name:hover {
+				color: var(--accent);
+			}
+			.series-progress {
+				margin-left: auto;
+				font-family: var(--font-sans);
+				font-size: 0.82rem;
+				font-weight: 600;
+				letter-spacing: -0.01em;
+				color: var(--text-meta);
+			}
+			.series-items {
+				list-style: none;
+				margin: 0;
+				padding: 0;
+				display: flex;
+				flex-direction: column;
+				gap: 0.15rem;
+			}
+			.series-item-link,
+			.series-item-current {
+				display: flex;
+				align-items: baseline;
+				gap: 0.5rem;
+				padding: 0.45em 0;
+				font-family: var(--font-sans);
+				font-size: 0.95rem;
+				line-height: 1.5;
+				letter-spacing: -0.01em;
+			}
+			.series-item-link {
+				color: var(--text-2);
+				text-decoration: none;
+				transition: color 0.18s ease;
+			}
+			.series-item-link:hover {
+				color: var(--accent);
+			}
+			.series-item .seq {
+				flex-shrink: 0;
+				font-weight: 600;
+				color: var(--text-faint);
+			}
+			.series-item-current {
+				color: var(--text-strong);
+				font-weight: 700;
+			}
+			.series-item.current .seq {
+				color: var(--accent);
+			}
+			.series-item-current .here {
+				margin-left: auto;
+				align-self: center;
+				font-size: 0.72rem;
+				font-weight: 700;
+				color: var(--accent);
+				background: var(--accent-soft);
+				border-radius: 999px;
+				padding: 0.2em 0.65em;
 			}
 			.post-nav {
 				max-width: var(--prose-width);

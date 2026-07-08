@@ -1,5 +1,7 @@
 ---
 title: "Todo 앱에 TDD 적용해보기(3)"
+series: "Todo 앱에 TDD 적용해보기"
+seriesOrder: 3
 pubDate: 2025-08-20
 description: "먼저 Todo 앱에서 사용될 기본적인 Todo 엔티티를 생성해보자."
 tags: ["React", "TDD", "typescript"]

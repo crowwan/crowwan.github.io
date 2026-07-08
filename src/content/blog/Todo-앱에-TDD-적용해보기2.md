@@ -1,5 +1,7 @@
 ---
 title: "Todo 앱에 TDD 적용해보기(2)"
+series: "Todo 앱에 TDD 적용해보기"
+seriesOrder: 2
 pubDate: 2025-07-28
 description: "이전에 Todo 앱의 요구사항을 정의하고 간단한 디자인을 만들어봤다. 이제 이 요구사항을 바탕으로 앱을 만들어보자. 이번 포스트에서는 앱 초기 설정을 진행해 볼 것이다."
 tags: ["React", "TDD"]

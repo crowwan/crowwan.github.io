@@ -1,5 +1,7 @@
 ---
 title: "Todo 앱에 TDD 적용해보기(1)"
+series: "Todo 앱에 TDD 적용해보기"
+seriesOrder: 1
 pubDate: 2025-07-23
 description: "간단한 Todo 앱을 만들면서 타입 기반 설계를 적용해보자."
 tags: ["React", "TDD"]

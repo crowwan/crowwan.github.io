@@ -15,6 +15,10 @@ const blog = defineCollection({
 		// velog 썸네일 등 원격 URL 또는 로컬 경로 문자열.
 		heroImage: z.string().optional(),
 		updatedDate: z.coerce.date().optional(),
+		// 시리즈(연재) 표시명 — src/consts.ts 의 SERIES 매핑 키와 일치해야 한다.
+		series: z.string().optional(),
+		// 시리즈 내 순서(1부터).
+		seriesOrder: z.number().optional(),
 	}),
 });
 
