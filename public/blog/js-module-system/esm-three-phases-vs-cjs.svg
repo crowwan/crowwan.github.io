@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 450" font-family="system-ui, -apple-system, 'Segoe UI', 'Apple SD Gothic Neo', sans-serif">
+  <defs>
+    <marker id="arB" markerWidth="11" markerHeight="11" refX="8" refY="3.5" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L9,3.5 L0,7 z" fill="#1565c0"/>
+    </marker>
+  </defs>
+  <rect width="900" height="450" fill="#ffffff"/>
+
+  <!-- ESM -->
+  <text x="42" y="40" font-size="17" font-weight="700" fill="#0d3c75">ES Modules — 3단계 로딩</text>
+  <!-- phase 1 -->
+  <rect x="42" y="60" width="245" height="96" rx="11" fill="#e3f0ff" stroke="#1565c0" stroke-width="2"/>
+  <text x="164" y="86" text-anchor="middle" font-size="13" font-weight="700" fill="#0d3c75">① 구성 / 파싱</text>
+  <text x="164" y="110" text-anchor="middle" font-size="11.5" fill="#1565c0">import 를 정적으로 찾아</text>
+  <text x="164" y="128" text-anchor="middle" font-size="11.5" fill="#1565c0">의존성 그래프 생성</text>
+  <text x="164" y="148" text-anchor="middle" font-size="11" font-style="italic" fill="#5f6b76">(아직 실행 안 함)</text>
+  <!-- phase 2 -->
+  <rect x="327" y="60" width="245" height="96" rx="11" fill="#e3f0ff" stroke="#1565c0" stroke-width="2.4"/>
+  <text x="449" y="86" text-anchor="middle" font-size="13" font-weight="700" fill="#0d3c75">② 링크 (Instantiation)</text>
+  <text x="449" y="110" text-anchor="middle" font-size="11.5" fill="#1565c0">export 슬롯 할당 +</text>
+  <text x="449" y="128" text-anchor="middle" font-size="11.5" fill="#1565c0">import 를 그 슬롯에 연결</text>
+  <text x="449" y="148" text-anchor="middle" font-size="11" font-weight="700" fill="#15803d">← live binding 생성</text>
+  <!-- phase 3 -->
+  <rect x="612" y="60" width="245" height="96" rx="11" fill="#e3f0ff" stroke="#1565c0" stroke-width="2"/>
+  <text x="734" y="86" text-anchor="middle" font-size="13" font-weight="700" fill="#0d3c75">③ 평가 (Evaluation)</text>
+  <text x="734" y="110" text-anchor="middle" font-size="11.5" fill="#1565c0">코드를 실행해</text>
+  <text x="734" y="128" text-anchor="middle" font-size="11.5" fill="#1565c0">슬롯에 값을 채움</text>
+  <line x1="287" y1="108" x2="325" y2="108" stroke="#1565c0" stroke-width="2" marker-end="url(#arB)"/>
+  <line x1="572" y1="108" x2="610" y2="108" stroke="#1565c0" stroke-width="2" marker-end="url(#arB)"/>
+
+  <!-- annotations -->
+  <rect x="42" y="176" width="245" height="34" rx="8" fill="#fff8e6" stroke="#e0a800" stroke-width="1.4"/>
+  <text x="164" y="198" text-anchor="middle" font-size="11.5" font-weight="700" fill="#9a6700">파싱으로 그래프 → 정적</text>
+  <rect x="327" y="176" width="530" height="34" rx="8" fill="#e8f5e9" stroke="#2e7d32" stroke-width="1.4"/>
+  <text x="592" y="198" text-anchor="middle" font-size="11.5" font-weight="700" fill="#1b5e20">①·② (fetch·link) 를 ③ 전에, 병렬로 → 비동기 가능</text>
+
+  <!-- divider -->
+  <line x1="42" y1="248" x2="857" y2="248" stroke="#d7dde3" stroke-width="1.5" stroke-dasharray="5 5"/>
+
+  <!-- CJS -->
+  <text x="42" y="288" font-size="17" font-weight="700" fill="#5f6b76">CommonJS — 단일 패스</text>
+  <rect x="42" y="308" width="180" height="74" rx="11" fill="#f2f4f6" stroke="#9aa4ad" stroke-width="1.8"/>
+  <text x="132" y="342" text-anchor="middle" font-size="13" font-family="monospace" font-weight="700" fill="#33414d">require('./m')</text>
+  <text x="132" y="364" text-anchor="middle" font-size="11" fill="#7a8590">호출 시점에</text>
+  <rect x="262" y="308" width="160" height="74" rx="11" fill="#f2f4f6" stroke="#9aa4ad" stroke-width="1.8"/>
+  <text x="342" y="342" text-anchor="middle" font-size="12.5" font-weight="700" fill="#33414d">즉시 실행</text>
+  <text x="342" y="364" text-anchor="middle" font-size="11" fill="#7a8590">(동기 · 블록)</text>
+  <rect x="462" y="308" width="200" height="74" rx="11" fill="#f2f4f6" stroke="#9aa4ad" stroke-width="1.8"/>
+  <text x="562" y="342" text-anchor="middle" font-size="12.5" font-family="monospace" font-weight="700" fill="#33414d">module.exports</text>
+  <text x="562" y="364" text-anchor="middle" font-size="11" fill="#7a8590">객체를 반환</text>
+  <line x1="222" y1="345" x2="260" y2="345" stroke="#8a94a0" stroke-width="2" marker-end="url(#arB)"/>
+  <line x1="422" y1="345" x2="460" y2="345" stroke="#8a94a0" stroke-width="2" marker-end="url(#arB)"/>
+  <rect x="682" y="308" width="175" height="74" rx="11" fill="#fdecea" stroke="#d64545" stroke-width="1.8"/>
+  <text x="769" y="333" text-anchor="middle" font-size="11.5" font-weight="700" fill="#a02020">링크 단계 없음</text>
+  <text x="769" y="353" text-anchor="middle" font-size="11" fill="#a02020">→ live binding 없음</text>
+  <text x="769" y="371" text-anchor="middle" font-size="11" fill="#a02020">동기 · 동적</text>
+
+  <text x="449" y="418" text-anchor="middle" font-size="12" fill="#7a8590">live binding 은 ②링크 단계의 산물 — 동기/비동기가 아니라 '링크가 있느냐'가 가른다</text>
+</svg>

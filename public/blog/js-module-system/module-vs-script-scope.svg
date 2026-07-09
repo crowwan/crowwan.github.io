@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 430" font-family="system-ui, -apple-system, 'Segoe UI', 'Apple SD Gothic Neo', sans-serif">
+  <defs>
+    <marker id="arRed" markerWidth="11" markerHeight="11" refX="8" refY="3.5" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L9,3.5 L0,7 z" fill="#d64545"/>
+    </marker>
+  </defs>
+  <rect width="880" height="430" fill="#ffffff"/>
+  <line x1="440" y1="66" x2="440" y2="404" stroke="#d7dde3" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <text x="228" y="38" text-anchor="middle" font-size="17" font-weight="700" fill="#a02020">스크립트 — 전역 스코프를 공유</text>
+  <text x="652" y="38" text-anchor="middle" font-size="17" font-weight="700" fill="#15803d">모듈 — 파일마다 자기 스코프</text>
+
+  <!-- LEFT -->
+  <rect x="52" y="62" width="150" height="56" rx="9" fill="#f2f4f6" stroke="#9aa4ad" stroke-width="1.6"/>
+  <text x="127" y="83" text-anchor="middle" font-size="12" font-weight="700" fill="#5f6b76">a.js</text>
+  <text x="127" y="105" text-anchor="middle" font-size="12" font-family="monospace" fill="#33414d">const config</text>
+  <rect x="252" y="62" width="150" height="56" rx="9" fill="#f2f4f6" stroke="#9aa4ad" stroke-width="1.6"/>
+  <text x="327" y="83" text-anchor="middle" font-size="12" font-weight="700" fill="#5f6b76">b.js</text>
+  <text x="327" y="105" text-anchor="middle" font-size="12" font-family="monospace" fill="#33414d">const config</text>
+  <line x1="127" y1="118" x2="175" y2="204" stroke="#d64545" stroke-width="2" marker-end="url(#arRed)"/>
+  <line x1="327" y1="118" x2="279" y2="204" stroke="#d64545" stroke-width="2" marker-end="url(#arRed)"/>
+  <rect x="64" y="206" width="320" height="92" rx="10" fill="#fdecea" stroke="#d64545" stroke-width="2"/>
+  <text x="224" y="232" text-anchor="middle" font-size="13" font-weight="700" fill="#a02020">전역 스코프 (하나로 합쳐짐)</text>
+  <text x="224" y="257" text-anchor="middle" font-size="12" font-family="monospace" fill="#a02020">config … config  💥</text>
+  <text x="224" y="281" text-anchor="middle" font-size="11.5" fill="#a02020">같은 이름이 같은 스코프에 두 번</text>
+  <text x="224" y="332" text-anchor="middle" font-size="12" font-weight="700" fill="#a02020">SyntaxError: Cannot redeclare</text>
+  <text x="224" y="350" text-anchor="middle" font-size="12" font-weight="700" fill="#a02020">block-scoped variable 'config'</text>
+  <text x="224" y="388" text-anchor="middle" font-size="11" fill="#7a8590">호이스팅은 등록 시점일 뿐 — 원인은 '공유 스코프'</text>
+
+  <!-- RIGHT -->
+  <rect x="474" y="62" width="150" height="92" rx="9" fill="#eef7ee" stroke="#2e7d32" stroke-width="1.6"/>
+  <text x="549" y="82" text-anchor="middle" font-size="12" font-weight="700" fill="#15803d">a.js (모듈)</text>
+  <rect x="490" y="94" width="118" height="46" rx="7" fill="#dcfce7" stroke="#16a34a" stroke-width="1.4"/>
+  <text x="549" y="110" text-anchor="middle" font-size="10" fill="#166534">자기 스코프</text>
+  <text x="549" y="129" text-anchor="middle" font-size="11.5" font-family="monospace" fill="#166534">const config</text>
+  <rect x="674" y="62" width="150" height="92" rx="9" fill="#eef7ee" stroke="#2e7d32" stroke-width="1.6"/>
+  <text x="749" y="82" text-anchor="middle" font-size="12" font-weight="700" fill="#15803d">b.js (모듈)</text>
+  <rect x="690" y="94" width="118" height="46" rx="7" fill="#dcfce7" stroke="#16a34a" stroke-width="1.4"/>
+  <text x="749" y="110" text-anchor="middle" font-size="10" fill="#166534">자기 스코프</text>
+  <text x="749" y="129" text-anchor="middle" font-size="11.5" font-family="monospace" fill="#166534">const config</text>
+  <rect x="474" y="206" width="350" height="76" rx="10" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
+  <text x="649" y="238" text-anchor="middle" font-size="13" font-weight="700" fill="#1b5e20">✅ 서로 독립 — 이름 같아도 충돌 없음</text>
+  <text x="649" y="263" text-anchor="middle" font-size="11.5" fill="#2e7d32">export 하지 않으면 밖으로 나가지 않는다</text>
+  <text x="649" y="388" text-anchor="middle" font-size="11" fill="#7a8590">스코프를 분리하면 호이스팅돼도 각자 위치 — 충돌 소멸</text>
+</svg>
