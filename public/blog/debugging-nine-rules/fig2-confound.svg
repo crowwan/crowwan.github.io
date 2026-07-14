@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 420" font-family="Pretendard, 'Apple SD Gothic Neo', 'Noto Sans KR', system-ui, sans-serif">
+  <defs>
+    <marker id="g" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#64748b"/>
+    </marker>
+    <marker id="a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#f59e0b"/>
+    </marker>
+  </defs>
+
+  <rect x="0.5" y="0.5" width="859" height="419" rx="14" fill="#ffffff" stroke="#e5e7eb"/>
+  <text x="32" y="40" font-size="19" font-weight="700" fill="#0f172a">“한 번에 하나만 바꿨다”는 착각 — 통제 못 한 숨은 변수 셋</text>
+
+  <!-- intent -->
+  <rect x="40" y="118" width="170" height="90" rx="10" fill="#ecfdf5" stroke="#10b981"/>
+  <text x="125" y="150" text-anchor="middle" font-size="14" font-weight="700" fill="#047857">내 의도</text>
+  <text x="125" y="174" text-anchor="middle" font-size="12.5" fill="#065f46">마진 ‘내용’</text>
+  <text x="125" y="192" text-anchor="middle" font-size="12.5" fill="#065f46">1개만 변경</text>
+
+  <!-- pipe -->
+  <rect x="230" y="130" width="384" height="66" rx="10" fill="#f8fafc" stroke="#cbd5e1"/>
+  <text x="422" y="167" text-anchor="middle" font-size="12" fill="#94a3b8">우리 export → MillBox 캐시 폴더</text>
+
+  <line x1="210" y1="163" x2="228" y2="163" stroke="#64748b" stroke-width="1.5" marker-end="url(#g)"/>
+  <line x1="616" y1="163" x2="630" y2="163" stroke="#64748b" stroke-width="1.5" marker-end="url(#g)"/>
+
+  <!-- MillBox saw -->
+  <rect x="632" y="118" width="188" height="90" rx="10" fill="#fef2f2" stroke="#ef4444"/>
+  <text x="726" y="148" text-anchor="middle" font-size="14" font-weight="700" fill="#b91c1c">MillBox가 본 것</text>
+  <text x="726" y="172" text-anchor="middle" font-size="12.5" fill="#991b1b">변화 없음</text>
+  <text x="726" y="190" text-anchor="middle" font-size="12.5" fill="#991b1b">(내용 무시가 아님)</text>
+
+  <!-- leaks -->
+  <line x1="291" y1="196" x2="291" y2="250" stroke="#f59e0b" stroke-width="1.5" marker-end="url(#a)"/>
+  <line x1="423" y1="196" x2="423" y2="250" stroke="#f59e0b" stroke-width="1.5" marker-end="url(#a)"/>
+  <line x1="555" y1="196" x2="555" y2="250" stroke="#f59e0b" stroke-width="1.5" marker-end="url(#a)"/>
+
+  <rect x="232" y="252" width="118" height="104" rx="9" fill="#fff7ed" stroke="#f59e0b"/>
+  <text x="291" y="276" text-anchor="middle" font-size="11" font-weight="700" fill="#b45309">숨은 변수 ①</text>
+  <text x="291" y="300" text-anchor="middle" font-size="11.5" fill="#7c2d12">짧은 파일명</text>
+  <text x="291" y="320" text-anchor="middle" font-size="11.5" fill="#7c2d12">→ 링크 깨짐</text>
+  <text x="291" y="340" text-anchor="middle" font-size="10.5" fill="#a16207">MillBox가 못 엮음</text>
+
+  <rect x="364" y="252" width="118" height="104" rx="9" fill="#fff7ed" stroke="#f59e0b"/>
+  <text x="423" y="276" text-anchor="middle" font-size="11" font-weight="700" fill="#b45309">숨은 변수 ②</text>
+  <text x="423" y="300" text-anchor="middle" font-size="11.5" fill="#7c2d12">같은 형상 반복</text>
+  <text x="423" y="320" text-anchor="middle" font-size="11.5" fill="#7c2d12">→ 캐시 재사용</text>
+  <text x="423" y="340" text-anchor="middle" font-size="10.5" fill="#a16207">이전 결과 그대로</text>
+
+  <rect x="496" y="252" width="118" height="104" rx="9" fill="#fff7ed" stroke="#f59e0b"/>
+  <text x="555" y="276" text-anchor="middle" font-size="11" font-weight="700" fill="#b45309">숨은 변수 ③</text>
+  <text x="555" y="300" text-anchor="middle" font-size="11.5" fill="#7c2d12">균일 배율 프로브</text>
+  <text x="555" y="320" text-anchor="middle" font-size="11.5" fill="#7c2d12">→ 표면 스냅 원복</text>
+  <text x="555" y="340" text-anchor="middle" font-size="10.5" fill="#a16207">각도변조만 생존</text>
+
+  <text x="430" y="392" text-anchor="middle" font-size="13" fill="#475569">‘출력 불변’을 ‘MillBox가 내용 무시 = 벤더 버그’로 오판 → 하루를 오답에 씀</text>
+</svg>

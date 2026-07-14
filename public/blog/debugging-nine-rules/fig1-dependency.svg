@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 540" font-family="Pretendard, 'Apple SD Gothic Neo', 'Noto Sans KR', system-ui, sans-serif">
+  <defs>
+    <marker id="ah1" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#64748b"/>
+    </marker>
+  </defs>
+
+  <rect x="0.5" y="0.5" width="859" height="539" rx="14" fill="#ffffff" stroke="#e5e7eb"/>
+
+  <text x="32" y="42" font-size="20" font-weight="700" fill="#0f172a">9규칙의 의존 구조 — ①이 나머지의 토대</text>
+
+  <!-- villain pill -->
+  <rect x="205" y="62" width="450" height="34" rx="17" fill="#fef2f2" stroke="#ef4444"/>
+  <text x="430" y="84" text-anchor="middle" font-size="13" fill="#b91c1c">“이거 간단하네” → ①을 건너뜀 → 나머지 8개가 모래 위의 집</text>
+
+  <!-- Oracle card -->
+  <rect x="54" y="132" width="344" height="210" rx="12" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/>
+  <text x="74" y="160" font-size="15" font-weight="700" fill="#1d4ed8">오라클 갈래</text>
+  <text x="74" y="180" font-size="12" fill="#3b82f6">“무엇이 실패인가”의 정의</text>
+  <g>
+    <rect x="70" y="192" width="312" height="42" rx="8" fill="#ffffff" stroke="#bfdbfe"/>
+    <text x="84" y="218" font-size="12.5"><tspan font-weight="700" fill="#1e3a8a">② 재현</tspan><tspan fill="#475569">  실패를 정의 못 하면 재현 대상이 없다</tspan></text>
+    <rect x="70" y="240" width="312" height="42" rx="8" fill="#ffffff" stroke="#bfdbfe"/>
+    <text x="84" y="266" font-size="12.5"><tspan font-weight="700" fill="#1e3a8a">④ 이분정복</tspan><tspan fill="#475569">  정상·이상을 못 가른다</tspan></text>
+    <rect x="70" y="288" width="312" height="42" rx="8" fill="#ffffff" stroke="#bfdbfe"/>
+    <text x="84" y="314" font-size="12.5"><tspan font-weight="700" fill="#1e3a8a">⑨ 고침 증명</tspan><tspan fill="#475569">  고쳐졌는지 판정 불가</tspan></text>
+  </g>
+
+  <!-- Model card -->
+  <rect x="462" y="132" width="344" height="210" rx="12" fill="#faf5ff" stroke="#8b5cf6" stroke-width="1.5"/>
+  <text x="482" y="160" font-size="15" font-weight="700" fill="#6d28d9">모델 갈래</text>
+  <text x="482" y="180" font-size="12" fill="#8b5cf6">“무엇이 연결됐나”의 지도</text>
+  <g>
+    <rect x="478" y="192" width="312" height="42" rx="8" fill="#ffffff" stroke="#ddd6fe"/>
+    <text x="492" y="218" font-size="12.5"><tspan font-weight="700" fill="#5b21b6">③ 관찰</tspan><tspan fill="#475569">  추측이 길어진다</tspan></text>
+    <rect x="478" y="240" width="312" height="42" rx="8" fill="#ffffff" stroke="#ddd6fe"/>
+    <text x="492" y="266" font-size="12.5"><tspan font-weight="700" fill="#5b21b6">⑤ 한 번에 하나</tspan><tspan fill="#475569">  무엇을 바꿨는지 모른다</tspan></text>
+    <rect x="478" y="288" width="312" height="42" rx="8" fill="#ffffff" stroke="#ddd6fe"/>
+    <text x="492" y="314" font-size="12.5"><tspan font-weight="700" fill="#5b21b6">⑥⑦⑧ 기록·전제·시각</tspan><tspan fill="#475569">  놓치기 쉽다</tspan></text>
+  </g>
+
+  <!-- connectors -->
+  <text x="430" y="372" text-anchor="middle" font-size="12.5" fill="#475569">이 둘은 ① 위에서만 성립한다</text>
+  <line x1="226" y1="402" x2="226" y2="352" stroke="#64748b" stroke-width="1.5" marker-end="url(#ah1)"/>
+  <line x1="634" y1="402" x2="634" y2="352" stroke="#64748b" stroke-width="1.5" marker-end="url(#ah1)"/>
+
+  <!-- Foundation -->
+  <rect x="54" y="404" width="752" height="96" rx="12" fill="#1e293b"/>
+  <text x="430" y="442" text-anchor="middle" font-size="22" font-weight="700" fill="#ffffff">① 시스템 이해</text>
+  <text x="430" y="470" text-anchor="middle" font-size="13" fill="#cbd5e1">오라클(무엇이 실패인가)  +  모델(무엇이 연결됐나)</text>
+  <text x="430" y="490" text-anchor="middle" font-size="11" fill="#94a3b8">이 토대를 건너뛴 것이 이번 버그의 뿌리</text>
+</svg>

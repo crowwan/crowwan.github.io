@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 470" font-family="Pretendard, 'Apple SD Gothic Neo', 'Noto Sans KR', system-ui, sans-serif">
+  <rect x="0.5" y="0.5" width="899" height="469" rx="14" fill="#ffffff" stroke="#e5e7eb"/>
+  <text x="32" y="40" font-size="19" font-weight="700" fill="#0f172a">악순환과 그것을 끊는 게이트</text>
+
+  <!-- guide circle -->
+  <circle cx="250" cy="265" r="140" fill="none" stroke="#e2e8f0" stroke-dasharray="4 4"/>
+  <text x="250" y="260" text-anchor="middle" font-size="15" font-weight="700" fill="#64748b">악순환</text>
+  <text x="250" y="280" text-anchor="middle" font-size="10.5" fill="#94a3b8">수정이 버그를 가린다</text>
+
+  <!-- flow arrowheads (clockwise) -->
+  <g fill="#94a3b8">
+    <path d="M-5,-5 L6,0 L-5,5 z" transform="translate(332,152) rotate(36)"/>
+    <path d="M-5,-5 L6,0 L-5,5 z" transform="translate(383,308) rotate(108)"/>
+    <path d="M-5,-5 L6,0 L-5,5 z" transform="translate(250,405) rotate(180)"/>
+    <path d="M-5,-5 L6,0 L-5,5 z" transform="translate(117,308) rotate(252)"/>
+    <path d="M-5,-5 L6,0 L-5,5 z" transform="translate(168,152) rotate(324)"/>
+  </g>
+
+  <!-- nodes -->
+  <rect x="194" y="100" width="112" height="50" rx="9" fill="#fef2f2" stroke="#fca5a5"/>
+  <text x="250" y="121" text-anchor="middle" font-size="11.5" font-weight="700" fill="#b91c1c">“간단하네”</text>
+  <text x="250" y="138" text-anchor="middle" font-size="10.5" fill="#7f1d1d">① 건너뜀</text>
+
+  <rect x="327" y="197" width="112" height="50" rx="9" fill="#f8fafc" stroke="#cbd5e1"/>
+  <text x="383" y="218" text-anchor="middle" font-size="11.5" fill="#334155">빠른 추측</text>
+  <text x="383" y="235" text-anchor="middle" font-size="10.5" fill="#64748b">②③ 건너뜀</text>
+
+  <rect x="276" y="353" width="112" height="50" rx="9" fill="#f8fafc" stroke="#cbd5e1"/>
+  <text x="332" y="374" text-anchor="middle" font-size="11.5" fill="#334155">단일 케이스</text>
+  <text x="332" y="391" text-anchor="middle" font-size="10.5" fill="#64748b">수정</text>
+
+  <rect x="112" y="353" width="112" height="50" rx="9" fill="#f8fafc" stroke="#cbd5e1"/>
+  <text x="168" y="374" text-anchor="middle" font-size="11.5" fill="#334155">안 먹힘</text>
+  <text x="168" y="391" text-anchor="middle" font-size="10.5" fill="#64748b">→ 또 수정(⑤)</text>
+
+  <rect x="61" y="197" width="112" height="50" rx="9" fill="#f8fafc" stroke="#cbd5e1"/>
+  <text x="117" y="218" text-anchor="middle" font-size="11.5" fill="#334155">버그 가림</text>
+  <text x="117" y="235" text-anchor="middle" font-size="10.5" fill="#64748b">→ 리오픈</text>
+
+  <!-- gates panel -->
+  <text x="692" y="66" text-anchor="middle" font-size="15" font-weight="700" fill="#047857">고리를 끊는 관문</text>
+
+  <g>
+    <rect x="515" y="88" width="355" height="82" rx="10" fill="#ecfdf5" stroke="#10b981"/>
+    <circle cx="545" cy="118" r="17" fill="#10b981"/>
+    <text x="545" y="122" text-anchor="middle" font-size="11" font-weight="700" fill="#ffffff">G0</text>
+    <text x="575" y="114" font-size="13" font-weight="700" fill="#065f46">G0 · 시스템 이해</text>
+    <text x="575" y="134" font-size="11.5" fill="#047857">착수 전 ‘올바른 결과’와</text>
+    <text x="575" y="152" font-size="11.5" fill="#047857">‘데이터 흐름’을 글로 쓴다</text>
+
+    <rect x="515" y="180" width="355" height="82" rx="10" fill="#ecfdf5" stroke="#10b981"/>
+    <circle cx="545" cy="210" r="17" fill="#10b981"/>
+    <text x="545" y="214" text-anchor="middle" font-size="11" font-weight="700" fill="#ffffff">G1</text>
+    <text x="575" y="206" font-size="13" font-weight="700" fill="#065f46">G1 · 재현</text>
+    <text x="575" y="226" font-size="11.5" fill="#047857">결정적 최소 재현 +</text>
+    <text x="575" y="244" font-size="11.5" fill="#047857">오라클 세운 뒤에 실험</text>
+
+    <rect x="515" y="272" width="355" height="82" rx="10" fill="#ecfdf5" stroke="#10b981"/>
+    <circle cx="545" cy="302" r="17" fill="#10b981"/>
+    <text x="545" y="306" text-anchor="middle" font-size="11" font-weight="700" fill="#ffffff">G2</text>
+    <text x="575" y="298" font-size="13" font-weight="700" fill="#065f46">G2 · 변경 통제</text>
+    <text x="575" y="318" font-size="11.5" fill="#047857">매 수정 전 배관(전달·링크·캐시)</text>
+    <text x="575" y="336" font-size="11.5" fill="#047857">+ 고정한 숨은 변수 기록</text>
+
+    <rect x="515" y="364" width="355" height="82" rx="10" fill="#ecfdf5" stroke="#10b981"/>
+    <circle cx="545" cy="394" r="17" fill="#10b981"/>
+    <text x="545" y="398" text-anchor="middle" font-size="11" font-weight="700" fill="#ffffff">G3</text>
+    <text x="575" y="390" font-size="13" font-weight="700" fill="#065f46">G3 · 고침 증명</text>
+    <text x="575" y="410" font-size="11.5" fill="#047857">배포 구성서 고장↔수정 순환</text>
+    <text x="575" y="428" font-size="11.5" fill="#047857">전엔 ‘해결’·머지 금지</text>
+  </g>
+</svg>
