@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 440" font-family="system-ui, -apple-system, 'Segoe UI', 'Apple SD Gothic Neo', sans-serif">
+  <defs>
+    <marker id="arRed2" markerWidth="11" markerHeight="11" refX="8" refY="3.5" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L9,3.5 L0,7 z" fill="#d64545"/>
+    </marker>
+    <marker id="arGrn2" markerWidth="11" markerHeight="11" refX="8" refY="3.5" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L9,3.5 L0,7 z" fill="#2e7d32"/>
+    </marker>
+  </defs>
+  <rect width="880" height="440" fill="#ffffff"/>
+  <line x1="440" y1="60" x2="440" y2="404" stroke="#d7dde3" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <text x="222" y="36" text-anchor="middle" font-size="17" font-weight="700" fill="#a02020">❌ 내 스코프에 선언</text>
+  <text x="658" y="36" text-anchor="middle" font-size="17" font-weight="700" fill="#15803d">✅ i18next 스코프를 다시 연다</text>
+
+  <!-- LEFT: wrong -->
+  <rect x="52" y="64" width="336" height="150" rx="11" fill="#f7f8fa" stroke="#9aa4ad" stroke-width="1.6"/>
+  <text x="70" y="86" font-size="12" font-weight="700" fill="#5f6b76">myfile.ts (내 모듈 스코프)</text>
+  <rect x="70" y="98" width="300" height="44" rx="7" fill="#eef2f5" stroke="#b7c0c8" stroke-width="1.3"/>
+  <text x="82" y="118" font-size="11" font-family="monospace" fill="#33414d">import { CustomTypeOptions } from 'i18next'</text>
+  <text x="82" y="134" font-size="11" font-family="monospace" fill="#33414d">interface CustomTypeOptions { ... }</text>
+  <text x="220" y="164" text-anchor="middle" font-size="11.5" font-family="monospace" fill="#8a3b3b">= myfile::CustomTypeOptions</text>
+  <text x="220" y="184" text-anchor="middle" font-size="11.5" fill="#a02020">i18next 것과 다른 스코프 → 남남</text>
+  <text x="220" y="203" text-anchor="middle" font-size="11.5" font-weight="700" fill="#a02020">병합 안 됨 (별개 인터페이스)</text>
+  <line x1="220" y1="214" x2="220" y2="250" stroke="#d64545" stroke-width="2" marker-end="url(#arRed2)"/>
+  <rect x="120" y="252" width="200" height="40" rx="8" fill="#fdecea" stroke="#d64545" stroke-width="1.8"/>
+  <text x="220" y="277" text-anchor="middle" font-size="12" font-weight="700" fill="#a02020">타입 안 꽂힘 💥</text>
+
+  <!-- RIGHT: correct -->
+  <rect x="492" y="64" width="336" height="150" rx="11" fill="#fbfdfb" stroke="#2e7d32" stroke-width="1.6"/>
+  <text x="510" y="86" font-size="12" font-weight="700" fill="#15803d">i18next.d.ts</text>
+  <rect x="510" y="98" width="300" height="26" rx="6" fill="#eef7ee" stroke="#93c79a" stroke-width="1.2"/>
+  <text x="522" y="115" font-size="11" font-family="monospace" fill="#166534">import type en from './en.json'  // 모듈化</text>
+  <!-- i18next scope box (reopened) -->
+  <rect x="510" y="130" width="300" height="72" rx="8" fill="#dcfce7" stroke="#16a34a" stroke-width="1.6" stroke-dasharray="5 3"/>
+  <text x="660" y="147" text-anchor="middle" font-size="10.5" font-weight="700" fill="#166534">declare module 'i18next' { … }  ← i18next 스코프</text>
+  <rect x="528" y="154" width="264" height="38" rx="6" fill="#ffffff" stroke="#16a34a" stroke-width="1.3"/>
+  <text x="660" y="170" text-anchor="middle" font-size="11" font-family="monospace" fill="#166534">interface CustomTypeOptions {</text>
+  <text x="660" y="185" text-anchor="middle" font-size="11" font-family="monospace" fill="#166534">  resources: typeof en }</text>
+  <line x1="660" y1="214" x2="660" y2="250" stroke="#2e7d32" stroke-width="2" marker-end="url(#arGrn2)"/>
+  <rect x="560" y="252" width="200" height="40" rx="8" fill="#e8f5e9" stroke="#2e7d32" stroke-width="1.8"/>
+  <text x="660" y="277" text-anchor="middle" font-size="12" font-weight="700" fill="#1b5e20">i18next 것과 병합 ✅</text>
+
+  <!-- footer -->
+  <rect x="52" y="322" width="776" height="64" rx="10" fill="#fbfcfd" stroke="#d7dde3" stroke-width="1.4"/>
+  <text x="440" y="347" text-anchor="middle" font-size="13" font-weight="700" fill="#5f6b76">핵심 — 타입을 "가져오는" 게 아니라, 남의 모듈 스코프로 "들어가는" 것</text>
+  <text x="440" y="371" text-anchor="middle" font-size="11.5" fill="#7a8590">top-level import는 CustomTypeOptions를 들여오려는 게 아니라 파일을 '모듈'로 만드는 스위치 (다음 그림)</text>
+</svg>

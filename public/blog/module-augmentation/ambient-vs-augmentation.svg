@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 400" font-family="system-ui, -apple-system, 'Segoe UI', 'Apple SD Gothic Neo', sans-serif">
+  <rect width="880" height="400" fill="#ffffff"/>
+  <text x="440" y="34" text-anchor="middle" font-size="17" font-weight="700" fill="#33414d">같은 문법 <tspan font-family="monospace" fill="#1f4e79">declare module 'i18next'</tspan> — 파일 종류가 의미를 가른다</text>
+
+  <!-- TOP: module → augmentation -->
+  <rect x="52" y="58" width="776" height="120" rx="11" fill="#eef7ee" stroke="#2e7d32" stroke-width="1.8"/>
+  <text x="72" y="82" font-size="13" font-weight="700" fill="#15803d">파일이 모듈 — top-level import/export 있음</text>
+  <rect x="72" y="92" width="470" height="72" rx="8" fill="#ffffff" stroke="#93c79a" stroke-width="1.4"/>
+  <text x="86" y="112" font-size="11.5" font-family="monospace" fill="#166534">import type en from './en.json'   <tspan fill="#2e7d32">// ← 이 한 줄이 스위치</tspan></text>
+  <text x="86" y="131" font-size="11.5" font-family="monospace" fill="#166534">declare module 'i18next' {</text>
+  <text x="86" y="150" font-size="11.5" font-family="monospace" fill="#166534">  interface CustomTypeOptions { … } }</text>
+  <text x="686" y="116" text-anchor="middle" font-size="14" font-weight="700" fill="#1b5e20">module augmentation</text>
+  <text x="686" y="140" text-anchor="middle" font-size="12" fill="#2e7d32">기존 i18next에 <tspan font-weight="700">덧붙임</tspan> ✅</text>
+
+  <!-- BOTTOM: script → ambient -->
+  <rect x="52" y="196" width="776" height="120" rx="11" fill="#fdecea" stroke="#d64545" stroke-width="1.8"/>
+  <text x="72" y="220" font-size="13" font-weight="700" fill="#a02020">파일이 스크립트 — top-level import/export 없음</text>
+  <rect x="72" y="230" width="470" height="72" rx="8" fill="#ffffff" stroke="#e3a3a3" stroke-width="1.4"/>
+  <text x="86" y="252" font-size="11.5" font-family="monospace" fill="#8a3b3b"><tspan fill="#b06a6a">// import 없음 → 스크립트</tspan></text>
+  <text x="86" y="271" font-size="11.5" font-family="monospace" fill="#8a3b3b">declare module 'i18next' {</text>
+  <text x="86" y="290" font-size="11.5" font-family="monospace" fill="#8a3b3b">  interface CustomTypeOptions { … } }</text>
+  <text x="686" y="254" text-anchor="middle" font-size="14" font-weight="700" fill="#a02020">ambient module 선언</text>
+  <text x="686" y="278" text-anchor="middle" font-size="12" fill="#a02020">"그런 모듈이 있다"고 <tspan font-weight="700">새로 선언</tspan> 💥</text>
+  <text x="686" y="297" text-anchor="middle" font-size="11" fill="#a02020">원본 i18next와 충돌</text>
+
+  <!-- footer -->
+  <text x="440" y="352" text-anchor="middle" font-size="12" fill="#5f6b76">i18next 공식 예제가 값도 안 쓰는 <tspan font-family="monospace" fill="#1f4e79">import 'i18next';</tspan> 한 줄을 두는 이유 = 파일을 모듈로 만들기 위해서</text>
+  <text x="440" y="374" text-anchor="middle" font-size="11" fill="#8a94a0">typeof import(…)로 인라인하며 그 import를 지우면 → 스크립트로 전락 → augmentation이 ambient로 뒤바뀐다</text>
+</svg>

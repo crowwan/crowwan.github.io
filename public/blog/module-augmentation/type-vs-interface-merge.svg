@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 430" font-family="system-ui, -apple-system, 'Segoe UI', 'Apple SD Gothic Neo', sans-serif">
+  <defs>
+    <marker id="arRed1" markerWidth="11" markerHeight="11" refX="8" refY="3.5" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L9,3.5 L0,7 z" fill="#d64545"/>
+    </marker>
+    <marker id="arGrn1" markerWidth="11" markerHeight="11" refX="8" refY="3.5" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L9,3.5 L0,7 z" fill="#2e7d32"/>
+    </marker>
+  </defs>
+  <rect width="880" height="430" fill="#ffffff"/>
+  <line x1="440" y1="60" x2="440" y2="400" stroke="#d7dde3" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <text x="222" y="36" text-anchor="middle" font-size="17" font-weight="700" fill="#a02020">type — 닫혀 있다</text>
+  <text x="658" y="36" text-anchor="middle" font-size="17" font-weight="700" fill="#15803d">interface — 열려 있다</text>
+
+  <!-- LEFT: type -->
+  <rect x="60" y="64" width="150" height="52" rx="9" fill="#f2f4f6" stroke="#9aa4ad" stroke-width="1.6"/>
+  <text x="135" y="86" text-anchor="middle" font-size="11.5" font-family="monospace" fill="#33414d">type Box = {</text>
+  <text x="135" y="104" text-anchor="middle" font-size="11.5" font-family="monospace" fill="#33414d">  width: number }</text>
+  <rect x="230" y="64" width="150" height="52" rx="9" fill="#f2f4f6" stroke="#9aa4ad" stroke-width="1.6"/>
+  <text x="305" y="86" text-anchor="middle" font-size="11.5" font-family="monospace" fill="#33414d">type Box = {</text>
+  <text x="305" y="104" text-anchor="middle" font-size="11.5" font-family="monospace" fill="#33414d">  height: number }</text>
+  <line x1="135" y1="116" x2="185" y2="196" stroke="#d64545" stroke-width="2" marker-end="url(#arRed1)"/>
+  <line x1="305" y1="116" x2="255" y2="196" stroke="#d64545" stroke-width="2" marker-end="url(#arRed1)"/>
+  <rect x="72" y="198" width="296" height="92" rx="10" fill="#fdecea" stroke="#d64545" stroke-width="2"/>
+  <text x="220" y="226" text-anchor="middle" font-size="13" font-weight="700" fill="#a02020">같은 이름을 두 번 = 충돌</text>
+  <text x="220" y="252" text-anchor="middle" font-size="12" font-family="monospace" fill="#a02020">Duplicate identifier 'Box'</text>
+  <text x="220" y="277" text-anchor="middle" font-size="11.5" fill="#a02020">별칭은 완결된 단일 표현식 — 다시 못 연다</text>
+
+  <!-- RIGHT: interface -->
+  <rect x="500" y="64" width="150" height="52" rx="9" fill="#eef7ee" stroke="#2e7d32" stroke-width="1.6"/>
+  <text x="575" y="86" text-anchor="middle" font-size="11.5" font-family="monospace" fill="#166534">interface Box {</text>
+  <text x="575" y="104" text-anchor="middle" font-size="11.5" font-family="monospace" fill="#166534">  width: number }</text>
+  <rect x="670" y="64" width="150" height="52" rx="9" fill="#eef7ee" stroke="#2e7d32" stroke-width="1.6"/>
+  <text x="745" y="86" text-anchor="middle" font-size="11.5" font-family="monospace" fill="#166534">interface Box {</text>
+  <text x="745" y="104" text-anchor="middle" font-size="11.5" font-family="monospace" fill="#166534">  height: number }</text>
+  <line x1="575" y1="116" x2="625" y2="196" stroke="#2e7d32" stroke-width="2" marker-end="url(#arGrn1)"/>
+  <line x1="745" y1="116" x2="695" y2="196" stroke="#2e7d32" stroke-width="2" marker-end="url(#arGrn1)"/>
+  <rect x="512" y="198" width="296" height="92" rx="10" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
+  <text x="660" y="226" text-anchor="middle" font-size="13" font-weight="700" fill="#1b5e20">✅ 하나로 병합 (declaration merging)</text>
+  <text x="660" y="252" text-anchor="middle" font-size="12" font-family="monospace" fill="#1b5e20">Box = { width; height }</text>
+  <text x="660" y="277" text-anchor="middle" font-size="11.5" fill="#2e7d32">확장 가능한 열린 계약 — 다시 열어 채운다</text>
+
+  <!-- rules footer -->
+  <rect x="72" y="316" width="736" height="66" rx="10" fill="#fbfcfd" stroke="#d7dde3" stroke-width="1.4"/>
+  <text x="440" y="340" text-anchor="middle" font-size="12.5" font-weight="700" fill="#5f6b76">병합 규칙 — 같은 이름 멤버</text>
+  <text x="200" y="366" text-anchor="middle" font-size="11.5" fill="#2e7d32">같은 타입 → OK (중복 제거)</text>
+  <text x="440" y="366" text-anchor="middle" font-size="11.5" fill="#a02020">다른 타입 → TS2717 (좁힘도 불가)</text>
+  <text x="690" y="366" text-anchor="middle" font-size="11.5" fill="#5f6b76">다른 이름 → 추가 · 메소드 → 오버로드</text>
+</svg>

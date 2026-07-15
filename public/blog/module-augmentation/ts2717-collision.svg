@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 420" font-family="system-ui, -apple-system, 'Segoe UI', 'Apple SD Gothic Neo', sans-serif">
+  <defs>
+    <marker id="arRed6" markerWidth="10" markerHeight="10" refX="8" refY="3.5" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L9,3.5 L0,7 z" fill="#d64545"/>
+    </marker>
+  </defs>
+  <rect width="880" height="420" fill="#ffffff"/>
+  <text x="440" y="32" text-anchor="middle" font-size="17" font-weight="700" fill="#33414d">오염의 두 얼굴 — 소비자가 자기 augmentation을 갖고 있느냐</text>
+
+  <!-- CASE 1: TS2717 -->
+  <rect x="40" y="52" width="400" height="300" rx="12" fill="#fdecea" stroke="#d64545" stroke-width="1.8"/>
+  <text x="240" y="76" text-anchor="middle" font-size="13.5" font-weight="700" fill="#a02020">① 소비자도 자기 augmentation 있음</text>
+  <text x="240" y="96" text-anchor="middle" font-size="11" fill="#a02020">한 program 안에 augmentation 둘</text>
+
+  <rect x="62" y="112" width="168" height="86" rx="8" fill="#ffffff" stroke="#e3a3a3" stroke-width="1.4"/>
+  <text x="146" y="132" text-anchor="middle" font-size="10.5" font-weight="700" fill="#8a3b3b">누출된 lib augmentation</text>
+  <text x="146" y="156" text-anchor="middle" font-size="11" font-family="monospace" fill="#8a3b3b">CustomTypeOptions {</text>
+  <text x="146" y="173" text-anchor="middle" font-size="11" font-family="monospace" fill="#8a3b3b">  resources: A }</text>
+  <rect x="250" y="112" width="168" height="86" rx="8" fill="#ffffff" stroke="#e3a3a3" stroke-width="1.4"/>
+  <text x="334" y="132" text-anchor="middle" font-size="10.5" font-weight="700" fill="#8a3b3b">app 자기 augmentation</text>
+  <text x="334" y="156" text-anchor="middle" font-size="11" font-family="monospace" fill="#8a3b3b">CustomTypeOptions {</text>
+  <text x="334" y="173" text-anchor="middle" font-size="11" font-family="monospace" fill="#8a3b3b">  resources: B }</text>
+
+  <line x1="146" y1="198" x2="220" y2="238" stroke="#d64545" stroke-width="2" marker-end="url(#arRed6)"/>
+  <line x1="334" y1="198" x2="260" y2="238" stroke="#d64545" stroke-width="2" marker-end="url(#arRed6)"/>
+  <rect x="80" y="242" width="320" height="42" rx="8" fill="#ffffff" stroke="#d64545" stroke-width="1.6"/>
+  <text x="240" y="260" text-anchor="middle" font-size="11" fill="#a02020">같은 프로퍼티 resources 를 다른 타입으로</text>
+  <text x="240" y="277" text-anchor="middle" font-size="11" font-weight="700" fill="#a02020">병합 규칙("같은 타입이어야") 위반</text>
+  <rect x="110" y="298" width="260" height="40" rx="8" fill="#d64545"/>
+  <text x="240" y="323" text-anchor="middle" font-size="13" font-weight="700" fill="#ffffff">TS2717 충돌</text>
+
+  <!-- CASE 2: TS2345 -->
+  <rect x="460" y="52" width="380" height="300" rx="12" fill="#fff6ea" stroke="#c9821f" stroke-width="1.8"/>
+  <text x="650" y="76" text-anchor="middle" font-size="13.5" font-weight="700" fill="#9a6410">② 소비자는 augmentation 없음</text>
+  <text x="650" y="96" text-anchor="middle" font-size="11" fill="#9a6410">충돌은 없지만 잘못 좁혀짐</text>
+
+  <rect x="482" y="112" width="336" height="72" rx="8" fill="#ffffff" stroke="#e0b877" stroke-width="1.4"/>
+  <text x="650" y="134" text-anchor="middle" font-size="10.5" fill="#9a6410">app의 i18next가 lib 키(A)로 augment됨</text>
+  <text x="650" y="160" text-anchor="middle" font-size="11" font-family="monospace" fill="#9a6410">t('app-own-key')</text>
+  <text x="650" y="177" text-anchor="middle" font-size="10" fill="#b5851f">app의 유효 키 — 하지만 lib 키 union엔 없음</text>
+
+  <line x1="650" y1="184" x2="650" y2="224" stroke="#c9821f" stroke-width="2" marker-end="url(#arRed6)"/>
+  <rect x="500" y="228" width="300" height="42" rx="8" fill="#ffffff" stroke="#c9821f" stroke-width="1.6"/>
+  <text x="650" y="246" text-anchor="middle" font-size="11" fill="#9a6410">string이 lib 키 union보다 넓어 거부</text>
+  <text x="650" y="263" text-anchor="middle" font-size="11" font-weight="700" fill="#9a6410">유효한 호출이 되레 깨짐</text>
+  <rect x="530" y="284" width="240" height="40" rx="8" fill="#c9821f"/>
+  <text x="650" y="309" text-anchor="middle" font-size="13" font-weight="700" fill="#ffffff">TS2345</text>
+
+  <!-- footer -->
+  <text x="440" y="384" text-anchor="middle" font-size="12" fill="#5f6b76">두 경우 다 뿌리는 하나 — 격리("각 program이 i18next를 자기 방식으로 본다")가 barrel 누출로 깨진 것</text>
+  <text x="440" y="406" text-anchor="middle" font-size="10.5" fill="#8a94a0">"마지막이 이긴다"가 아니다 — 병합은 오버라이드가 아니라 충돌/에러</text>
+</svg>
