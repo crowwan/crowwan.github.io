@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 440" font-family="system-ui, -apple-system, 'Segoe UI', 'Apple SD Gothic Neo', sans-serif">
+  <defs>
+    <marker id="p3" markerWidth="11" markerHeight="11" refX="8" refY="3.5" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L9,3.5 L0,7 z" fill="#8a92a0"/></marker>
+  </defs>
+  <rect width="920" height="440" fill="#ffffff"/>
+  <text x="460" y="34" text-anchor="middle" font-size="17" font-weight="700" fill="#33414d">ESM 로딩의 3단계</text>
+
+  <!-- Phase 1 -->
+  <rect x="28" y="58" width="272" height="286" rx="12" fill="#fbf7f0" stroke="#c07f28" stroke-width="1.6"/>
+  <text x="48" y="86" font-size="11" font-family="monospace" fill="#a5741f">PHASE 1</text>
+  <rect x="196" y="72" width="86" height="22" rx="11" fill="#fbf1e2" stroke="#c07f28" stroke-width="1.2"/>
+  <text x="239" y="87" text-anchor="middle" font-size="11" font-weight="700" fill="#8a5210">비동기</text>
+  <text x="48" y="112" font-size="15" font-weight="700" fill="#33414d">Construction</text>
+  <!-- mini graph -->
+  <circle cx="164" cy="150" r="15" fill="#f2f4f6" stroke="#9aa4ad" stroke-width="1.5"/><text x="164" y="154" text-anchor="middle" font-size="10" fill="#5f6b76">main</text>
+  <line x1="150" y1="163" x2="115" y2="188" stroke="#8a92a0" stroke-width="1.5" marker-end="url(#p3)"/>
+  <line x1="178" y1="163" x2="213" y2="188" stroke="#8a92a0" stroke-width="1.5" marker-end="url(#p3)"/>
+  <circle cx="104" cy="200" r="14" fill="#f2f4f6" stroke="#9aa4ad" stroke-width="1.5"/><text x="104" y="204" text-anchor="middle" font-size="10" fill="#5f6b76">a</text>
+  <circle cx="224" cy="200" r="14" fill="#f2f4f6" stroke="#9aa4ad" stroke-width="1.5"/><text x="224" y="204" text-anchor="middle" font-size="10" fill="#5f6b76">b</text>
+  <text x="164" y="252" text-anchor="middle" font-size="12" fill="#8a5210">진입 파일부터 import 따라</text>
+  <text x="164" y="272" text-anchor="middle" font-size="12" fill="#8a5210">모듈 그래프 구성</text>
+  <text x="164" y="300" text-anchor="middle" font-size="11.5" font-weight="700" fill="#a02020">코드는 아직 실행 안 함</text>
+  <text x="164" y="324" text-anchor="middle" font-size="11" fill="#a5741f">fetch I/O 논블로킹</text>
+
+  <!-- Phase 2 -->
+  <rect x="324" y="58" width="272" height="286" rx="12" fill="#f4faf5" stroke="#2e7d32" stroke-width="1.6"/>
+  <text x="344" y="86" font-size="11" font-family="monospace" fill="#2e7d32">PHASE 2</text>
+  <rect x="504" y="72" width="74" height="22" rx="11" fill="#e8f5e9" stroke="#2e7d32" stroke-width="1.2"/>
+  <text x="541" y="87" text-anchor="middle" font-size="11" font-weight="700" fill="#166534">동기</text>
+  <text x="344" y="112" font-size="15" font-weight="700" fill="#33414d">Instantiation</text>
+  <rect x="366" y="138" width="88" height="48" rx="8" fill="#eef7ee" stroke="#2e7d32" stroke-width="1.4"/>
+  <text x="410" y="166" text-anchor="middle" font-size="11" fill="#166534">export ▢</text>
+  <rect x="466" y="138" width="88" height="48" rx="8" fill="#eef7ee" stroke="#2e7d32" stroke-width="1.4"/>
+  <text x="510" y="166" text-anchor="middle" font-size="11" fill="#166534">import ▢</text>
+  <line x1="454" y1="162" x2="466" y2="162" stroke="#2e7d32" stroke-width="2.4"/>
+  <text x="460" y="212" text-anchor="middle" font-size="12" fill="#166534">export 마다 메모리 상자 할당</text>
+  <text x="460" y="232" text-anchor="middle" font-size="12" fill="#166534">import↔export 같은 상자로 연결</text>
+  <text x="460" y="262" text-anchor="middle" font-size="11.5" font-weight="700" fill="#1b5e20">= live binding</text>
+  <text x="460" y="290" text-anchor="middle" font-size="11.5" fill="#166534">아직 값은 안 채움</text>
+  <text x="460" y="318" text-anchor="middle" font-size="11" fill="#2e7d32">함수 선언은 여기서 초기화</text>
+
+  <!-- Phase 3 -->
+  <rect x="620" y="58" width="272" height="286" rx="12" fill="#f4faf5" stroke="#2e7d32" stroke-width="1.6"/>
+  <text x="640" y="86" font-size="11" font-family="monospace" fill="#2e7d32">PHASE 3</text>
+  <rect x="800" y="72" width="74" height="22" rx="11" fill="#e8f5e9" stroke="#2e7d32" stroke-width="1.2"/>
+  <text x="837" y="87" text-anchor="middle" font-size="11" font-weight="700" fill="#166534">동기</text>
+  <text x="640" y="112" font-size="15" font-weight="700" fill="#33414d">Evaluation</text>
+  <rect x="708" y="138" width="96" height="48" rx="8" fill="#0f7a63" stroke="#0f7a63" stroke-width="1.4"/>
+  <text x="756" y="160" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">count = 0</text>
+  <text x="756" y="176" text-anchor="middle" font-size="10" fill="#cdeee5">값이 채워짐</text>
+  <text x="756" y="216" text-anchor="middle" font-size="12" fill="#166534">top-level 코드 실행</text>
+  <text x="756" y="236" text-anchor="middle" font-size="12" fill="#166534">상자에 실제 값 채움</text>
+  <text x="756" y="266" text-anchor="middle" font-size="11.5" font-weight="700" fill="#1b5e20">모듈 맵 → 정확히 1회</text>
+  <text x="756" y="294" text-anchor="middle" font-size="11.5" fill="#166534">부작용도 한 번만</text>
+
+  <!-- footer -->
+  <rect x="28" y="360" width="864" height="60" rx="10" fill="#fbfcfd" stroke="#d7dde3" stroke-width="1.4"/>
+  <text x="460" y="386" text-anchor="middle" font-size="12.5" fill="#5f6b76">발견은 <tspan font-weight="700" fill="#33414d">진입 → leaf</tspan> 로 내려가고, 처리(2·3단계)는 <tspan font-weight="700" fill="#33414d">leaf → 진입</tspan> 으로 올라온다</text>
+  <text x="460" y="406" text-anchor="middle" font-size="12" fill="#2e7d32">연결(2단계)을 값 채움(3단계) 전에 전부 끝내기 때문에 — 순환 의존도 안전하게 동작한다</text>
+</svg>

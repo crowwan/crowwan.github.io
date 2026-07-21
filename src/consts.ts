@@ -10,6 +10,11 @@ export const GA_MEASUREMENT_ID = 'G-F8ZYMBESPD';
 // 키: 글 frontmatter 의 series 값(표시명, 한글). 값: URL slug 와 소개 문구.
 // 여기 등록된 시리즈만 /series 목록·개별 페이지가 생성된다.
 export const SERIES: Record<string, { slug: string; description: string }> = {
+	'모듈은 어떻게 번들이 되나': {
+		slug: 'modules-bundling',
+		description:
+			'브라우저는 원래 import를 몰랐다 — 모듈 시스템(격리·정적)부터 ESM 3단계 로딩, 번들러 런타임까지, 수백 개 파일이 하나로 합쳐져 브라우저에 도착하는 과정을 밑바닥부터 따라간 기록.',
+	},
 	'번역 키를 컴파일 타임에 잡기': {
 		slug: 'i18n-type-safe',
 		description:

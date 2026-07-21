@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 400" font-family="system-ui, -apple-system, 'Segoe UI', 'Apple SD Gothic Neo', sans-serif">
+  <defs>
+    <marker id="lbGrn" markerWidth="11" markerHeight="11" refX="8" refY="3.5" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L9,3.5 L0,7 z" fill="#2e7d32"/></marker>
+    <marker id="lbAmb" markerWidth="11" markerHeight="11" refX="8" refY="3.5" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L9,3.5 L0,7 z" fill="#c07f28"/></marker>
+  </defs>
+  <rect width="880" height="400" fill="#ffffff"/>
+  <text x="440" y="34" text-anchor="middle" font-size="17" font-weight="700" fill="#33414d">가져온 값의 평가 — ESM live binding vs CJS 값 복사</text>
+
+  <!-- ESM -->
+  <text x="52" y="78" font-size="14" font-weight="700" fill="#15803d">ESM · live binding</text>
+  <rect x="52" y="90" width="168" height="56" rx="9" fill="#eef7ee" stroke="#2e7d32" stroke-width="1.6"/>
+  <text x="136" y="113" text-anchor="middle" font-size="12" font-weight="700" fill="#166534">counter.js</text>
+  <text x="136" y="132" text-anchor="middle" font-size="11" font-family="monospace" fill="#166534">export let count</text>
+  <rect x="386" y="86" width="108" height="64" rx="10" fill="#ffffff" stroke="#2e7d32" stroke-width="2.4"/>
+  <text x="440" y="112" text-anchor="middle" font-size="20" font-weight="700" fill="#1b5e20">count</text>
+  <text x="440" y="134" text-anchor="middle" font-size="10.5" fill="#2e7d32">□ 한 개의 상자</text>
+  <rect x="660" y="90" width="168" height="56" rx="9" fill="#eef7ee" stroke="#2e7d32" stroke-width="1.6"/>
+  <text x="744" y="113" text-anchor="middle" font-size="12" font-weight="700" fill="#166534">main.js</text>
+  <text x="744" y="132" text-anchor="middle" font-size="11" font-family="monospace" fill="#166534">import {count}</text>
+  <line x1="220" y1="118" x2="384" y2="118" stroke="#2e7d32" stroke-width="2" marker-end="url(#lbGrn)"/>
+  <line x1="660" y1="118" x2="496" y2="118" stroke="#2e7d32" stroke-width="2" marker-end="url(#lbGrn)"/>
+  <text x="440" y="176" text-anchor="middle" font-size="12.5" fill="#1b5e20">둘 다 <tspan font-weight="700">같은 메모리</tspan>를 가리킨다 · inc() 하면 양쪽 모두 count = 1</text>
+
+  <line x1="52" y1="206" x2="828" y2="206" stroke="#d7dde3" stroke-width="1.4" stroke-dasharray="4 4"/>
+
+  <!-- CJS -->
+  <text x="52" y="244" font-size="14" font-weight="700" fill="#8a5210">CommonJS · 값 복사</text>
+  <rect x="52" y="256" width="168" height="56" rx="9" fill="#fbf1e2" stroke="#c07f28" stroke-width="1.6"/>
+  <text x="136" y="279" text-anchor="middle" font-size="12" font-weight="700" fill="#8a5210">counter.js</text>
+  <text x="136" y="298" text-anchor="middle" font-size="11" font-family="monospace" fill="#8a5210">count = 0</text>
+  <rect x="386" y="252" width="108" height="64" rx="10" fill="#fbf1e2" stroke="#c07f28" stroke-width="1.8"/>
+  <text x="440" y="278" text-anchor="middle" font-size="18" font-weight="700" fill="#8a5210">0</text>
+  <text x="440" y="300" text-anchor="middle" font-size="10.5" fill="#a5741f">스냅샷 (복사본)</text>
+  <rect x="660" y="256" width="168" height="56" rx="9" fill="#fbf1e2" stroke="#c07f28" stroke-width="1.6"/>
+  <text x="744" y="279" text-anchor="middle" font-size="12" font-weight="700" fill="#8a5210">main.js</text>
+  <text x="744" y="298" text-anchor="middle" font-size="11" font-family="monospace" fill="#8a5210">count === 0</text>
+  <line x1="220" y1="284" x2="384" y2="284" stroke="#c07f28" stroke-width="2" marker-end="url(#lbAmb)"/>
+  <text x="302" y="274" text-anchor="middle" font-size="10.5" fill="#a5741f">복사</text>
+  <line x1="494" y1="284" x2="658" y2="284" stroke="#c07f28" stroke-width="2" marker-end="url(#lbAmb)"/>
+  <text x="440" y="348" text-anchor="middle" font-size="12.5" fill="#8a5210">가져온 순간의 <tspan font-weight="700">스냅샷</tspan> · 원본이 나중에 바뀌어도 계속 0</text>
+  <text x="440" y="378" text-anchor="middle" font-size="11" fill="#5f6b76">(복사되는 건 바인딩이지 객체 자체가 아니다 — 객체 프로퍼티 변경은 양쪽에 보인다)</text>
+</svg>
