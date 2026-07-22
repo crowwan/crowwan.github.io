@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 330" font-family="system-ui, -apple-system, 'Segoe UI', 'Apple SD Gothic Neo', sans-serif">
+  <rect width="880" height="330" fill="#ffffff"/>
+  <text x="440" y="36" text-anchor="middle" font-size="17" font-weight="700" fill="#33414d">CommonJS의 '동적'은 기능마다 다르게 작동한다</text>
+
+  <!-- header -->
+  <text x="180" y="76" text-anchor="middle" font-size="12" font-weight="700" fill="#5f6b76">기능</text>
+  <text x="470" y="76" text-anchor="middle" font-size="12" font-weight="700" fill="#5f6b76">의존하는 성질</text>
+  <text x="762" y="76" text-anchor="middle" font-size="12" font-weight="700" fill="#5f6b76">CJS(동적)에서</text>
+
+  <!-- row 1: tree-shaking -->
+  <rect x="56" y="86" width="768" height="56" rx="10" fill="#fdf3f2" stroke="#e6b5b1" stroke-width="1.4"/>
+  <text x="180" y="119" text-anchor="middle" font-size="13" font-weight="700" fill="#33414d">tree-shaking</text>
+  <text x="470" y="119" text-anchor="middle" font-size="12" fill="#5f6b76">정적 <tspan font-weight="700" fill="#33414d">사용</tspan> 분석 — 무엇이 안 쓰이나</text>
+  <text x="762" y="119" text-anchor="middle" font-size="12.5" font-weight="700" fill="#a02020">❌ 거의 못 함</text>
+
+  <!-- row 2: code splitting -->
+  <rect x="56" y="150" width="768" height="56" rx="10" fill="#f2faf3" stroke="#a8d4ab" stroke-width="1.4"/>
+  <text x="180" y="183" text-anchor="middle" font-size="13" font-weight="700" fill="#33414d">code splitting</text>
+  <text x="470" y="183" text-anchor="middle" font-size="12" fill="#5f6b76">동적 import <tspan font-weight="700" fill="#33414d">경계</tspan> 표시 — 어디서 나누나</text>
+  <text x="762" y="183" text-anchor="middle" font-size="12.5" font-weight="700" fill="#166534">✅ 문제없이 됨</text>
+
+  <!-- row 3: circular -->
+  <rect x="56" y="214" width="768" height="56" rx="10" fill="#fdf7ef" stroke="#e6c898" stroke-width="1.4"/>
+  <text x="180" y="247" text-anchor="middle" font-size="13" font-weight="700" fill="#33414d">순환 의존</text>
+  <text x="470" y="247" text-anchor="middle" font-size="12" fill="#5f6b76">모듈 시스템 semantics</text>
+  <text x="762" y="247" text-anchor="middle" font-size="12.5" font-weight="700" fill="#8a5210">⚠️ 번들러가 재현만</text>
+
+  <!-- footer -->
+  <text x="440" y="300" text-anchor="middle" font-size="12.5" fill="#5f6b76">동적이라 <tspan font-weight="700" fill="#a02020">정말 못 하는 건 tree-shaking 하나</tspan> — 나머지 둘은 성질이 달라 영향도 다르다</text>
+</svg>

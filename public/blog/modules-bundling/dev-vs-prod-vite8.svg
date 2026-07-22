@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 360" font-family="system-ui, -apple-system, 'Segoe UI', 'Apple SD Gothic Neo', sans-serif">
+  <defs>
+    <marker id="v8Arr" markerWidth="12" markerHeight="12" refX="8" refY="3.5" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L9,3.5 L0,7 z" fill="#0f7a63"/></marker>
+  </defs>
+  <rect width="880" height="360" fill="#ffffff"/>
+  <text x="440" y="36" text-anchor="middle" font-size="17" font-weight="700" fill="#33414d">dev ≠ prod  →  Vite 8 이 두 엔진을 하나로</text>
+
+  <!-- Vite 7 -->
+  <text x="200" y="80" text-anchor="middle" font-size="13.5" font-weight="700" fill="#5f6b76">Vite 7 — 두 엔진</text>
+  <rect x="56" y="98" width="288" height="76" rx="10" fill="#fbf1e2" stroke="#c07f28" stroke-width="1.6"/>
+  <text x="200" y="124" text-anchor="middle" font-size="12.5" font-weight="700" fill="#8a5210">개발: esbuild + native ESM</text>
+  <text x="200" y="146" text-anchor="middle" font-size="11.5" fill="#8a5210">번들 안 함 · tree-shake 안 함</text>
+  <text x="200" y="163" text-anchor="middle" font-size="11" fill="#a5741f">목표: 즉각 시작 · HMR</text>
+  <rect x="56" y="184" width="288" height="76" rx="10" fill="#eef7ee" stroke="#2e7d32" stroke-width="1.6"/>
+  <text x="200" y="210" text-anchor="middle" font-size="12.5" font-weight="700" fill="#166534">빌드: Rollup</text>
+  <text x="200" y="232" text-anchor="middle" font-size="11.5" fill="#166534">번들 · 청크 분할 · tree-shake 함</text>
+  <text x="200" y="249" text-anchor="middle" font-size="11" fill="#2e7d32">목표: 최적화된 산출물</text>
+
+  <!-- arrow -->
+  <line x1="360" y1="179" x2="512" y2="179" stroke="#0f7a63" stroke-width="2.4" marker-end="url(#v8Arr)"/>
+  <text x="436" y="169" text-anchor="middle" font-size="11.5" fill="#0f7a63">통합</text>
+
+  <!-- Vite 8 -->
+  <text x="680" y="80" text-anchor="middle" font-size="13.5" font-weight="700" fill="#0a5745">Vite 8 — 단일 엔진</text>
+  <rect x="536" y="140" width="288" height="80" rx="10" fill="#0f7a63" stroke="#0f7a63" stroke-width="1.6"/>
+  <text x="680" y="172" text-anchor="middle" font-size="13" font-weight="700" fill="#ffffff">dev + build: Rolldown</text>
+  <text x="680" y="194" text-anchor="middle" font-size="11.5" fill="#cdeee5">Rust 기반 · Rollup 호환 API</text>
+  <text x="680" y="211" text-anchor="middle" font-size="11" fill="#bfe6db">pre-bundle 4.2s → 1.8s</text>
+
+  <!-- footer -->
+  <rect x="56" y="286" width="768" height="52" rx="10" fill="#fbfcfd" stroke="#d7dde3" stroke-width="1.3"/>
+  <text x="440" y="308" text-anchor="middle" font-size="12" fill="#5f6b76">두 엔진의 dev/prod 차이가 <tspan font-weight="700" fill="#33414d">"개발선 되는데 빌드는 깨짐"</tspan>의 5년짜리 원천이었다</text>
+  <text x="440" y="326" text-anchor="middle" font-size="11.5" fill="#0a5745">같은 엔진을 쓰니 그 간극이 사라진다 (2026, Vite 8)</text>
+</svg>

@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 340" font-family="system-ui, -apple-system, 'Segoe UI', 'Apple SD Gothic Neo', sans-serif">
+  <defs>
+    <marker id="tsArr" markerWidth="11" markerHeight="11" refX="8" refY="3.5" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L9,3.5 L0,7 z" fill="#8a92a0"/></marker>
+  </defs>
+  <rect width="880" height="340" fill="#ffffff"/>
+  <text x="440" y="36" text-anchor="middle" font-size="17" font-weight="700" fill="#33414d">tree-shaking — import된 것만 남는다</text>
+
+  <!-- utils.js -->
+  <rect x="56" y="70" width="236" height="204" rx="12" fill="#fbfcfd" stroke="#d7dde3" stroke-width="1.4"/>
+  <text x="174" y="96" text-anchor="middle" font-size="13" font-weight="700" fill="#33414d">utils.js</text>
+  <rect x="80" y="110" width="188" height="38" rx="8" fill="#eef7ee" stroke="#2e7d32" stroke-width="1.4"/>
+  <text x="174" y="134" text-anchor="middle" font-size="12" font-family="monospace" fill="#166534">export format()</text>
+  <rect x="80" y="156" width="188" height="38" rx="8" fill="#eef7ee" stroke="#2e7d32" stroke-width="1.4"/>
+  <text x="174" y="180" text-anchor="middle" font-size="12" font-family="monospace" fill="#166534">export parse()</text>
+  <rect x="80" y="202" width="188" height="46" rx="8" fill="#fdecea" stroke="#d64545" stroke-width="1.4"/>
+  <text x="174" y="223" text-anchor="middle" font-size="12" font-family="monospace" fill="#a02020">export legacy()</text>
+  <text x="174" y="239" text-anchor="middle" font-size="10.5" fill="#a02020">아무도 안 씀</text>
+
+  <!-- middle -->
+  <text x="440" y="150" text-anchor="middle" font-size="12" fill="#5f6b76">main.js 는</text>
+  <text x="440" y="170" text-anchor="middle" font-size="12.5" font-weight="700" font-family="monospace" fill="#33414d">format 만 import</text>
+  <line x1="330" y1="196" x2="548" y2="196" stroke="#8a92a0" stroke-width="2" marker-end="url(#tsArr)"/>
+  <text x="440" y="216" text-anchor="middle" font-size="11" fill="#5f6b76">tree-shake (번들 단계)</text>
+
+  <!-- bundle -->
+  <rect x="588" y="70" width="236" height="204" rx="12" fill="#fbfcfd" stroke="#d7dde3" stroke-width="1.4"/>
+  <text x="706" y="96" text-anchor="middle" font-size="13" font-weight="700" fill="#33414d">최종 번들</text>
+  <rect x="612" y="110" width="188" height="38" rx="8" fill="#0f7a63" stroke="#0f7a63" stroke-width="1.4"/>
+  <text x="706" y="134" text-anchor="middle" font-size="12" font-family="monospace" fill="#ffffff">format()  ✓</text>
+  <text x="706" y="196" text-anchor="middle" font-size="12.5" font-family="monospace" fill="#9aa4ad" text-decoration="line-through">parse · legacy</text>
+  <text x="706" y="220" text-anchor="middle" font-size="12" fill="#5f6b76">→ 제거됨</text>
+
+  <!-- footer -->
+  <rect x="56" y="292" width="768" height="34" rx="9" fill="#fbfcfd" stroke="#d7dde3" stroke-width="1.3"/>
+  <text x="440" y="314" text-anchor="middle" font-size="12" fill="#5f6b76">가능한 이유 — ESM이 <tspan font-weight="700" fill="#166534">정적</tspan>이라, 코드를 실행하지 않고도 무엇이 import되는지 알기 때문</text>
+</svg>
