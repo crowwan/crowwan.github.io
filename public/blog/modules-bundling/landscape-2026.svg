@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 500" font-family="system-ui, -apple-system, 'Segoe UI', 'Apple SD Gothic Neo', sans-serif">
+  <rect width="900" height="500" fill="#ffffff"/>
+  <text x="450" y="34" text-anchor="middle" font-size="17" font-weight="700" fill="#33414d">2026년 번들러 지형 — 출발점이 선택을 정한다</text>
+  <text x="450" y="56" text-anchor="middle" font-size="11.5" fill="#8a92a0">성능 전쟁은 사실상 끝났다. 이제 벤치마크가 아니라 "네가 어디서 시작하느냐"가 도구를 정한다</text>
+
+  <!-- header -->
+  <rect x="34" y="72" width="832" height="34" rx="7" fill="#eef1f3" stroke="#d7dde3" stroke-width="1.2"/>
+  <text x="52" y="94" font-size="11.5" font-weight="700" fill="#5f6b76">도구</text>
+  <text x="188" y="94" font-size="11.5" font-weight="700" fill="#5f6b76">언어</text>
+  <text x="262" y="94" font-size="11.5" font-weight="700" fill="#5f6b76">정체</text>
+  <text x="500" y="94" font-size="11.5" font-weight="700" fill="#5f6b76">언제 고르나</text>
+
+  <!-- rows -->
+  <!-- Vite -->
+  <rect x="34" y="110" width="832" height="46" rx="7" fill="#f0faf6" stroke="#0f7a63" stroke-width="1.3"/>
+  <text x="52" y="138" font-size="13" font-weight="700" fill="#0a5745">Vite 8</text>
+  <text x="188" y="138" font-size="11" font-family="monospace" fill="#0a5745">Rust</text>
+  <text x="262" y="138" font-size="11.5" fill="#33414d">신규 프로젝트 기본값</text>
+  <text x="500" y="138" font-size="11.5" fill="#5f6b76">새 앱 — React·Vue·Svelte·Solid·Astro</text>
+
+  <!-- Rspack -->
+  <rect x="34" y="160" width="832" height="46" rx="7" fill="#f4faf5" stroke="#cfe6d0" stroke-width="1.2"/>
+  <text x="52" y="188" font-size="13" font-weight="700" fill="#166534">Rspack</text>
+  <text x="188" y="188" font-size="11" font-family="monospace" fill="#166534">Rust</text>
+  <text x="262" y="188" font-size="11.5" fill="#33414d">webpack drop-in 대체</text>
+  <text x="500" y="188" font-size="11.5" fill="#5f6b76">기존 webpack 앱을 최소 변경으로 가속</text>
+
+  <!-- Turbopack -->
+  <rect x="34" y="210" width="832" height="46" rx="7" fill="#f4faf5" stroke="#cfe6d0" stroke-width="1.2"/>
+  <text x="52" y="238" font-size="13" font-weight="700" fill="#166534">Turbopack</text>
+  <text x="188" y="238" font-size="11" font-family="monospace" fill="#166534">Rust</text>
+  <text x="262" y="238" font-size="11.5" fill="#33414d">Next.js 전용</text>
+  <text x="500" y="238" font-size="11.5" fill="#5f6b76">Next.js에 올인 (prod 빌드는 아직 experimental)</text>
+
+  <!-- Rolldown -->
+  <rect x="34" y="260" width="832" height="46" rx="7" fill="#f4faf5" stroke="#cfe6d0" stroke-width="1.2"/>
+  <text x="52" y="288" font-size="13" font-weight="700" fill="#166534">Rolldown</text>
+  <text x="188" y="288" font-size="11" font-family="monospace" fill="#166534">Rust</text>
+  <text x="262" y="288" font-size="11.5" fill="#33414d">Rollup 후계</text>
+  <text x="500" y="288" font-size="11.5" fill="#5f6b76">Vite의 미래 엔진 / 라이브러리</text>
+
+  <!-- Rollup -->
+  <rect x="34" y="310" width="832" height="46" rx="7" fill="#fbf7f0" stroke="#e8d6b8" stroke-width="1.2"/>
+  <text x="52" y="338" font-size="13" font-weight="700" fill="#8a5210">Rollup</text>
+  <text x="188" y="338" font-size="11" font-family="monospace" fill="#8a5210">JS</text>
+  <text x="262" y="338" font-size="11.5" fill="#33414d">라이브러리 번들러</text>
+  <text x="500" y="338" font-size="11.5" fill="#5f6b76">npm 패키지 · 디자인 시스템</text>
+
+  <!-- esbuild -->
+  <rect x="34" y="360" width="832" height="46" rx="7" fill="#fbf7f0" stroke="#e8d6b8" stroke-width="1.2"/>
+  <text x="52" y="388" font-size="13" font-weight="700" fill="#8a5210">esbuild</text>
+  <text x="188" y="388" font-size="11" font-family="monospace" fill="#8a5210">Go</text>
+  <text x="262" y="388" font-size="11.5" fill="#33414d">초고속 변환 엔진</text>
+  <text x="500" y="388" font-size="11.5" fill="#5f6b76">CI 변환 스텝 / 다른 도구의 하부</text>
+
+  <!-- webpack -->
+  <rect x="34" y="410" width="832" height="46" rx="7" fill="#f7f8f9" stroke="#dfe3e7" stroke-width="1.2"/>
+  <text x="52" y="438" font-size="13" font-weight="700" fill="#9aa4ad">webpack</text>
+  <text x="188" y="438" font-size="11" font-family="monospace" fill="#9aa4ad">JS</text>
+  <text x="262" y="438" font-size="11.5" fill="#5f6b76">1세대 표준</text>
+  <text x="500" y="438" font-size="11.5" fill="#8a92a0">레거시 유지보수</text>
+
+  <!-- footer -->
+  <text x="450" y="482" text-anchor="middle" font-size="11.5" fill="#5f6b76">한 축으로: 앱이냐 라이브러리냐 · 신규냐 마이그레이션이냐 · 최종 번들러냐 하부 변환 엔진이냐</text>
+</svg>

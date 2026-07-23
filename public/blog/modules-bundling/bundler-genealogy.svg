@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 560" font-family="system-ui, -apple-system, 'Segoe UI', 'Apple SD Gothic Neo', sans-serif">
+  <rect width="900" height="560" fill="#ffffff"/>
+  <text x="450" y="36" text-anchor="middle" font-size="17" font-weight="700" fill="#33414d">번들러 계보 — 세대마다 푼 문제</text>
+
+  <!-- card 1: Browserify -->
+  <rect x="40" y="58" width="400" height="146" rx="11" fill="#f7f8f9" stroke="#9aa4ad" stroke-width="1.6"/>
+  <text x="62" y="88" font-size="15" font-weight="700" fill="#33414d">Browserify</text>
+  <rect x="352" y="70" width="66" height="22" rx="11" fill="#eef1f3" stroke="#9aa4ad" stroke-width="1.1"/><text x="385" y="85" text-anchor="middle" font-size="11" font-weight="700" fill="#5f6b76">2013</text>
+  <text x="62" y="116" font-size="12" fill="#5f6b76"><tspan font-weight="700" fill="#a02020">문제</tspan>  CommonJS require가 브라우저에서 안 돎</text>
+  <text x="62" y="140" font-size="12" fill="#5f6b76"><tspan font-weight="700" fill="#166534">해법</tspan>  require 그래프를 순회해 하나의 .js로</text>
+  <text x="62" y="176" font-size="11" fill="#8a92a0">JS·CJS만. 자산(CSS·이미지)은 관심 밖 →</text>
+
+  <!-- card 2: Rollup -->
+  <rect x="460" y="58" width="400" height="146" rx="11" fill="#fbf7f0" stroke="#c07f28" stroke-width="1.6"/>
+  <text x="482" y="88" font-size="15" font-weight="700" fill="#33414d">Rollup</text>
+  <rect x="772" y="70" width="66" height="22" rx="11" fill="#fbf1e2" stroke="#c07f28" stroke-width="1.1"/><text x="805" y="85" text-anchor="middle" font-size="11" font-weight="700" fill="#8a5210">2014~</text>
+  <text x="482" y="116" font-size="12" fill="#8a5210"><tspan font-weight="700" fill="#a02020">문제</tspan>  번들이 wrapper로 부풀고 모바일이 느림</text>
+  <text x="482" y="140" font-size="12" fill="#8a5210"><tspan font-weight="700" fill="#166534">해법</tspan>  ESM tree-shaking + flat output</text>
+  <text x="482" y="176" font-size="11" fill="#a5741f">라이브러리 저자의 표준 — 지금도 유효</text>
+
+  <!-- card 3: webpack -->
+  <rect x="40" y="218" width="400" height="146" rx="11" fill="#fbf7f0" stroke="#c07f28" stroke-width="1.6"/>
+  <text x="62" y="248" font-size="15" font-weight="700" fill="#33414d">webpack</text>
+  <rect x="352" y="230" width="66" height="22" rx="11" fill="#fbf1e2" stroke="#c07f28" stroke-width="1.1"/><text x="385" y="245" text-anchor="middle" font-size="11" font-weight="700" fill="#8a5210">2015</text>
+  <text x="62" y="276" font-size="12" fill="#8a5210"><tspan font-weight="700" fill="#a02020">문제</tspan>  JS·CSS·이미지 전부를 의존성으로, 분할·HMR</text>
+  <text x="62" y="300" font-size="12" fill="#8a5210"><tspan font-weight="700" fill="#166534">해법</tspan>  loader+plugin+자산 그래프+code split+HMR</text>
+  <text x="62" y="336" font-size="11" fill="#a5741f">앱의 표준이 됨. 단 JS로 짜여 대형 앱에서 느림 →</text>
+
+  <!-- card 4: esbuild -->
+  <rect x="460" y="218" width="400" height="146" rx="11" fill="#f4faf5" stroke="#2e7d32" stroke-width="1.6"/>
+  <text x="482" y="248" font-size="15" font-weight="700" fill="#33414d">esbuild</text>
+  <rect x="772" y="230" width="66" height="22" rx="11" fill="#e8f5e9" stroke="#2e7d32" stroke-width="1.1"/><text x="805" y="245" text-anchor="middle" font-size="11" font-weight="700" fill="#166534">2020</text>
+  <text x="482" y="276" font-size="12" fill="#166534"><tspan font-weight="700" fill="#a02020">문제</tspan>  번들러가 JS로 짜여 근본적으로 느림</text>
+  <text x="482" y="300" font-size="12" fill="#166534"><tspan font-weight="700" fill="#166534">해법</tspan>  Go 네이티브 · 병렬 · single-pass → 10~100x</text>
+  <text x="482" y="336" font-size="11" fill="#2e7d32">최종 번들러보다 변환 엔진·하부 도구로 자리잡음</text>
+
+  <!-- card 5: Vite -->
+  <rect x="40" y="378" width="400" height="146" rx="11" fill="#f4faf5" stroke="#2e7d32" stroke-width="1.6"/>
+  <text x="62" y="408" font-size="15" font-weight="700" fill="#33414d">Vite</text>
+  <rect x="352" y="390" width="66" height="22" rx="11" fill="#e8f5e9" stroke="#2e7d32" stroke-width="1.1"/><text x="385" y="405" text-anchor="middle" font-size="11" font-weight="700" fill="#166534">2020</text>
+  <text x="62" y="436" font-size="12" fill="#166534"><tspan font-weight="700" fill="#a02020">문제</tspan>  앱 전체를 미리 번들해야 dev 서버가 뜸</text>
+  <text x="62" y="460" font-size="12" fill="#166534"><tspan font-weight="700" fill="#166534">해법</tspan>  dev는 번들 안 함 — native ESM으로 필요한 것만</text>
+  <text x="62" y="496" font-size="11" fill="#2e7d32">단, dev=esbuild / prod=Rollup 두 엔진 → dev≠prod →</text>
+
+  <!-- card 6: Rust gen -->
+  <rect x="460" y="378" width="400" height="146" rx="11" fill="#0f7a63" stroke="#0f7a63" stroke-width="1.6"/>
+  <text x="482" y="408" font-size="15" font-weight="700" fill="#ffffff">Rust 세대</text>
+  <rect x="772" y="390" width="66" height="22" rx="11" fill="#0a5745" stroke="#cdeee5" stroke-width="1"/><text x="805" y="405" text-anchor="middle" font-size="11" font-weight="700" fill="#ffffff">2023~</text>
+  <text x="482" y="436" font-size="12" fill="#cdeee5"><tspan font-weight="700" fill="#ffe0e0">남은 문제</tspan>  옮기는 비용 · dev≠prod 간극</text>
+  <text x="482" y="461" font-size="11.5" fill="#ffffff"><tspan font-weight="700">Rspack</tspan> webpack 호환 · <tspan font-weight="700">Turbopack</tspan> Next 전용</text>
+  <text x="482" y="481" font-size="11.5" fill="#ffffff"><tspan font-weight="700">Rolldown</tspan> Vite의 dev·prod를 한 엔진으로 (Vite 8)</text>
+  <text x="482" y="505" font-size="11" fill="#bfe6db">2026 — "dev와 prod를 같은 네이티브 엔진 하나로" 수렴</text>
+</svg>

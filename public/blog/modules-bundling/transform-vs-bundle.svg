@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 320" font-family="system-ui, -apple-system, 'Segoe UI', 'Apple SD Gothic Neo', sans-serif">
+  <defs>
+    <marker id="tb" markerWidth="12" markerHeight="12" refX="8" refY="3.5" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L9,3.5 L0,7 z" fill="#8a92a0"/></marker>
+  </defs>
+  <rect width="900" height="320" fill="#ffffff"/>
+  <text x="450" y="36" text-anchor="middle" font-size="17" font-weight="700" fill="#33414d">번들러가 하는 두 가지 일 — 변환과 번들</text>
+
+  <!-- source -->
+  <text x="115" y="76" text-anchor="middle" font-size="12.5" font-weight="700" fill="#8a5210">소스 모듈</text>
+  <rect x="40" y="86" width="150" height="150" rx="10" fill="#fbf7f0" stroke="#c07f28" stroke-width="1.6"/>
+  <rect x="58" y="104" width="114" height="28" rx="6" fill="#fbf1e2" stroke="#c07f28" stroke-width="1.1"/><text x="115" y="123" text-anchor="middle" font-size="11.5" font-family="monospace" fill="#8a5210">Button.tsx</text>
+  <rect x="58" y="140" width="114" height="28" rx="6" fill="#fbf1e2" stroke="#c07f28" stroke-width="1.1"/><text x="115" y="159" text-anchor="middle" font-size="11.5" font-family="monospace" fill="#8a5210">utils.ts</text>
+  <rect x="58" y="176" width="114" height="28" rx="6" fill="#fbf1e2" stroke="#c07f28" stroke-width="1.1"/><text x="115" y="195" text-anchor="middle" font-size="11.5" font-family="monospace" fill="#8a5210">style.css</text>
+  <text x="115" y="224" text-anchor="middle" font-size="11" fill="#a02020">브라우저가 모름</text>
+
+  <line x1="196" y1="161" x2="240" y2="161" stroke="#8a92a0" stroke-width="2.2" marker-end="url(#tb)"/>
+
+  <!-- transform -->
+  <rect x="246" y="96" width="180" height="130" rx="10" fill="#f4faf5" stroke="#2e7d32" stroke-width="1.6"/>
+  <text x="336" y="124" text-anchor="middle" font-size="13.5" font-weight="700" fill="#166534">① 변환 (transform)</text>
+  <text x="336" y="150" text-anchor="middle" font-size="12" fill="#166534">TS → JS · JSX → JS</text>
+  <text x="336" y="170" text-anchor="middle" font-size="12" fill="#166534">최신 문법 → 구형</text>
+  <text x="336" y="198" text-anchor="middle" font-size="11" fill="#2e7d32">브라우저가 아는 것으로</text>
+  <text x="336" y="216" text-anchor="middle" font-size="10.5" font-family="monospace" fill="#5f6b76">esbuild · SWC · Oxc</text>
+
+  <line x1="432" y1="161" x2="476" y2="161" stroke="#8a92a0" stroke-width="2.2" marker-end="url(#tb)"/>
+
+  <!-- bundle -->
+  <rect x="482" y="96" width="180" height="130" rx="10" fill="#f4faf5" stroke="#2e7d32" stroke-width="1.6"/>
+  <text x="572" y="124" text-anchor="middle" font-size="13.5" font-weight="700" fill="#166534">② 번들 (bundle)</text>
+  <text x="572" y="150" text-anchor="middle" font-size="12" fill="#166534">그래프로 엮어 합침</text>
+  <text x="572" y="170" text-anchor="middle" font-size="12" fill="#166534">tree-shake · 청크 분할</text>
+  <text x="572" y="198" text-anchor="middle" font-size="11" fill="#2e7d32">요청 폭포를 없앰</text>
+  <text x="572" y="216" text-anchor="middle" font-size="10.5" font-family="monospace" fill="#5f6b76">Rollup · Rolldown · webpack</text>
+
+  <line x1="668" y1="161" x2="712" y2="161" stroke="#0f7a63" stroke-width="2.4" marker-end="url(#tb)"/>
+
+  <!-- output -->
+  <text x="805" y="76" text-anchor="middle" font-size="12.5" font-weight="700" fill="#0a5745">산출물</text>
+  <rect x="718" y="110" width="150" height="102" rx="10" fill="#0f7a63" stroke="#0f7a63" stroke-width="1.6"/>
+  <text x="793" y="150" text-anchor="middle" font-size="12.5" font-weight="700" font-family="monospace" fill="#ffffff">bundle.js</text>
+  <text x="793" y="174" text-anchor="middle" font-size="11.5" font-family="monospace" fill="#cdeee5">chunk-a.js</text>
+  <text x="793" y="194" text-anchor="middle" font-size="10.5" fill="#bfe6db">브라우저가 실행</text>
+
+  <!-- footer -->
+  <rect x="40" y="256" width="828" height="46" rx="10" fill="#fbfcfd" stroke="#d7dde3" stroke-width="1.3"/>
+  <text x="450" y="284" text-anchor="middle" font-size="12" fill="#5f6b76">도구들의 차이는 <tspan font-weight="700" fill="#33414d">이 둘 중 무엇을, 무슨 언어로, 언제(dev냐 prod냐) 하느냐</tspan>의 조합이다</text>
+</svg>
