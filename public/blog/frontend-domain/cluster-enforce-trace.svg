@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 500" font-family="system-ui, -apple-system, 'Segoe UI', 'Apple SD Gothic Neo', sans-serif">
+  <defs>
+    <marker id="ce" markerWidth="12" markerHeight="12" refX="8" refY="3.5" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L9,3.5 L0,7 z" fill="#8a92a0"/></marker>
+  </defs>
+  <rect width="900" height="500" fill="#ffffff"/>
+  <text x="450" y="34" text-anchor="middle" font-size="17" font-weight="700" fill="#33414d">모으는 것만으로는 안 된다 — 뭉침 · 강제 · 추적</text>
+  <text x="450" y="56" text-anchor="middle" font-size="11.5" fill="#8a92a0">단일 정본(SoT)은 <tspan font-weight="700" fill="#a02020">중복</tspan>을 막지만 <tspan font-weight="700" fill="#a02020">누락</tspan>은 막지 못한다</text>
+
+  <!-- failure trace -->
+  <rect x="40" y="82" width="190" height="58" rx="6" fill="#f0faf6" stroke="#0f7a63" stroke-width="1.3"/>
+  <text x="135" y="106" text-anchor="middle" font-size="11.5" font-weight="700" fill="#0a5745">번역 11개 언어 완비</text>
+  <text x="135" y="126" text-anchor="middle" font-size="10.5" fill="#166534">정본은 완벽했다</text>
+
+  <rect x="246" y="82" width="190" height="58" rx="6" fill="#fbf1e2" stroke="#c07f28" stroke-width="1.3"/>
+  <text x="341" y="106" text-anchor="middle" font-size="11.5" font-weight="700" fill="#8a5210">훅을 인자 없이 호출</text>
+  <text x="341" y="126" text-anchor="middle" font-size="10.5" font-family="monospace" fill="#a5741f">useTranslation()</text>
+
+  <rect x="452" y="82" width="190" height="58" rx="6" fill="#fdecea" stroke="#d64545" stroke-width="1.3"/>
+  <text x="547" y="106" text-anchor="middle" font-size="11.5" font-weight="700" fill="#a02020">규칙을 아예 안 탐</text>
+  <text x="547" y="126" text-anchor="middle" font-size="10.5" fill="#d64545">키를 못 찾음</text>
+
+  <rect x="658" y="82" width="202" height="58" rx="6" fill="#fdecea" stroke="#d64545" stroke-width="1.5"/>
+  <text x="759" y="106" text-anchor="middle" font-size="11.5" font-weight="700" fill="#a02020">영어로 고정 = 버그</text>
+  <text x="759" y="126" text-anchor="middle" font-size="10.5" fill="#d64545">기본값으로 떨어짐</text>
+
+  <path d="M230,111 L244,111" stroke="#8a92a0" stroke-width="1.4" marker-end="url(#ce)"/>
+  <path d="M436,111 L450,111" stroke="#8a92a0" stroke-width="1.4" marker-end="url(#ce)"/>
+  <path d="M642,111 L656,111" stroke="#8a92a0" stroke-width="1.4" marker-end="url(#ce)"/>
+
+  <text x="450" y="168" text-anchor="middle" font-size="12" font-weight="700" fill="#a02020">모아두는 것과 그것이 실제로 불리는 것은 별개 문제다</text>
+
+  <!-- three stages -->
+  <rect x="40" y="188" width="270" height="196" rx="7" fill="#f2f4f6" stroke="#d7dde3" stroke-width="1.2"/>
+  <text x="60" y="214" font-size="13" font-weight="700" fill="#5f6b76">&#9312; 뭉침</text>
+  <text x="60" y="236" font-size="11.5" fill="#33414d">발견 가능한가</text>
+  <path d="M60,250 L290,250" stroke="#d7dde3" stroke-width="1"/>
+  <text x="60" y="272" font-size="10.5" font-weight="700" fill="#8a92a0">막는 것</text>
+  <text x="60" y="291" font-size="11" fill="#5f6b76">규칙의 존재 자체를</text>
+  <text x="60" y="308" font-size="11" fill="#5f6b76">모르는 상황</text>
+  <text x="60" y="336" font-size="10.5" font-weight="700" fill="#8a92a0">수단</text>
+  <text x="60" y="355" font-size="11" fill="#5f6b76">규칙을 기능 옆에 둔다</text>
+  <text x="60" y="372" font-size="10.5" fill="#a02020">여기까지가 SoT의 몫</text>
+
+  <rect x="320" y="188" width="270" height="196" rx="7" fill="#f0faf6" stroke="#0f7a63" stroke-width="1.8"/>
+  <text x="340" y="214" font-size="13" font-weight="700" fill="#0a5745">&#9313; 강제 &#9733;</text>
+  <text x="340" y="236" font-size="11.5" font-weight="700" fill="#166534">안 부르면 못 만드나</text>
+  <path d="M340,250 L570,250" stroke="#cfe6d0" stroke-width="1"/>
+  <text x="340" y="272" font-size="10.5" font-weight="700" fill="#0f7a63">막는 것</text>
+  <text x="340" y="291" font-size="11" font-weight="700" fill="#0a5745">누락 — 위 사례가</text>
+  <text x="340" y="308" font-size="11" font-weight="700" fill="#0a5745">여기서 걸린다</text>
+  <text x="340" y="336" font-size="10.5" font-weight="700" fill="#0f7a63">수단</text>
+  <text x="340" y="355" font-size="11" fill="#5f6b76">진입점 단일화 · 타입으로</text>
+  <text x="340" y="372" font-size="11" fill="#5f6b76">잘못된 상태를 표현 불가로</text>
+
+  <rect x="600" y="188" width="260" height="196" rx="7" fill="#f2f4f6" stroke="#d7dde3" stroke-width="1.2"/>
+  <text x="620" y="214" font-size="13" font-weight="700" fill="#5f6b76">&#9314; 추적</text>
+  <text x="620" y="236" font-size="11.5" fill="#33414d">안 쓰는 곳을 찾을 수 있나</text>
+  <path d="M620,250 L840,250" stroke="#d7dde3" stroke-width="1"/>
+  <text x="620" y="272" font-size="10.5" font-weight="700" fill="#8a92a0">막는 것</text>
+  <text x="620" y="291" font-size="11" fill="#5f6b76">이미 새어나간 것을</text>
+  <text x="620" y="308" font-size="11" fill="#5f6b76">발견할 수단이 없음</text>
+  <text x="620" y="336" font-size="10.5" font-weight="700" fill="#8a92a0">수단</text>
+  <text x="620" y="355" font-size="11" fill="#5f6b76">명세 앵커 + 감사로</text>
+  <text x="620" y="372" font-size="11" fill="#5f6b76">"대상인데 안 씀" 색출</text>
+
+  <!-- bottom -->
+  <rect x="40" y="412" width="820" height="62" rx="7" fill="#fbf1e2" stroke="#c07f28" stroke-width="1.2"/>
+  <text x="58" y="434" font-size="11.5" font-weight="700" fill="#8a5210">대부분의 DDD 글은 &#9312;에서 멈춘다. 실제로 버그를 막는 건 &#9313;다.</text>
+  <text x="58" y="456" font-size="11.5" fill="#5f6b76">그리고 &#9313;는 "무엇이 무엇을 부를 수 있나"를 정하는 일 &#8212; <tspan font-weight="700" fill="#8a5210">앞에서 DDD와 분리했던 클린 아키텍처가 여기서 다시 합류한다.</tspan></text>
+</svg>

@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 470" font-family="system-ui, -apple-system, 'Segoe UI', 'Apple SD Gothic Neo', sans-serif">
+  <defs>
+    <marker id="rd" markerWidth="12" markerHeight="12" refX="8" refY="3.5" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L9,3.5 L0,7 z" fill="#8a92a0"/></marker>
+  </defs>
+  <rect width="900" height="470" fill="#ffffff"/>
+  <text x="450" y="34" text-anchor="middle" font-size="17" font-weight="700" fill="#33414d">뷰 규칙은 두 층이다 — 표현 결정과 표현 수단</text>
+  <text x="450" y="56" text-anchor="middle" font-size="11.5" fill="#8a92a0">(A)는 비즈니스 규칙이고 (B)는 아니다. 이 선을 못 그으면 "그럼 CSS도 도메인이냐"에 무너진다</text>
+
+  <!-- pipeline -->
+  <rect x="40" y="90" width="170" height="70" rx="7" fill="#f2f4f6" stroke="#d7dde3" stroke-width="1.2"/>
+  <text x="125" y="116" text-anchor="middle" font-size="12" font-weight="700" fill="#5f6b76">서버가 준 상태</text>
+  <text x="125" y="140" text-anchor="middle" font-size="12" font-family="monospace" fill="#33414d">REJECTED</text>
+
+  <rect x="248" y="90" width="200" height="70" rx="7" fill="#f0faf6" stroke="#0f7a63" stroke-width="1.5"/>
+  <text x="348" y="112" text-anchor="middle" font-size="12" font-weight="700" fill="#0a5745">(A) 표현 결정</text>
+  <text x="348" y="132" text-anchor="middle" font-size="10.5" font-family="monospace" fill="#166534">labelKey: 'status.rejected'</text>
+  <text x="348" y="150" text-anchor="middle" font-size="10.5" font-family="monospace" fill="#166534">tone: 'warning'</text>
+
+  <rect x="486" y="90" width="200" height="70" rx="7" fill="#fbf1e2" stroke="#c07f28" stroke-width="1.2"/>
+  <text x="586" y="112" text-anchor="middle" font-size="12" font-weight="700" fill="#8a5210">(B) 표현 수단</text>
+  <text x="586" y="132" text-anchor="middle" font-size="10.5" fill="#a5741f">Badge냐 Chip이냐</text>
+  <text x="586" y="150" text-anchor="middle" font-size="10.5" fill="#a5741f">정확한 색값 · 여백 · 모션</text>
+
+  <rect x="724" y="90" width="136" height="70" rx="7" fill="#f2f4f6" stroke="#d7dde3" stroke-width="1.2"/>
+  <text x="792" y="116" text-anchor="middle" font-size="12" font-weight="700" fill="#5f6b76">화면</text>
+  <text x="792" y="141" text-anchor="middle" font-size="12" fill="#a02020">[ 반려 ]</text>
+
+  <path d="M210,125 L246,125" stroke="#8a92a0" stroke-width="1.4" marker-end="url(#rd)"/>
+  <path d="M448,125 L484,125" stroke="#8a92a0" stroke-width="1.4" marker-end="url(#rd)"/>
+  <path d="M686,125 L722,125" stroke="#8a92a0" stroke-width="1.4" marker-end="url(#rd)"/>
+
+  <!-- table header -->
+  <rect x="40" y="196" width="160" height="32" rx="6" fill="#eef1f3" stroke="#d7dde3" stroke-width="1.1"/>
+  <rect x="208" y="196" width="330" height="32" rx="6" fill="#eef7ee" stroke="#cfe6d0" stroke-width="1.1"/>
+  <rect x="546" y="196" width="314" height="32" rx="6" fill="#fbf7f0" stroke="#e6d3b3" stroke-width="1.1"/>
+  <text x="58" y="217" font-size="11.5" font-weight="700" fill="#5f6b76">구분</text>
+  <text x="226" y="217" font-size="11.5" font-weight="700" fill="#0a5745">(A) 표현 결정</text>
+  <text x="564" y="217" font-size="11.5" font-weight="700" fill="#8a5210">(B) 표현 수단</text>
+
+  <!-- rows -->
+  <text x="58" y="256" font-size="11.5" font-weight="700" fill="#5f6b76">누가 정하나</text>
+  <text x="226" y="256" font-size="11.5" fill="#33414d">기획·제품 — 개발자가 혼자 못 정한다</text>
+  <text x="564" y="256" font-size="11.5" fill="#33414d">개발자 · 디자인 시스템</text>
+  <path d="M40,270 L860,270" stroke="#eef1f3" stroke-width="1"/>
+
+  <text x="58" y="296" font-size="11.5" font-weight="700" fill="#5f6b76">어디 있어야</text>
+  <text x="226" y="296" font-size="11.5" fill="#33414d">명세 + 코드의 <tspan font-weight="700" fill="#0a5745">한 곳(정본)</tspan></text>
+  <text x="564" y="296" font-size="11.5" fill="#33414d">화면 로컬 — 흩어져도 된다</text>
+  <path d="M40,310 L860,310" stroke="#eef1f3" stroke-width="1"/>
+
+  <text x="58" y="336" font-size="11.5" font-weight="700" fill="#5f6b76">틀리면</text>
+  <text x="226" y="336" font-size="11.5" font-weight="700" fill="#a02020">제품 버그 (QA 티켓)</text>
+  <text x="564" y="336" font-size="11.5" fill="#5f6b76">스타일 이슈</text>
+
+  <!-- warning -->
+  <rect x="40" y="372" width="820" height="66" rx="7" fill="#fdf3f2" stroke="#d64545" stroke-width="1.2"/>
+  <text x="58" y="394" font-size="11.5" font-weight="700" fill="#a02020">경계를 잘못 그으면</text>
+  <text x="58" y="414" font-size="11.5" fill="#5f6b76">(A)에 <tspan font-family="monospace" fill="#a02020">color: '#d64545'</tspan> 같은 구체적인 값을 넣는 순간, 그 계약은 특정 디자인 시스템에 묶인다.</text>
+  <text x="58" y="431" font-size="11.5" fill="#5f6b76">다른 디자인 언어를 쓰는 화면이 그 계약을 못 쓰게 되고 &#8594; 자기 것을 따로 만든다 &#8594; <tspan font-weight="700" fill="#a02020">결국 두 벌이 된다.</tspan></text>
+</svg>

@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 530" font-family="system-ui, -apple-system, 'Segoe UI', 'Apple SD Gothic Neo', sans-serif">
+  <defs>
+    <marker id="rc" markerWidth="12" markerHeight="12" refX="8" refY="3.5" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L9,3.5 L0,7 z" fill="#8a92a0"/></marker>
+    <marker id="rcr" markerWidth="12" markerHeight="12" refX="8" refY="3.5" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L9,3.5 L0,7 z" fill="#d64545"/></marker>
+    <marker id="rcg" markerWidth="12" markerHeight="12" refX="8" refY="3.5" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L9,3.5 L0,7 z" fill="#0f7a63"/></marker>
+  </defs>
+  <rect width="900" height="530" fill="#ffffff"/>
+  <text x="450" y="34" text-anchor="middle" font-size="17" font-weight="700" fill="#33414d">단위는 애그리게이트가 아니라 표현 계약이다</text>
+  <text x="450" y="56" text-anchor="middle" font-size="11.5" fill="#8a92a0">서버가 상태 값을 하나 추가했을 때 무슨 일이 일어나는가로 갈린다</text>
+
+  <!-- ===== without contract ===== -->
+  <text x="40" y="88" font-size="12.5" font-weight="700" fill="#a02020">계약이 없으면 — 화면마다 각자 분기</text>
+
+  <rect x="40" y="100" width="132" height="82" rx="6" fill="#eef1f3" stroke="#5f6b76" stroke-width="1.2"/>
+  <text x="106" y="122" text-anchor="middle" font-size="11" font-weight="700" fill="#33414d">서버 계약</text>
+  <text x="106" y="141" text-anchor="middle" font-size="9.5" font-family="monospace" fill="#5f6b76">DRAFT · SUBMITTED</text>
+  <text x="106" y="156" text-anchor="middle" font-size="9.5" font-family="monospace" fill="#5f6b76">APPROVED · REJECTED</text>
+  <text x="106" y="174" text-anchor="middle" font-size="9.5" font-weight="700" fill="#a02020">+ ARCHIVED 추가</text>
+
+  <path d="M174,120 L216,113" stroke="#8a92a0" stroke-width="1.2" marker-end="url(#rc)"/>
+  <path d="M174,141 L216,141" stroke="#8a92a0" stroke-width="1.2" marker-end="url(#rc)"/>
+  <path d="M174,162 L216,169" stroke="#8a92a0" stroke-width="1.2" marker-end="url(#rc)"/>
+
+  <rect x="220" y="102" width="152" height="24" rx="5" fill="#f2f4f6" stroke="#d7dde3" stroke-width="1.1"/>
+  <text x="232" y="119" font-size="10.5" fill="#5f6b76">목록 화면 <tspan font-family="monospace" fill="#8a92a0">switch</tspan></text>
+  <rect x="220" y="130" width="152" height="24" rx="5" fill="#f2f4f6" stroke="#d7dde3" stroke-width="1.1"/>
+  <text x="232" y="147" font-size="10.5" fill="#5f6b76">상세 화면 <tspan font-family="monospace" fill="#8a92a0">switch</tspan></text>
+  <rect x="220" y="158" width="152" height="24" rx="5" fill="#f2f4f6" stroke="#d7dde3" stroke-width="1.1"/>
+  <text x="232" y="175" font-size="10.5" fill="#5f6b76">모바일 화면 <tspan font-family="monospace" fill="#8a92a0">switch</tspan></text>
+
+  <path d="M376,141 L414,141" stroke="#d64545" stroke-width="1.4" marker-end="url(#rcr)"/>
+
+  <rect x="418" y="100" width="196" height="82" rx="6" fill="#fdecea" stroke="#d64545" stroke-width="1.3"/>
+  <text x="436" y="122" font-size="11" font-weight="700" fill="#a02020">아무 일도 일어나지 않는다</text>
+  <text x="436" y="142" font-size="10.5" fill="#5f6b76">세 화면이 조용히 새 값을</text>
+  <text x="436" y="158" font-size="10.5" fill="#5f6b76">모른다 &#8594; 빈 라벨 또는</text>
+  <text x="436" y="174" font-size="10.5" fill="#5f6b76">기본 분기로 떨어짐</text>
+
+  <path d="M618,141 L654,141" stroke="#d64545" stroke-width="1.4" marker-end="url(#rcr)"/>
+
+  <rect x="658" y="100" width="202" height="82" rx="6" fill="#fdf3f2" stroke="#a02020" stroke-width="1.5"/>
+  <text x="676" y="122" font-size="11" font-weight="700" fill="#a02020">런타임에 발견</text>
+  <text x="676" y="143" font-size="10.5" fill="#5f6b76">QA가 잡으면 버그 티켓,</text>
+  <text x="676" y="160" font-size="10.5" fill="#5f6b76">못 잡으면 사용자가 발견</text>
+  <text x="676" y="176" font-size="10" fill="#d64545">화면 수만큼 놓칠 기회가 있다</text>
+
+  <path d="M40,212 L860,212" stroke="#eef1f3" stroke-width="1.5"/>
+
+  <!-- ===== with contract ===== -->
+  <text x="40" y="244" font-size="12.5" font-weight="700" fill="#0a5745">표현 계약이 있으면 — 규칙을 아는 곳이 한 군데</text>
+
+  <rect x="40" y="256" width="132" height="82" rx="6" fill="#eef1f3" stroke="#5f6b76" stroke-width="1.2"/>
+  <text x="106" y="278" text-anchor="middle" font-size="11" font-weight="700" fill="#33414d">서버 계약</text>
+  <text x="106" y="297" text-anchor="middle" font-size="9.5" font-family="monospace" fill="#5f6b76">DRAFT · SUBMITTED</text>
+  <text x="106" y="312" text-anchor="middle" font-size="9.5" font-family="monospace" fill="#5f6b76">APPROVED · REJECTED</text>
+  <text x="106" y="330" text-anchor="middle" font-size="9.5" font-weight="700" fill="#0a5745">+ ARCHIVED 추가</text>
+
+  <path d="M174,297 L214,297" stroke="#0f7a63" stroke-width="1.4" marker-end="url(#rcg)"/>
+
+  <rect x="218" y="248" width="216" height="100" rx="7" fill="#f0faf6" stroke="#0f7a63" stroke-width="1.8"/>
+  <text x="236" y="270" font-size="12" font-weight="700" fill="#0a5745">표현 계약</text>
+  <text x="236" y="290" font-size="9.5" font-family="monospace" fill="#166534">satisfies Record&lt;Status, View&gt;</text>
+  <path d="M236,300 L416,300" stroke="#cfe6d0" stroke-width="1"/>
+  <text x="236" y="318" font-size="10.5" fill="#5f6b76">라벨 · 의미 색 · 정렬 순서</text>
+  <text x="236" y="335" font-size="10.5" fill="#5f6b76">값 없을 때의 대체 표시</text>
+
+  <path d="M438,270 L472,262" stroke="#8a92a0" stroke-width="1.2" marker-end="url(#rc)"/>
+  <path d="M438,297 L472,297" stroke="#8a92a0" stroke-width="1.2" marker-end="url(#rc)"/>
+  <path d="M438,324 L472,332" stroke="#8a92a0" stroke-width="1.2" marker-end="url(#rc)"/>
+
+  <rect x="476" y="250" width="138" height="24" rx="5" fill="#fbfcfd" stroke="#cfe6d0" stroke-width="1.1"/>
+  <text x="488" y="267" font-size="10.5" fill="#5f6b76">목록 화면</text>
+  <rect x="476" y="286" width="138" height="24" rx="5" fill="#fbfcfd" stroke="#cfe6d0" stroke-width="1.1"/>
+  <text x="488" y="303" font-size="10.5" fill="#5f6b76">상세 화면</text>
+  <rect x="476" y="322" width="138" height="24" rx="5" fill="#fbfcfd" stroke="#cfe6d0" stroke-width="1.1"/>
+  <text x="488" y="339" font-size="10.5" fill="#5f6b76">모바일 화면</text>
+
+  <path d="M618,297 L654,297" stroke="#0f7a63" stroke-width="1.4" marker-end="url(#rcg)"/>
+
+  <rect x="658" y="256" width="202" height="82" rx="6" fill="#f0faf6" stroke="#0f7a63" stroke-width="1.6"/>
+  <text x="676" y="278" font-size="11" font-weight="700" fill="#0a5745">컴파일 에러</text>
+  <text x="676" y="299" font-size="10.5" fill="#5f6b76">계약에 <tspan font-family="monospace">ARCHIVED</tspan> 가 없으면</text>
+  <text x="676" y="316" font-size="10.5" fill="#5f6b76">여기서 막힌다 &#8212; 화면이</text>
+  <text x="676" y="332" font-size="10.5" font-weight="700" fill="#0a5745">몇 개든 한 곳에서 한 번</text>
+
+  <!-- conclusion -->
+  <rect x="40" y="380" width="820" height="80" rx="7" fill="#fbfcfd" stroke="#0f7a63" stroke-width="1.4"/>
+  <text x="58" y="404" font-size="12.5" font-weight="700" fill="#0a5745">프론트엔드의 불변식은 "상태가 유효하다"가 아니라 "모든 상태에 표현이 있다"다</text>
+  <text x="58" y="428" font-size="11.5" fill="#5f6b76">서버의 불변식이 <tspan font-weight="700" fill="#33414d">데이터의 정합성</tspan>을 지킨다면, 프론트의 불변식은 <tspan font-weight="700" fill="#0a5745">의미의 완전성</tspan>을 지킨다 &#8212;</text>
+  <text x="58" y="448" font-size="11.5" fill="#5f6b76">사용자에게 뜻이 전달되지 않는 상태가 <tspan font-weight="700" fill="#0a5745">존재할 수 없게</tspan> 만드는 것.</text>
+
+  <rect x="40" y="472" width="820" height="42" rx="7" fill="#fdf3f2" stroke="#d64545" stroke-width="1.1"/>
+  <text x="58" y="498" font-size="11" fill="#5f6b76">단 계약 안에는 (A) 표현 결정만 넣는다. <tspan font-family="monospace" fill="#0a5745">tone: 'warning'</tspan> 은 들어가고 <tspan font-family="monospace" fill="#a02020">color: '#d64545'</tspan> 는 안 들어간다 &#8212; 넣으면 다시 두 벌이 된다.</text>
+</svg>

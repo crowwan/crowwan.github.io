@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 500" font-family="system-ui, -apple-system, 'Segoe UI', 'Apple SD Gothic Neo', sans-serif">
+  <defs>
+    <marker id="tm" markerWidth="12" markerHeight="12" refX="8" refY="3.5" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L9,3.5 L0,7 z" fill="#8a92a0"/></marker>
+  </defs>
+  <rect width="900" height="500" fill="#ffffff"/>
+  <text x="450" y="34" text-anchor="middle" font-size="17" font-weight="700" fill="#33414d">서버는 진실의 소유자, 프론트엔드는 의미의 소유자</text>
+  <text x="450" y="56" text-anchor="middle" font-size="11.5" fill="#8a92a0">이 분업이 이중 SoT를 구조적으로 막으면서, 프론트에도 정당한 도메인을 남긴다</text>
+
+  <!-- server -->
+  <rect x="40" y="90" width="250" height="150" rx="7" fill="#eef1f3" stroke="#5f6b76" stroke-width="1.4"/>
+  <text x="165" y="118" text-anchor="middle" font-size="13" font-weight="700" fill="#33414d">서버</text>
+  <text x="165" y="140" text-anchor="middle" font-size="12" font-weight="700" fill="#5f6b76">진실의 소유자</text>
+  <text x="165" y="162" text-anchor="middle" font-size="11.5" fill="#8a92a0">"무엇이 참인가"</text>
+  <path d="M62,178 L268,178" stroke="#d7dde3" stroke-width="1"/>
+  <text x="165" y="200" text-anchor="middle" font-size="11" fill="#5f6b76">권한 · 과금 · 정합성</text>
+  <text x="165" y="220" text-anchor="middle" font-size="11" fill="#5f6b76">상태 전이 · 저장 규칙</text>
+
+  <path d="M292,165 L336,165" stroke="#8a92a0" stroke-width="1.4" marker-end="url(#tm)"/>
+  <text x="314" y="156" text-anchor="middle" font-size="9.5" fill="#8a92a0">상태</text>
+
+  <!-- frontend -->
+  <rect x="340" y="90" width="520" height="300" rx="8" fill="#fbfcfd" stroke="#0f7a63" stroke-width="1.6"/>
+  <text x="360" y="116" font-size="13" font-weight="700" fill="#0a5745">프론트엔드 — 의미의 소유자</text>
+  <text x="360" y="136" font-size="11.5" fill="#166534">"참인 것이 사용자에게 무엇을 뜻하는가"</text>
+
+  <rect x="360" y="150" width="480" height="64" rx="6" fill="#f0faf6" stroke="#cfe6d0" stroke-width="1.2"/>
+  <text x="378" y="172" font-size="12" font-weight="700" fill="#0a5745">&#9312; 표현 규칙</text>
+  <text x="378" y="192" font-size="11" fill="#5f6b76">상태 &#8594; 라벨 · 의미 색 · 우선순위 · 값이 없을 때의 대체 표시</text>
+  <text x="378" y="208" font-size="10.5" fill="#166534">화면 간 일관성이 곧 정확성이다</text>
+
+  <rect x="360" y="224" width="480" height="72" rx="6" fill="#fbf1e2" stroke="#c07f28" stroke-width="1.3"/>
+  <text x="378" y="246" font-size="12" font-weight="700" fill="#8a5210">&#9313; 가능성 예고</text>
+  <text x="378" y="266" font-size="11" fill="#5f6b76">무엇을 할 수 있게 <tspan font-style="italic">보여줄지</tspan> — 버튼 활성/비활성</text>
+  <text x="378" y="286" font-size="10.5" font-weight="700" fill="#a02020">서버가 진짜 가드다. 파생은 O, 재구현은 X</text>
+
+  <rect x="360" y="306" width="480" height="64" rx="6" fill="#f0faf6" stroke="#cfe6d0" stroke-width="1.2"/>
+  <text x="378" y="328" font-size="12" font-weight="700" fill="#0a5745">&#9314; 왕복 불가 계산</text>
+  <text x="378" y="348" font-size="11" fill="#5f6b76">기하 · 표기 변환 — 서버에 물어볼 수 없어서 직접 계산해야 하는 것</text>
+  <text x="378" y="364" font-size="10.5" fill="#166534">프론트가 소유하는 게 정당한 유일한 "진짜 도메인 로직"</text>
+
+  <!-- forbidden -->
+  <rect x="40" y="416" width="820" height="58" rx="7" fill="#fdf3f2" stroke="#d64545" stroke-width="1.3"/>
+  <text x="58" y="438" font-size="11.5" font-weight="700" fill="#a02020">소유하면 안 되는 것 — 권한 · 과금 · 정합성 판정</text>
+  <text x="58" y="459" font-size="11.5" fill="#5f6b76">프론트가 이걸 재구현하면 규칙이 두 곳에 생긴다. 서버 규칙이 바뀔 때 한쪽을 잊고, <tspan font-weight="700" fill="#a02020">줄이려던 drift가 늘어난다.</tspan></text>
+</svg>

@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 540" font-family="system-ui, -apple-system, 'Segoe UI', 'Apple SD Gothic Neo', sans-serif">
+  <defs>
+    <marker id="ax" markerWidth="12" markerHeight="12" refX="8" refY="3.5" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L9,3.5 L0,7 z" fill="#8a92a0"/></marker>
+  </defs>
+  <rect width="900" height="540" fill="#ffffff"/>
+  <text x="450" y="34" text-anchor="middle" font-size="17" font-weight="700" fill="#33414d">클린 아키텍처와 DDD는 같은 축이 아니다</text>
+  <text x="450" y="56" text-anchor="middle" font-size="11.5" fill="#8a92a0">한쪽만 있는 코드가 실제로 존재한다 — 그래서 두 축은 독립이다</text>
+
+  <!-- axes -->
+  <path d="M100,460 L858,460" stroke="#8a92a0" stroke-width="1.4" marker-end="url(#ax)"/>
+  <path d="M100,460 L100,86" stroke="#8a92a0" stroke-width="1.4" marker-end="url(#ax)"/>
+  <text x="479" y="514" text-anchor="middle" font-size="12" font-weight="700" fill="#5f6b76">의존성이 정리되어 있나 &#8594; <tspan fill="#8a5210">클린 아키텍처 축</tspan></text>
+  <text x="0" y="0" font-size="12" font-weight="700" fill="#5f6b76" transform="translate(64,273) rotate(-90)" text-anchor="middle">도메인이 코드에 드러나나 &#8594; <tspan fill="#0f7a63">DDD 축</tspan></text>
+
+  <!-- Q3: neither -->
+  <rect x="118" y="290" width="340" height="155" rx="7" fill="#f2f4f6" stroke="#d7dde3" stroke-width="1.2"/>
+  <text x="138" y="318" font-size="13" font-weight="700" fill="#5f6b76">둘 다 없음</text>
+  <text x="138" y="342" font-size="11.5" fill="#8a92a0">흔한 레거시</text>
+  <text x="138" y="372" font-size="11.5" fill="#5f6b76">규칙이 화면마다 흩어져 있고,</text>
+  <text x="138" y="392" font-size="11.5" fill="#5f6b76">무엇이 무엇을 불러도 되는지</text>
+  <text x="138" y="412" font-size="11.5" fill="#5f6b76">아무도 정하지 않았다</text>
+
+  <!-- Q4: clean only -->
+  <rect x="478" y="290" width="350" height="155" rx="7" fill="#fbf1e2" stroke="#c07f28" stroke-width="1.2"/>
+  <text x="498" y="318" font-size="13" font-weight="700" fill="#8a5210">클린 아키텍처만</text>
+  <text x="498" y="342" font-size="11.5" fill="#a5741f">레이어는 교과서처럼 깔끔하다</text>
+  <text x="498" y="372" font-size="11.5" fill="#5f6b76">그런데 코드를 읽어도 업무 규칙이</text>
+  <text x="498" y="392" font-size="11.5" fill="#5f6b76">안 보인다 —</text>
+  <text x="498" y="412" font-size="11.5" font-family="monospace" fill="#8a5210">DataManager.processData()</text>
+
+  <!-- Q2: ddd only -->
+  <rect x="118" y="105" width="340" height="155" rx="7" fill="#fbf1e2" stroke="#c07f28" stroke-width="1.2"/>
+  <text x="138" y="133" font-size="13" font-weight="700" fill="#8a5210">DDD만</text>
+  <text x="138" y="157" font-size="11.5" fill="#a5741f">용어와 규칙은 정확하다</text>
+  <text x="138" y="187" font-size="11.5" fill="#5f6b76">그런데 그 규칙을 어디에 두고</text>
+  <text x="138" y="207" font-size="11.5" fill="#5f6b76">누가 부를 수 있는지 규율이 없어</text>
+  <text x="138" y="227" font-size="11.5" fill="#5f6b76">시간이 지나면 다시 흩어진다</text>
+
+  <!-- Q1: both -->
+  <rect x="478" y="105" width="350" height="155" rx="7" fill="#f0faf6" stroke="#0f7a63" stroke-width="1.4"/>
+  <text x="498" y="133" font-size="13" font-weight="700" fill="#0a5745">둘 다</text>
+  <text x="498" y="157" font-size="11.5" fill="#166534">규칙이 보이고, 우회할 수 없다</text>
+  <text x="498" y="187" font-size="11.5" fill="#5f6b76">DDD가 <tspan font-weight="700" fill="#0a5745">무엇을 모델링할지</tspan>를 정하고,</text>
+  <text x="498" y="207" font-size="11.5" fill="#5f6b76">클린 아키텍처가 <tspan font-weight="700" fill="#8a5210">그 모델을 어디 두고</tspan></text>
+  <text x="498" y="227" font-size="11.5" fill="#5f6b76"><tspan font-weight="700" fill="#8a5210">무엇이 의존할지</tspan>를 정한다</text>
+
+  <!-- bottom note -->
+  <rect x="100" y="474" width="758" height="48" rx="7" fill="#fdf3f2" stroke="#d64545" stroke-width="1.2"/>
+  <text x="118" y="496" font-size="11.5" font-weight="700" fill="#a02020">그런데 왜 헷갈리나 — 용어가 겹친다</text>
+  <text x="118" y="514" font-size="11.5" fill="#5f6b76">클린 아키텍처 다이어그램의 가장 안쪽 원 이름이 <tspan font-family="monospace" fill="#a02020">Entities</tspan> 다. DDD 어휘를 차용한 것이다. 용어가 겹치니 개념도 겹친 것처럼 보인다.</text>
+</svg>
