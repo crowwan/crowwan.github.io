@@ -1,0 +1,23 @@
+---
+import PinbookPage from '../../layouts/PinbookPage.astro';
+
+const CONTACT_EMAIL = 'pinbook.app@gmail.com';
+---
+
+<PinbookPage
+	frontmatter={{
+		title: '핀북',
+		description:
+			'여행 사진을 내 세계지도에 핀으로 꽂아 나라를 칠하고, 도시마다 6칸 도감을 채워 가는 iOS 앱',
+	}}
+>
+	<h1>핀북</h1>
+	<p>
+		여행 사진을 내 세계지도에 핀으로 꽂아 나라를 칠하고, 도시마다 6칸 도감을 채워 가는 iOS 앱입니다.
+	</p>
+	<ul>
+		<li><a href="/pinbook/support">지원·문의</a></li>
+		<li><a href="/pinbook/privacy">개인정보 처리방침</a></li>
+	</ul>
+	<p>문의: <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a></p>
+</PinbookPage>
