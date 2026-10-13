@@ -1,0 +1,95 @@
+---
+// 핀북 앱 공개 페이지(소개·지원·개인정보 처리방침) 레이아웃.
+// App Store Connect 의 지원 URL·개인정보 처리방침 URL 로 쓰이므로
+// 블로그 content collection 과 분리된 일반 페이지로 둔다(글 목록·RSS·시리즈에 노출되지 않음).
+// .md 페이지는 frontmatter 를 그대로 넘기고, .astro 페이지도 같은 모양으로 넘긴다.
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+
+interface Props {
+	frontmatter: {
+		title: string;
+		description: string;
+	};
+}
+
+const { title, description } = Astro.props.frontmatter;
+
+const PINBOOK_LINKS = [
+	{ href: '/pinbook', label: '핀북' },
+	{ href: '/pinbook/support', label: '지원' },
+	{ href: '/pinbook/privacy', label: '개인정보 처리방침' },
+];
+---
+
+<html lang="ko">
+	<head>
+		<BaseHead title={title} description={description} />
+	</head>
+
+	<body>
+		<Header />
+		<main>
+			<article class="prose pinbook reveal">
+				<slot />
+			</article>
+
+			<nav class="pinbook-nav" aria-label="핀북 페이지">
+				{PINBOOK_LINKS.map((link) => <a href={link.href}>{link.label}</a>)}
+			</nav>
+		</main>
+		<Footer />
+
+		<style>
+			.pinbook :global(h1) {
+				font-weight: 800;
+				font-size: clamp(1.8rem, 5vw, 2.4rem);
+				letter-spacing: -0.03em;
+				line-height: 1.25;
+				margin-bottom: 0.6em;
+			}
+			/* 2열 표가 좁은 화면에서 넘치지 않도록 칸 안에서 줄바꿈한다. */
+			.pinbook :global(table) {
+				table-layout: fixed;
+			}
+			.pinbook :global(th),
+			.pinbook :global(td) {
+				vertical-align: top;
+				word-break: keep-all;
+				overflow-wrap: anywhere;
+			}
+			.pinbook :global(th:first-child),
+			.pinbook :global(td:first-child) {
+				width: 40%;
+			}
+			.pinbook-nav {
+				max-width: var(--prose-width);
+				margin: 4em auto 0;
+				padding-top: 1.8em;
+				border-top: 1px solid var(--border);
+				display: flex;
+				flex-wrap: wrap;
+				gap: 0.6rem 1.4rem;
+			}
+			.pinbook-nav a {
+				font-family: var(--font-sans);
+				font-size: 0.92rem;
+				font-weight: 600;
+				letter-spacing: -0.01em;
+				color: var(--text-meta);
+				text-decoration: none;
+				transition: color 0.18s ease;
+			}
+			.pinbook-nav a:hover {
+				color: var(--accent);
+			}
+			@media (max-width: 720px) {
+				.pinbook :global(th),
+				.pinbook :global(td) {
+					padding: 0.6em 0.7em;
+				}
+			}
+		</style>
+	</body>
+</html>
