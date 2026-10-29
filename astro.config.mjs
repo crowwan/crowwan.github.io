@@ -12,7 +12,7 @@ export default defineConfig({
 		mdx(),
 		sitemap({
 			// 핀북 베타 안내는 지인에게만 주소를 보내는 페이지라 사이트맵에서 뺀다(페이지에도 noindex).
-			filter: (page) => !page.includes('/pinbook/beta'),
+			filter: (page) => new URL(page).pathname.replace(/\/$/, '') !== '/pinbook/beta',
 		}),
 	],
 	markdown: {
