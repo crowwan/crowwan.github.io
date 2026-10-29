@@ -83,7 +83,9 @@ npm run migrate
     ├── content.config.ts          # 블로그 컬렉션 스키마(zod)
     ├── content/blog/*.md          # 글
     ├── pages/                     # 홈, 블로그 목록, about, rss
+    │   └── pinbook/               # 핀북 앱 페이지(소개·베타 안내·지원·개인정보), 블로그 목록·RSS 에 안 나옴
     ├── layouts/BlogPost.astro     # 글 레이아웃
+    ├── layouts/PinbookPage.astro  # 핀북 페이지 레이아웃(전용 머리·꼬리, 앱과 같은 색·다크 모드)
     └── components/                # Header, Footer 등
 ```
 
