@@ -8,7 +8,13 @@ import remarkCjkFriendly from 'remark-cjk-friendly';
 // https://astro.build/config
 export default defineConfig({
 	site: 'https://crowwan.github.io',
-	integrations: [mdx(), sitemap()],
+	integrations: [
+		mdx(),
+		sitemap({
+			// 핀북 베타 안내는 지인에게만 주소를 보내는 페이지라 사이트맵에서 뺀다(페이지에도 noindex).
+			filter: (page) => !page.includes('/pinbook/beta'),
+		}),
+	],
 	markdown: {
 		// CJK(한글) 본문에서 닫는 ** / * 앞이 구두점이고 뒤에 한글이 붙어도
 		// 강조가 인식되도록 CommonMark flanking 규칙을 완화한다.

@@ -1,48 +1,244 @@
 ---
-// 핀북 앱 공개 페이지(소개·지원·개인정보 처리방침) 레이아웃.
+// 핀북 앱 공개 페이지(소개·베타 안내·지원·개인정보 처리방침) 레이아웃.
 // App Store Connect 의 지원 URL·개인정보 처리방침 URL 로 쓰이므로
 // 블로그 content collection 과 분리된 일반 페이지로 둔다(글 목록·RSS·시리즈에 노출되지 않음).
+// 블로그 머리·꼬리 대신 핀북 전용 머리·꼬리를 쓰고, 색은 앱과 같은 토큰(Paper / Night)을 쓴다.
 // .md 페이지는 frontmatter 를 그대로 넘기고, .astro 페이지도 같은 모양으로 넘긴다.
 import BaseHead from '../components/BaseHead.astro';
-import Footer from '../components/Footer.astro';
-import Header from '../components/Header.astro';
 
 interface Props {
 	frontmatter: {
 		title: string;
 		description: string;
+		// 검색엔진에 안 보이게 할 페이지(베타 안내)만 true.
+		noindex?: boolean;
 	};
+	// 본문을 블로그 .prose 글 타이포로 감쌀지. 자체 디자인이 있는 페이지(베타 안내)는 false.
+	prose?: boolean;
 }
 
-const { title, description } = Astro.props.frontmatter;
+const { frontmatter, prose = true } = Astro.props;
+const { title, description, noindex = false } = frontmatter;
 
-const PINBOOK_LINKS = [
-	{ href: '/pinbook', label: '핀북' },
+const HEADER_LINKS = [
+	{ href: '/pinbook/beta', label: '베타' },
+	{ href: '/pinbook/support', label: '지원' },
+	{ href: '/pinbook/privacy', label: '개인정보' },
+];
+
+const FOOTER_LINKS = [
+	{ href: '/pinbook', label: '핀북 소개' },
+	{ href: '/pinbook/beta', label: '베타' },
 	{ href: '/pinbook/support', label: '지원' },
 	{ href: '/pinbook/privacy', label: '개인정보 처리방침' },
 ];
+
+// 빌드 결과 주소는 끝에 / 가 붙을 수 있어 떼고 비교한다.
+const currentPath = Astro.url.pathname.replace(/\/$/, '');
+const ariaCurrent = (href: string) => (href === currentPath ? 'page' : undefined);
 ---
 
-<html lang="ko">
+<html lang="ko" class="pinbook-site">
 	<head>
 		<BaseHead title={title} description={description} />
+		{noindex && <meta name="robots" content="noindex" />}
 	</head>
 
 	<body>
-		<Header />
-		<main>
-			<article class="prose pinbook reveal">
-				<slot />
-			</article>
+		<header class="pb-header">
+			<div class="pb-bar">
+				<a class="pb-brand" href="/pinbook" aria-current={ariaCurrent('/pinbook')}>
+					<img
+						src="/pinbook/icon.png"
+						srcset="/pinbook/icon.png 1x, /pinbook/icon@2x.png 2x"
+						width="28"
+						height="28"
+						alt=""
+					/>
+					핀북
+				</a>
+				<nav class="pb-nav" aria-label="핀북 페이지">
+					{
+						HEADER_LINKS.map((link) => (
+							<a href={link.href} aria-current={ariaCurrent(link.href)}>
+								{link.label}
+							</a>
+						))
+					}
+				</nav>
+			</div>
+		</header>
 
-			<nav class="pinbook-nav" aria-label="핀북 페이지">
-				{PINBOOK_LINKS.map((link) => <a href={link.href}>{link.label}</a>)}
-			</nav>
+		<main class="pb-main reveal">
+			{
+				prose ? (
+					<article class="prose pinbook">
+						<slot />
+					</article>
+				) : (
+					<slot />
+				)
+			}
 		</main>
-		<Footer />
 
-		<style>
-			.pinbook :global(h1) {
+		<footer class="pb-footer">
+			<nav class="pb-footer-nav" aria-label="핀북 페이지">
+				{
+					FOOTER_LINKS.map((link) => (
+						<a href={link.href} aria-current={ariaCurrent(link.href)}>
+							{link.label}
+						</a>
+					))
+				}
+			</nav>
+			<span>© 2026 김진완 · 핀북</span>
+		</footer>
+
+		<style is:global>
+			/*
+			  핀북 페이지 색 토큰 — 앱과 같은 값.
+			  라이트(Paper) / 다크(Night). 블로그는 다크 모드가 없으므로 시스템 설정만 따른다.
+			  블로그 global.css 의 토큰(--bg, --text 등)도 핀북 값으로 다시 매겨,
+			  .prose 글(지원·개인정보) 과 body 바탕이 블로그 색으로 덮이지 않게 한다.
+			  html.pinbook-site 로 범위를 묶어 블로그 페이지에는 영향이 없다.
+			*/
+			html.pinbook-site {
+				color-scheme: light;
+				--pb-bg: #f6f4ef;
+				--pb-fg: #1f2329;
+				--pb-muted: #52585f;
+				--pb-line: #d5d2ca;
+				--pb-surface: #ffffff;
+				--pb-accent: #c83e24;
+				--pb-accent-soft: #fff4ef;
+				--pb-on-accent: #ffffff;
+				--pb-sea: #dce6ec;
+
+				--bg: var(--pb-bg);
+				--surface: var(--pb-surface);
+				--surface-2: var(--pb-surface);
+				--border: var(--pb-line);
+				--border-faint: var(--pb-line);
+				--text-strong: var(--pb-fg);
+				--text: var(--pb-fg);
+				--text-2: var(--pb-muted);
+				--text-meta: var(--pb-muted);
+				--text-faint: var(--pb-muted);
+				--accent: var(--pb-accent);
+				--accent-deep: var(--pb-accent);
+				--accent-soft: var(--pb-accent-soft);
+			}
+			@media (prefers-color-scheme: dark) {
+				html.pinbook-site {
+					color-scheme: dark;
+					--pb-bg: #1b2026;
+					--pb-fg: #e8eaed;
+					--pb-muted: #bcc3cb;
+					--pb-line: #2a3139;
+					--pb-surface: #262c33;
+					--pb-accent: #ff7a59;
+					--pb-accent-soft: #3a2620;
+					--pb-on-accent: #1b2026;
+					--pb-sea: #11161b;
+				}
+			}
+			html.pinbook-site ::selection {
+				background: var(--pb-accent);
+				color: var(--pb-on-accent);
+			}
+			html.pinbook-site a:focus-visible,
+			html.pinbook-site button:focus-visible,
+			html.pinbook-site summary:focus-visible {
+				outline: 2px solid var(--pb-accent);
+				outline-offset: 2px;
+			}
+
+			/* ── 머리 ── */
+			.pb-header {
+				border-bottom: 1px solid var(--pb-line);
+				background: var(--pb-bg);
+			}
+			.pb-bar,
+			.pb-footer {
+				max-width: calc(var(--prose-width) + 40px);
+				margin: 0 auto;
+				padding-inline: 20px;
+			}
+			.pb-bar {
+				display: flex;
+				align-items: center;
+				gap: 10px;
+				padding-block: 12px;
+			}
+			.pb-brand {
+				display: flex;
+				align-items: center;
+				gap: 8px;
+				font-weight: 800;
+				font-size: 17px;
+				letter-spacing: -0.02em;
+				color: var(--pb-fg);
+				text-decoration: none;
+			}
+			.pb-brand:hover {
+				color: var(--pb-fg);
+			}
+			.pb-brand img {
+				width: 28px;
+				height: 28px;
+				border-radius: 7px;
+			}
+			.pb-nav {
+				margin-left: auto;
+				display: flex;
+				gap: 14px;
+				font-size: 13.5px;
+				font-weight: 600;
+			}
+			.pb-nav a {
+				color: var(--pb-muted);
+				text-decoration: none;
+			}
+			.pb-nav a:hover,
+			.pb-nav a[aria-current] {
+				color: var(--pb-fg);
+			}
+
+			/* ── 본문 (블로그 main 기본값을 핀북 폭으로 덮음) ── */
+			main.pb-main {
+				width: auto;
+				max-width: calc(var(--prose-width) + 40px);
+				margin: 0 auto;
+				padding: 28px 20px 8px;
+			}
+
+			/* ── 꼬리 ── */
+			.pb-footer {
+				margin-top: 40px;
+				padding-block: 18px 32px;
+				border-top: 1px solid var(--pb-line);
+				display: grid;
+				gap: 8px;
+				font-size: 12.5px;
+				color: var(--pb-muted);
+			}
+			.pb-footer-nav {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 6px 14px;
+				font-weight: 600;
+				font-size: 13.5px;
+			}
+			.pb-footer-nav a {
+				color: var(--pb-fg);
+				text-decoration: none;
+			}
+			.pb-footer-nav a:hover {
+				color: var(--pb-accent);
+			}
+
+			/* ── 글 페이지(소개·지원·개인정보) ── */
+			.pinbook h1 {
 				font-weight: 800;
 				font-size: clamp(1.8rem, 5vw, 2.4rem);
 				letter-spacing: -0.03em;
@@ -50,43 +246,22 @@ const PINBOOK_LINKS = [
 				margin-bottom: 0.6em;
 			}
 			/* 2열 표가 좁은 화면에서 넘치지 않도록 칸 안에서 줄바꿈한다. */
-			.pinbook :global(table) {
+			.pinbook table {
 				table-layout: fixed;
 			}
-			.pinbook :global(th),
-			.pinbook :global(td) {
+			.pinbook th,
+			.pinbook td {
 				vertical-align: top;
 				word-break: keep-all;
 				overflow-wrap: anywhere;
 			}
-			.pinbook :global(th:first-child),
-			.pinbook :global(td:first-child) {
+			.pinbook th:first-child,
+			.pinbook td:first-child {
 				width: 40%;
 			}
-			.pinbook-nav {
-				max-width: var(--prose-width);
-				margin: 4em auto 0;
-				padding-top: 1.8em;
-				border-top: 1px solid var(--border);
-				display: flex;
-				flex-wrap: wrap;
-				gap: 0.6rem 1.4rem;
-			}
-			.pinbook-nav a {
-				font-family: var(--font-sans);
-				font-size: 0.92rem;
-				font-weight: 600;
-				letter-spacing: -0.01em;
-				color: var(--text-meta);
-				text-decoration: none;
-				transition: color 0.18s ease;
-			}
-			.pinbook-nav a:hover {
-				color: var(--accent);
-			}
 			@media (max-width: 720px) {
-				.pinbook :global(th),
-				.pinbook :global(td) {
+				.pinbook th,
+				.pinbook td {
 					padding: 0.6em 0.7em;
 				}
 			}
