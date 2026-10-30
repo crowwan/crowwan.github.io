@@ -6,19 +6,24 @@
 // .md 페이지는 frontmatter 를 그대로 넘기고, .astro 페이지도 같은 모양으로 넘긴다.
 import BaseHead from '../components/BaseHead.astro';
 
+// 카카오톡 등 링크 미리보기용 공용 이미지. 없으면 머리의 작은 아이콘을 늘려 흐리게 보여 준다.
+const DEFAULT_OG_IMAGE = '/pinbook/og.png';
+
 interface Props {
 	frontmatter: {
 		title: string;
 		description: string;
 		// 검색엔진에 안 보이게 할 페이지(베타 안내)만 true.
 		noindex?: boolean;
+		// 링크 미리보기(og:image) 이미지. 1200×630 PNG, 없으면 공용 /pinbook/og.png.
+		image?: string;
 	};
 	// 본문을 블로그 .prose 글 타이포로 감쌀지. 자체 디자인이 있는 페이지(베타 안내)는 false.
 	prose?: boolean;
 }
 
 const { frontmatter, prose = true } = Astro.props;
-const { title, description, noindex = false } = frontmatter;
+const { title, description, noindex = false, image = DEFAULT_OG_IMAGE } = frontmatter;
 
 const HEADER_LINKS = [
 	{ href: '/pinbook/beta', label: '베타' },
@@ -40,7 +45,11 @@ const ariaCurrent = (href: string) => (href === currentPath ? 'page' : undefined
 
 <html lang="ko" class="pinbook-site">
 	<head>
-		<BaseHead title={title} description={description} />
+		<BaseHead title={title} description={description} image={image} />
+		<!-- 크기·대체 글을 미리 알려 첫 공유에서도 큰 미리보기로 뜨게 한다(BaseHead 는 블로그와 공용이라 여기서 추가). -->
+		<meta property="og:image:width" content="1200" />
+		<meta property="og:image:height" content="630" />
+		<meta property="og:image:alt" content={title} />
 		{noindex && <meta name="robots" content="noindex" />}
 	</head>
 
