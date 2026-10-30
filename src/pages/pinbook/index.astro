@@ -1,7 +1,63 @@
 ---
+// 핀북 소개(랜딩) 페이지.
+// 첫 화면 = 누를 수 있는 지도(사진이 날아가 꽂힘) + 앱 홈 화면 / 도감 = 누르면 차는 벌집 /
+// 쓰는 법 = 스크롤 따라 바뀌는 폰 / 약속 세 가지 / 베타 안내.
+// JS 가 없어도 카드 문구·폰 화면·벌집 처음 상태(2/6)는 HTML 로 읽힌다. 인터랙션은 src/scripts/pinbook-landing.ts.
 import PinbookPage from '../../layouts/PinbookPage.astro';
+import { photoBackground } from '../../scripts/pinbook-photos';
 
-const CONTACT_EMAIL = 'pinbook.app@gmail.com';
+// 시연 영상에서 뽑은 앱 화면(600×1304, 2x)
+const SCREEN = { width: 600, height: 1304 };
+const HOME_SCREEN = '/pinbook/screens/home.webp';
+
+// 벌집: 오사카의 테마 여섯 칸. full 은 처음부터 사진이 있는 칸.
+const HIVE_CELLS = [
+	{ theme: '명소', left: '34.5%', top: '0', full: true },
+	{ theme: '음식', left: '67%', top: '18.5%', full: false },
+	{ theme: '거리', left: '67%', top: '55%', full: false },
+	{ theme: '자연', left: '34.5%', top: '73.5%', full: false },
+	{ theme: '숙소', left: '2%', top: '55%', full: false },
+	{ theme: '순간', left: '2%', top: '18.5%', full: true },
+];
+const RING_LENGTH = 289;
+const initialFilled = HIVE_CELLS.filter((cell) => cell.full).length;
+
+const STEPS = [
+	{
+		no: '1 · 고르기',
+		title: '여행 사진을 한꺼번에 골라요',
+		body: '사진 위치로 도시를 찾아 서울 2장, 오사카 2장처럼 나눠 보여 줘요. 위치가 없는 사진은 도시 이름으로 찾아요.',
+		img: '/pinbook/screens/pick.webp',
+		alt: '사진 7장을 도시별로 나눈 화면',
+	},
+	{
+		no: '2 · 테마',
+		title: '한 장씩 테마를 골라요',
+		body: '명소·음식·거리·자연·숙소·순간 중 하나를 누르면 바로 꽂혀요.',
+		img: '/pinbook/screens/theme.webp',
+		alt: '사진 아래 테마 여섯 개가 보이는 화면',
+	},
+	{
+		no: '3 · 꽂기',
+		title: '사진이 지도로 날아가 꽂혀요',
+		body: '다녀온 나라가 칠해지고, 도시마다 채운 칸만큼 링이 차요.',
+		img: '/pinbook/screens/pin.webp',
+		alt: '사진들이 지도의 도시로 날아가는 화면',
+	},
+	{
+		no: '4 · 돌아보기',
+		title: '도시를 열어 다시 꺼내 봐요',
+		body: '도시 사진을 스토리처럼 넘겨 보고, 몇 년 전 오늘의 여행도 알려 줘요.',
+		img: '/pinbook/screens/story.webp',
+		alt: '오사카 사진 스토리 화면',
+	},
+];
+
+const PROMISES = [
+	{ title: '내 iPhone 안에만', body: '사진과 기록은 기기에만 저장돼요. 서버로 보내지 않아요.' },
+	{ title: '로그인 없이', body: '계정을 만들 필요가 없어요. 열면 바로 시작해요.' },
+	{ title: '비행기 안에서도', body: '인터넷이 없으면 내장 지도로 바뀌어 그대로 꽂을 수 있어요.' },
+];
 ---
 
 <PinbookPage
@@ -10,15 +66,700 @@ const CONTACT_EMAIL = 'pinbook.app@gmail.com';
 		description:
 			'여행 사진을 내 세계지도에 핀으로 꽂아 나라를 칠하고, 도시마다 테마 6개를 채워 가는 iOS 앱',
 	}}
+	prose={false}
+	wide
 >
-	<h1>핀북</h1>
-	<p>
-		여행 사진을 내 세계지도에 핀으로 꽂아 나라를 칠하고, 도시마다 테마 6개를 채워 가는 iOS 앱입니다.
-	</p>
-	<ul>
-		<li><a href="/pinbook/beta">베타 설치 안내</a></li>
-		<li><a href="/pinbook/support">지원·문의</a></li>
-		<li><a href="/pinbook/privacy">개인정보 처리방침</a></li>
-	</ul>
-	<p>문의: <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a></p>
+	<div class="lp">
+		<!-- 1 · 지도 -->
+		<section class="hero" id="hero">
+			<canvas id="map" role="img" aria-label="누르면 사진이 날아가 꽂히는 지도"></canvas>
+			<div class="w">
+				<div class="card">
+					<span class="eyebrow">iPhone 여행 도감 · 베타</span>
+					<h1>여행 사진을 꽂으면<br />다녀온 나라가 칠해져요</h1>
+					<p class="lead">
+						사진 위치로 도시를 찾아 지도에 핀을 꽂아요. 도시마다 테마 6칸을 채우며 나만의 여행 도감을 만들어요.
+					</p>
+					<div class="cta">
+						<a class="btn" href="/pinbook/beta">TestFlight로 베타 설치</a>
+						<a class="btn ghost" href="#how">어떻게 쓰나요</a>
+					</div>
+					<div class="stat" aria-live="polite">
+						<div><b id="sCountry">0</b><span>나라</span></div>
+						<div><b id="sPhoto">0</b><span>사진</span></div>
+					</div>
+					<span class="tap"><i></i>지도를 눌러 사진을 꽂아 보세요</span>
+				</div>
+				<div class="phone">
+					<img
+						src={HOME_SCREEN}
+						width={SCREEN.width}
+						height={SCREEN.height}
+						fetchpriority="high"
+						alt="일본과 한국이 칠해진 핀북 홈 화면"
+					/>
+				</div>
+			</div>
+		</section>
+
+		<!-- 2 · 벌집 -->
+		<section class="band dex">
+			<div class="w">
+				<div class="txt rise pre">
+					<span class="eyebrow">도감</span>
+					<h2>도시마다 여섯 칸,<br />여행을 모아요</h2>
+					<p class="lead">
+						명소·음식·거리·자연·숙소·순간. 빈 칸의 ＋를 누르면 그 테마에 사진을 넣어요. 여섯 칸을 다 채우면 도시
+						완성이에요.
+					</p>
+					<div class="dexrow">
+						<span id="dexMsg">빈 칸을 눌러 채워 보세요</span>
+						<button class="btn ghost sm" type="button" id="dexReset" hidden>다시</button>
+					</div>
+				</div>
+				<div class="hive" id="hive" role="group" aria-label="오사카 테마 여섯 칸">
+					{
+						HIVE_CELLS.map((cell, i) => (
+							<button
+								class:list={['hx', { full: cell.full }]}
+								type="button"
+								data-t={cell.theme}
+								aria-label={cell.full ? `${cell.theme}, 사진 있음` : `${cell.theme}에 사진 넣기`}
+								style={`left:${cell.left};top:${cell.top}`}
+							>
+								<span class="plus" aria-hidden="true">
+									<b>+</b>
+									{cell.theme}
+								</span>
+								<span class="ph" style={`background:${photoBackground(i)}`} />
+								<span class="lab" aria-hidden="true">
+									{cell.theme}
+								</span>
+							</button>
+						))
+					}
+					<div class="ctr">
+						<svg viewBox="0 0 100 100" aria-hidden="true">
+							<circle class="ring-bg" cx="50" cy="50" r="46" fill="none" stroke-width="3"></circle>
+							<circle
+								class="ring-fg"
+								id="ring"
+								cx="50"
+								cy="50"
+								r="46"
+								fill="none"
+								stroke-width="3"
+								stroke-linecap="round"
+								stroke-dasharray={RING_LENGTH}
+								style={`stroke-dashoffset:${RING_LENGTH * (1 - initialFilled / HIVE_CELLS.length)}`}
+							></circle>
+						</svg>
+						<div class="face">
+							<span>오사카<small id="dexCount">{initialFilled}/{HIVE_CELLS.length}</small></span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- 3 · 쓰는 법 -->
+		<section class="how" id="how">
+			<div class="w head rise pre">
+				<span class="eyebrow">쓰는 법</span>
+				<h2>사진 고르기 한 번으로 여행이 지도에 남아요</h2>
+			</div>
+			<div class="w flow">
+				<div class="stick">
+					<div class="phone">
+						<img
+							id="stickImg"
+							src={STEPS[0].img}
+							width={SCREEN.width}
+							height={SCREEN.height}
+							loading="lazy"
+							alt={STEPS[0].alt}
+						/>
+					</div>
+				</div>
+				<div class="steps">
+					{
+						STEPS.map((step, i) => (
+							<div class:list={['step', { on: i === 0 }]} data-img={step.img} data-alt={step.alt}>
+								<span class="no">{step.no}</span>
+								<h3>{step.title}</h3>
+								<p>{step.body}</p>
+								<div class="phone sm inline">
+									<img src={step.img} width={SCREEN.width} height={SCREEN.height} loading="lazy" alt={step.alt} />
+								</div>
+							</div>
+						))
+					}
+				</div>
+			</div>
+		</section>
+
+		<!-- 4 · 약속 -->
+		<section class="band priv">
+			<div class="w">
+				{
+					PROMISES.map((item) => (
+						<div class="item rise pre">
+							<h3>{item.title}</h3>
+							<p>{item.body}</p>
+						</div>
+					))
+				}
+			</div>
+		</section>
+
+		<!-- 5 · 베타 -->
+		<section class="band closing-band">
+			<div class="w closing rise pre">
+				<h2>지금은 베타 테스트 중이에요</h2>
+				<p class="lead">iPhone에 TestFlight를 깔고 3분이면 설치해요.</p>
+				<div class="cta">
+					<a class="btn" href="/pinbook/beta">베타 설치 안내 보기</a>
+					<a class="btn ghost" href="/pinbook/support">의견 보내기</a>
+				</div>
+				<div class="chips"><span>iPhone</span><span>iOS 16.4 이상</span><span>무료</span></div>
+			</div>
+		</section>
+	</div>
 </PinbookPage>
+
+<script>
+	import '../../scripts/pinbook-landing';
+</script>
+
+<style>
+	/* 랜딩 전용 토큰. 공용 색(--pb-*)은 PinbookPage 레이아웃에서 온다. */
+	.lp {
+		--lp-visited: #f4c7b2;
+		--lp-visited-line: #e9a68a;
+		--lp-land-line: #d5d2ca;
+		--lp-ink: #15191d;
+		--lp-mono: ui-monospace, 'SF Mono', Menlo, monospace;
+		--lp-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+
+		color: var(--pb-fg);
+		font-size: 16px;
+		line-height: 1.6;
+		letter-spacing: normal;
+		overflow-x: clip;
+	}
+	@media (prefers-color-scheme: dark) {
+		.lp {
+			--lp-visited: #6b3a2c;
+			--lp-visited-line: #8a4a36;
+			--lp-land-line: #2f363f;
+			--lp-ink: #05080b;
+		}
+	}
+
+	.lp a {
+		color: inherit;
+	}
+	.w {
+		max-width: 1080px;
+		margin: 0 auto;
+		padding-left: max(20px, env(safe-area-inset-left, 0px));
+		padding-right: max(20px, env(safe-area-inset-right, 0px));
+	}
+	h1 {
+		font-size: clamp(32px, 5.6vw, 56px);
+		line-height: 1.12;
+		letter-spacing: -0.035em;
+		margin: 0;
+		text-wrap: balance;
+		font-weight: 800;
+	}
+	h2 {
+		font-size: clamp(24px, 3.4vw, 34px);
+		line-height: 1.2;
+		letter-spacing: -0.03em;
+		margin: 0;
+		text-wrap: balance;
+		font-weight: 800;
+	}
+	h3 {
+		margin: 0;
+	}
+	p {
+		margin: 0;
+	}
+	.lead {
+		font-size: clamp(16px, 1.8vw, 19px);
+		color: var(--pb-muted);
+		max-width: 34em;
+	}
+	/* 전역 .eyebrow(올캡스·굵게)를 시안 모양으로 되돌린다 */
+	.eyebrow {
+		text-transform: none;
+		font-weight: 400;
+		font-family: var(--lp-mono);
+		font-size: 12.5px;
+		color: var(--pb-accent);
+		letter-spacing: 0.04em;
+	}
+	.cta {
+		display: flex;
+		gap: 10px;
+		flex-wrap: wrap;
+		align-items: center;
+	}
+	.btn {
+		display: inline-flex;
+		align-items: center;
+		gap: 8px;
+		min-height: 50px;
+		padding: 0 22px;
+		border-radius: 14px;
+		background: var(--pb-accent);
+		border: 0;
+		font: inherit;
+		font-weight: 700;
+		text-decoration: none;
+		cursor: pointer;
+	}
+	.lp .btn,
+	.lp .btn:hover {
+		color: var(--pb-on-accent);
+	}
+	.lp .btn.ghost,
+	.lp .btn.ghost:hover {
+		background: transparent;
+		color: var(--pb-fg);
+		border: 1px solid var(--pb-line);
+	}
+	.btn.sm {
+		min-height: 40px;
+		padding: 0 16px;
+		font-size: 14px;
+		border-radius: 12px;
+	}
+	.phone {
+		width: min(290px, 100%);
+		aspect-ratio: 9 / 19.5;
+		border-radius: 44px;
+		background: var(--lp-ink);
+		padding: 10px;
+		box-shadow: 0 24px 50px rgba(0, 0, 0, 0.2);
+		flex: none;
+	}
+	.phone img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		object-position: top;
+		border-radius: 35px;
+		display: block;
+	}
+	.phone.sm {
+		width: min(220px, 100%);
+		border-radius: 34px;
+		padding: 8px;
+	}
+	.phone.sm img {
+		border-radius: 27px;
+	}
+	.band {
+		padding-block: 80px;
+	}
+
+	/* 1 · 지도 */
+	.hero {
+		position: relative;
+		background: var(--pb-sea);
+		overflow: hidden;
+		min-height: 640px;
+	}
+	.hero canvas {
+		position: absolute;
+		inset: 0;
+		width: 100%;
+		height: 100%;
+		cursor: crosshair;
+		touch-action: manipulation;
+	}
+	.hero .w {
+		position: relative;
+		display: grid;
+		grid-template-columns: 1.1fr 0.9fr;
+		gap: 32px;
+		align-items: center;
+		padding-block: 56px 64px;
+		/* 카드·폰 밖(지도)은 캔버스가 클릭을 받는다 */
+		pointer-events: none;
+	}
+	.hero .card {
+		pointer-events: auto;
+		background: color-mix(in srgb, var(--pb-bg) 90%, transparent);
+		border-radius: 22px;
+		padding: 26px;
+		display: grid;
+		gap: 18px;
+		min-width: 0;
+		backdrop-filter: blur(6px);
+		box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+	}
+	.hero .phone {
+		pointer-events: auto;
+		justify-self: center;
+	}
+	@media (max-width: 780px) {
+		.hero .w {
+			grid-template-columns: 1fr;
+			padding-block: 32px 48px;
+		}
+		.hero .phone {
+			width: min(240px, 70%);
+		}
+	}
+	.stat {
+		display: flex;
+		gap: 22px;
+		flex-wrap: wrap;
+		font-variant-numeric: tabular-nums;
+	}
+	.stat div {
+		display: grid;
+	}
+	.stat b {
+		font-size: 28px;
+		letter-spacing: -0.02em;
+		line-height: 1.1;
+		color: var(--pb-fg);
+	}
+	.stat span {
+		font-size: 13px;
+		color: var(--pb-muted);
+	}
+	.stat b.bump {
+		animation: lp-bump 0.45s var(--lp-ease);
+	}
+	@keyframes lp-bump {
+		0% {
+			transform: scale(1);
+		}
+		40% {
+			transform: scale(1.25);
+			color: var(--pb-accent);
+		}
+		100% {
+			transform: scale(1);
+		}
+	}
+	.tap {
+		display: flex;
+		align-items: center;
+		gap: 8px;
+		font-size: 13.5px;
+		color: var(--pb-muted);
+	}
+	.tap i {
+		width: 10px;
+		height: 10px;
+		border-radius: 50%;
+		background: var(--pb-accent);
+		animation: lp-ping 1.8s infinite;
+	}
+	@keyframes lp-ping {
+		0% {
+			box-shadow: 0 0 0 0 color-mix(in srgb, var(--pb-accent) 60%, transparent);
+		}
+		80%,
+		100% {
+			box-shadow: 0 0 0 10px transparent;
+		}
+	}
+
+	/* 2 · 벌집 */
+	.dex .w {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 48px;
+		align-items: center;
+	}
+	@media (max-width: 780px) {
+		.dex .w {
+			grid-template-columns: 1fr;
+		}
+	}
+	.dex .txt {
+		display: grid;
+		gap: 16px;
+		min-width: 0;
+	}
+	.hive {
+		position: relative;
+		width: min(420px, 100%);
+		aspect-ratio: 1 / 1.02;
+		justify-self: center;
+	}
+	.hx {
+		position: absolute;
+		width: 31%;
+		aspect-ratio: 1 / 1.1547;
+		clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%);
+		display: grid;
+		place-items: center;
+		text-align: center;
+		font-weight: 700;
+		font-size: 14px;
+		background: var(--pb-surface);
+		color: var(--pb-muted);
+		border: 0;
+		padding: 0;
+		font-family: inherit;
+		cursor: pointer;
+		transition: transform 0.2s var(--lp-ease);
+	}
+	.hx:hover {
+		transform: scale(1.04);
+	}
+	.hx .plus {
+		display: grid;
+		justify-items: center;
+		gap: 2px;
+	}
+	.hx .plus b {
+		font-size: 24px;
+		font-weight: 400;
+		line-height: 1;
+		color: var(--pb-fg);
+	}
+	.hx.full .plus {
+		display: none;
+	}
+	.hx .ph {
+		position: absolute;
+		inset: 0;
+		transform: scale(0);
+		transition: transform 0.45s var(--lp-ease);
+	}
+	.hx.full .ph {
+		transform: scale(1);
+	}
+	.hx.full {
+		cursor: default;
+	}
+	.hx .lab {
+		position: absolute;
+		bottom: 14%;
+		left: 0;
+		right: 0;
+		font-size: 12px;
+		color: #fff;
+		text-shadow: 0 1px 3px rgba(0, 0, 0, 0.55);
+		opacity: 0;
+		transition: opacity 0.3s 0.25s;
+	}
+	.hx.full .lab {
+		opacity: 1;
+	}
+	.ctr {
+		position: absolute;
+		left: 34.5%;
+		top: 36.8%;
+		width: 31%;
+		aspect-ratio: 1 / 1.1547;
+		display: grid;
+		place-items: center;
+	}
+	.ctr svg {
+		position: absolute;
+		inset: -14%;
+		width: 128%;
+		height: 128%;
+		transform: rotate(-90deg);
+	}
+	.ctr .face {
+		width: 100%;
+		height: 100%;
+		clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%);
+		background: var(--pb-accent);
+		color: var(--pb-on-accent);
+		display: grid;
+		place-items: center;
+		text-align: center;
+		font-weight: 800;
+		line-height: 1.2;
+		font-size: 15px;
+	}
+	.ctr .face small {
+		display: block;
+		font-size: 20px;
+		font-variant-numeric: tabular-nums;
+	}
+	.ring-bg {
+		stroke: var(--pb-line);
+	}
+	.ring-fg {
+		stroke: var(--pb-accent);
+		transition: stroke-dashoffset 0.6s var(--lp-ease);
+	}
+	.hive.done .face {
+		animation: lp-done 1s var(--lp-ease);
+	}
+	@keyframes lp-done {
+		0% {
+			transform: scale(1);
+		}
+		30% {
+			transform: scale(1.12);
+		}
+		100% {
+			transform: scale(1);
+		}
+	}
+	.dexrow {
+		display: flex;
+		gap: 10px;
+		align-items: center;
+		flex-wrap: wrap;
+		color: var(--pb-muted);
+		font-size: 14px;
+	}
+
+	/* 3 · 쓰는 법: 넓은 화면은 붙어 있는 폰 하나가 바뀌고, 폰 폭에선 장면마다 이미지 */
+	.how {
+		background: var(--pb-surface);
+		border-block: 1px solid var(--pb-line);
+	}
+	.how .head {
+		display: grid;
+		gap: 12px;
+		padding-top: 80px;
+	}
+	.flow {
+		display: grid;
+		grid-template-columns: 320px 1fr;
+		gap: 56px;
+		align-items: start;
+		padding-block: 24px 80px;
+	}
+	.stick {
+		position: sticky;
+		top: calc(env(safe-area-inset-top, 0px) + 40px);
+		display: grid;
+		justify-items: center;
+	}
+	.stick img {
+		transition: opacity 0.3s ease;
+	}
+	.step {
+		min-height: 62vh;
+		display: grid;
+		align-content: center;
+		gap: 12px;
+		border-left: 2px solid var(--pb-line);
+		padding-left: 24px;
+		transition: border-color 0.3s;
+	}
+	.step.on {
+		border-left-color: var(--pb-accent);
+	}
+	.step .no {
+		font-family: var(--lp-mono);
+		font-size: 13px;
+		color: var(--pb-accent);
+	}
+	.step h3 {
+		font-size: clamp(22px, 2.8vw, 30px);
+		letter-spacing: -0.03em;
+		line-height: 1.25;
+	}
+	.step p {
+		color: var(--pb-muted);
+		max-width: 30em;
+	}
+	.step .phone.inline {
+		display: none;
+	}
+	@media (max-width: 820px) {
+		.flow {
+			grid-template-columns: 1fr;
+		}
+		.flow .stick {
+			display: none;
+		}
+		.step {
+			min-height: auto;
+			padding-block: 28px;
+		}
+		.step .phone.inline {
+			display: block;
+			margin-top: 8px;
+		}
+	}
+
+	/* 4 · 약속, 5 · 베타 */
+	.priv .w {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 24px;
+	}
+	@media (max-width: 780px) {
+		.priv .w {
+			grid-template-columns: 1fr;
+		}
+	}
+	.priv .item {
+		display: grid;
+		gap: 6px;
+		padding-top: 16px;
+		border-top: 2px solid var(--pb-fg);
+	}
+	.priv h3 {
+		font-size: 18px;
+	}
+	.priv p {
+		color: var(--pb-muted);
+		font-size: 15px;
+	}
+	.closing-band {
+		padding-top: 0;
+	}
+	.closing {
+		text-align: center;
+		display: grid;
+		gap: 18px;
+		justify-items: center;
+	}
+	.closing .cta {
+		justify-content: center;
+	}
+	.chips {
+		display: flex;
+		gap: 6px;
+		flex-wrap: wrap;
+		justify-content: center;
+	}
+	.chips span {
+		font-size: 13px;
+		border: 1px solid var(--pb-line);
+		border-radius: 999px;
+		padding: 2px 10px;
+		color: var(--pb-muted);
+		background: var(--pb-surface);
+	}
+
+	/* 화면에 들어오면 살짝 떠오름. JS 가 있을 때만 아래로 내려 두고, 투명하게 숨기지는 않는다. */
+	.rise {
+		transition:
+			opacity 0.6s var(--lp-ease),
+			transform 0.6s var(--lp-ease);
+	}
+	.lp.is-js .rise.pre {
+		transform: translateY(18px);
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.lp *,
+		.lp *::before,
+		.lp *::after {
+			animation: none !important;
+			transition: none !important;
+		}
+	}
+</style>
