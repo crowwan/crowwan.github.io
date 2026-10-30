@@ -20,9 +20,12 @@ interface Props {
 	};
 	// 본문을 블로그 .prose 글 타이포로 감쌀지. 자체 디자인이 있는 페이지(베타 안내)는 false.
 	prose?: boolean;
+	// 랜딩(소개)처럼 화면 폭을 다 쓰는 페이지만 true.
+	// 본문은 폭·여백 없이 펼치고, 머리·꼬리는 넓은 폭(1080px)에 맞춘다.
+	wide?: boolean;
 }
 
-const { frontmatter, prose = true } = Astro.props;
+const { frontmatter, prose = true, wide = false } = Astro.props;
 const { title, description, noindex = false, image = DEFAULT_OG_IMAGE } = frontmatter;
 
 const HEADER_LINKS = [
@@ -43,7 +46,7 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '');
 const ariaCurrent = (href: string) => (href === currentPath ? 'page' : undefined);
 ---
 
-<html lang="ko" class="pinbook-site">
+<html lang="ko" class:list={['pinbook-site', { 'pinbook-wide': wide }]}>
 	<head>
 		<BaseHead title={title} description={description} image={image} />
 		<!-- 크기·대체 글을 미리 알려 첫 공유에서도 큰 미리보기로 뜨게 한다(BaseHead 는 블로그와 공용이라 여기서 추가). -->
@@ -219,6 +222,16 @@ const ariaCurrent = (href: string) => (href === currentPath ? 'page' : undefined
 				max-width: calc(var(--prose-width) + 40px);
 				margin: 0 auto;
 				padding: 28px 20px 8px;
+			}
+
+			/* ── 넓은 페이지(랜딩): 본문은 화면 폭 전체, 머리·꼬리는 1080px ── */
+			html.pinbook-wide .pb-bar,
+			html.pinbook-wide .pb-footer {
+				max-width: 1080px;
+			}
+			html.pinbook-wide main.pb-main {
+				max-width: none;
+				padding: 0;
 			}
 
 			/* ── 꼬리 ── */
