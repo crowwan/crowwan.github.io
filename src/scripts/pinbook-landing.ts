@@ -18,21 +18,21 @@ interface Land {
 	fill: number;
 	visited: boolean;
 }
-interface Pin {
-	x: number;
-	y: number;
+// 사진이 꽂힐 자리. 땅 중심에서 (u·가로 반지름, v·세로 반지름) 만큼 떨어진 곳.
+// 땅 기준이라 화면 크기나 땅 배치(넓은 화면 ↔ 좁은 화면)가 바뀌어도 제 땅에 남는다.
+interface Spot {
+	land: number;
+	u: number;
+	v: number;
+}
+interface Pin extends Spot {
 	photo: number;
 	t: number;
 	ring: number;
 	ringTo: number;
 }
-interface Landing {
-	tx: number;
-	ty: number;
-	land: number;
+interface Flight extends Spot {
 	photo: number;
-}
-interface Flight extends Landing {
 	sx: number;
 	sy: number;
 	cx: number;
@@ -45,9 +45,11 @@ interface Ripple {
 	y: number;
 	t: number;
 }
+type LandShape = readonly [number, number, number, number];
 
-// 땅 덩어리 [중심 x, 중심 y, 가로 반지름, 세로 반지름] (캔버스 크기 비율)
-const LAND_SHAPES: ReadonlyArray<readonly [number, number, number, number]> = [
+// 땅 덩어리 [중심 x, 중심 y, 가로 반지름, 세로 반지름] (캔버스 크기 비율).
+// 넓은 화면: 카드·폰 뒤까지 깔리는 첫 화면 전체 지도.
+const WIDE_LANDS: readonly LandShape[] = [
 	[0.07, 0.3, 0.15, 0.2],
 	[0.26, 0.7, 0.18, 0.16],
 	[0.52, 0.2, 0.13, 0.15],
@@ -58,15 +60,34 @@ const LAND_SHAPES: ReadonlyArray<readonly [number, number, number, number]> = [
 	[0.96, 0.78, 0.07, 0.14],
 	[0.4, 0.45, 0.07, 0.08],
 ];
-// 첫 착지: 세 장이 두 나라로 [땅 번호, 자리]
-const FIRST_LANDINGS: ReadonlyArray<readonly [number, number]> = [
-	[2, 0],
-	[3, 1],
-	[2, 2],
+// 좁은 화면: 카드와 폰 사이의 낮은 지도 띠. 땅 개수를 같게 둬 칠한 나라가 이어진다.
+const BAND_LANDS: readonly LandShape[] = [
+	[0.13, 0.27, 0.14, 0.18],
+	[0.33, 0.7, 0.15, 0.17],
+	[0.52, 0.27, 0.12, 0.16],
+	[0.74, 0.62, 0.12, 0.2],
+	[0.9, 0.2, 0.08, 0.13],
+	[0.1, 0.8, 0.08, 0.1],
+	[0.56, 0.9, 0.1, 0.07],
+	[0.93, 0.85, 0.05, 0.09],
+	[0.33, 0.3, 0.06, 0.09],
+];
+// CSS 의 좁은 화면 기준과 같아야 한다(index.astro).
+const narrowLayout = matchMedia('(max-width: 780px)');
+
+// 한 땅 안에서 사진이 꽂힐 수 있는 자리 후보
+// (좁은 화면의 작은 땅에서도 두 자리가 핀 하나로 합쳐지지 않을 만큼 벌린다)
+const LANDING_SPOTS: ReadonlyArray<readonly [number, number]> = [
+	[-0.4, 0.15],
+	[0.4, 0.15],
+	[0, -0.3],
+	[0, 0],
 ];
 const THEMES_PER_CITY = 6;
 // 이 거리 안에 떨어지면 같은 도시 핀에 쌓인다.
 const SAME_PIN_DISTANCE = 22;
+// 첫 착지 자리는 카드·폰 가장자리와 캔버스 끝에서 이만큼 떨어뜨린다.
+const CLEAR_MARGIN = 16;
 
 const easeInOut = (t: number) => (t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2);
 const easeBack = (t: number) => {
@@ -82,7 +103,9 @@ function setupMap(root: HTMLElement) {
 	if (!(canvas instanceof HTMLCanvasElement) || !countryEl || !photoEl) return;
 	const g = canvas.getContext('2d');
 	if (!g) return;
-	startMap(root, canvas, g, countryEl, photoEl);
+	// 지도를 가리는 것(넓은 화면에서 카드와 폰)
+	const covers = Array.from(root.querySelectorAll('.hero .card, .hero .phone'));
+	startMap(root, canvas, g, countryEl, photoEl, covers);
 }
 
 function startMap(
@@ -91,6 +114,7 @@ function startMap(
 	g: CanvasRenderingContext2D,
 	countryEl: Element,
 	photoEl: Element,
+	covers: Element[],
 ) {
 	let width = 0;
 	let height = 0;
@@ -109,7 +133,8 @@ function startMap(
 			seed = (seed * 9301 + 49297) % 233280;
 			return seed / 233280;
 		};
-		lands = LAND_SHAPES.map(([x, y, w, h], i) => {
+		const shapes = narrowLayout.matches ? BAND_LANDS : WIDE_LANDS;
+		lands = shapes.map(([x, y, w, h], i) => {
 			const cx = x * width;
 			const cy = y * height;
 			const rx = w * width;
@@ -133,19 +158,19 @@ function startMap(
 		});
 	}
 
+	// 땅 기준 자리 → 캔버스 좌표
+	function spotPoint(spot: Spot) {
+		const l = lands[spot.land];
+		return { x: l.cx + spot.u * l.rx, y: l.cy + spot.v * l.ry };
+	}
+
 	function resize() {
 		const rect = canvas.getBoundingClientRect();
 		const ratio = pixelRatio();
-		const scaleX = width ? rect.width / width : 1;
-		const scaleY = height ? rect.height / height : 1;
 		width = rect.width;
 		height = rect.height;
 		canvas.width = Math.round(width * ratio);
 		canvas.height = Math.round(height * ratio);
-		for (const pin of pins) {
-			pin.x *= scaleX;
-			pin.y *= scaleY;
-		}
 		buildLands();
 		draw();
 	}
@@ -153,6 +178,43 @@ function startMap(
 	function landAt(x: number, y: number) {
 		// isPointInPath 의 점은 변환 전(실제 픽셀) 좌표
 		return lands.findIndex((l) => g.isPointInPath(l.path, x * (canvas.width / width), y * (canvas.height / height)));
+	}
+
+	// 카드·폰에 가리지 않고 캔버스 안쪽인 자리인지
+	function isClear(x: number, y: number) {
+		if (x < CLEAR_MARGIN || y < CLEAR_MARGIN || x > width - CLEAR_MARGIN || y > height - CLEAR_MARGIN) return false;
+		const origin = canvas.getBoundingClientRect();
+		return covers.every((el) => {
+			const r = el.getBoundingClientRect();
+			const left = r.left - origin.left - CLEAR_MARGIN;
+			const top = r.top - origin.top - CLEAR_MARGIN;
+			const right = r.right - origin.left + CLEAR_MARGIN;
+			const bottom = r.bottom - origin.top + CLEAR_MARGIN;
+			return x < left || x > right || y < top || y > bottom;
+		});
+	}
+
+	// 첫 착지: 세 장이 두 나라로(앞 나라에 두 장). 가리지 않은 자리가 있는 땅 중 오른쪽부터 고른다.
+	function pickFirstLandings(): Spot[] {
+		const candidates = lands
+			.map((l, land) => {
+				const spots = LANDING_SPOTS.map(([u, v]) => ({ land, u, v })).filter((spot) => {
+					const p = spotPoint(spot);
+					return isClear(p.x, p.y);
+				});
+				// 같은 땅의 두 자리는 핀이 겹치지 않게 떨어진 것만
+				const apart = spots.filter((spot) => {
+					const p = spotPoint(spot);
+					const q = spotPoint(spots[0]);
+					return spot === spots[0] || Math.hypot(p.x - q.x, p.y - q.y) >= SAME_PIN_DISTANCE * 1.5;
+				});
+				return { cx: l.cx, spots: apart };
+			})
+			.sort((a, b) => b.cx - a.cx);
+		const first = candidates.find((c) => c.spots.length >= 2);
+		const second = candidates.find((c) => c !== first && c.spots.length >= 1);
+		if (!first || !second) return [];
+		return [first.spots[0], second.spots[0], first.spots[1]];
 	}
 
 	function draw() {
@@ -190,30 +252,32 @@ function startMap(
 			g.globalAlpha = 1;
 		}
 		for (const pin of pins) {
+			const { x, y } = spotPoint(pin);
 			const radius = 9 * (pin.t < 1 ? easeBack(pin.t) : 1);
 			// 도시 링: 채운 테마 칸만큼
 			g.beginPath();
-			g.arc(pin.x, pin.y, radius + 5, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * Math.min(1, pin.ring));
+			g.arc(x, y, radius + 5, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * Math.min(1, pin.ring));
 			g.strokeStyle = accent;
 			g.lineWidth = 2.5;
 			g.stroke();
 			g.save();
 			g.beginPath();
-			g.arc(pin.x, pin.y, radius, 0, Math.PI * 2);
+			g.arc(x, y, radius, 0, Math.PI * 2);
 			g.clip();
-			paintPhoto(g, pin.x - radius, pin.y - radius, radius * 2, pin.photo);
+			paintPhoto(g, x - radius, y - radius, radius * 2, pin.photo);
 			g.restore();
 			g.beginPath();
-			g.arc(pin.x, pin.y, radius, 0, Math.PI * 2);
+			g.arc(x, y, radius, 0, Math.PI * 2);
 			g.lineWidth = 2;
 			g.strokeStyle = surface;
 			g.stroke();
 		}
 		for (const f of flights) {
 			// 2차 베지어 곡선을 따라 날아가며 작아진다
+			const target = spotPoint(f);
 			const t = easeInOut(f.t);
-			const x = (1 - t) * (1 - t) * f.sx + 2 * (1 - t) * t * f.cx + t * t * f.tx;
-			const y = (1 - t) * (1 - t) * f.sy + 2 * (1 - t) * t * f.cy + t * t * f.ty;
+			const x = (1 - t) * (1 - t) * f.sx + 2 * (1 - t) * t * f.cx + t * t * target.x;
+			const y = (1 - t) * (1 - t) * f.sy + 2 * (1 - t) * t * f.cy + t * t * target.y;
 			const size = 34 - t * 18;
 			g.save();
 			g.translate(x, y);
@@ -238,7 +302,7 @@ function startMap(
 			f.t += dt / 0.9;
 			busy = true;
 		}
-		for (const f of flights.filter((f) => f.t >= 1)) land(f);
+		for (const f of flights.filter((f) => f.t >= 1)) land(f, f.photo);
 		flights = flights.filter((f) => f.t < 1);
 		for (const pin of pins) {
 			if (pin.t < 1) {
@@ -283,15 +347,19 @@ function startMap(
 		el.classList.add('bump');
 	}
 
-	function land(f: Landing) {
-		const target = lands[f.land];
-		const near = pins.find((p) => Math.hypot(p.x - f.tx, p.y - f.ty) < SAME_PIN_DISTANCE);
+	function land(spot: Spot, photo: number) {
+		const target = lands[spot.land];
+		const at = spotPoint(spot);
+		const near = pins.find((p) => {
+			const q = spotPoint(p);
+			return Math.hypot(q.x - at.x, q.y - at.y) < SAME_PIN_DISTANCE;
+		});
 		if (near) {
 			near.ringTo = Math.min(1, near.ringTo + 1 / THEMES_PER_CITY);
-			near.photo = f.photo;
+			near.photo = photo;
 			near.t = 0.4;
 		} else {
-			pins.push({ x: f.tx, y: f.ty, photo: f.photo, t: 0, ring: 0, ringTo: 1 / THEMES_PER_CITY });
+			pins.push({ ...spot, photo, t: 0, ring: 0, ringTo: 1 / THEMES_PER_CITY });
 		}
 		const firstVisit = !target.visited;
 		target.visited = true;
@@ -300,12 +368,12 @@ function startMap(
 		if (firstVisit) setStat(countryEl, lands.filter((l) => l.visited).length);
 	}
 
-	function shoot(tx: number, ty: number, landIndex: number) {
+	function shoot(spot: Spot) {
 		const photo = photoCount + flights.length;
 		if (reduceMotion.matches) {
 			// 모션 없이 결과만: 바로 꽂고 칠한다
-			land({ tx, ty, land: landIndex, photo });
-			lands[landIndex].fill = 1;
+			land(spot, photo);
+			lands[spot.land].fill = 1;
 			for (const pin of pins) {
 				pin.t = 1;
 				pin.ring = pin.ringTo;
@@ -313,18 +381,17 @@ function startMap(
 			draw();
 			return;
 		}
+		const target = spotPoint(spot);
 		const sx = width * 0.5 + (Math.random() - 0.5) * width * 0.2;
 		const sy = height + 40;
 		flights.push({
+			...spot,
+			photo,
 			sx,
 			sy,
-			cx: (sx + tx) / 2 + (Math.random() - 0.5) * 120,
-			cy: Math.min(sy, ty) - height * 0.35,
-			tx,
-			ty,
+			cx: (sx + target.x) / 2 + (Math.random() - 0.5) * 120,
+			cy: Math.min(sy, target.y) - height * 0.35,
 			t: 0,
-			photo,
-			land: landIndex,
 			rot: (Math.random() - 0.5) * 0.8,
 		});
 		kick();
@@ -336,7 +403,8 @@ function startMap(
 		const y = e.clientY - rect.top;
 		const landIndex = landAt(x, y);
 		if (landIndex >= 0) {
-			shoot(x, y, landIndex);
+			const l = lands[landIndex];
+			shoot({ land: landIndex, u: (x - l.cx) / l.rx, v: (y - l.cy) / l.ry });
 		} else if (!reduceMotion.matches) {
 			// 바다를 누르면 물결만
 			ripples.push({ x, y, t: 0 });
@@ -345,20 +413,14 @@ function startMap(
 	});
 
 	resize();
-	// 창 크기뿐 아니라 글꼴 로딩 등으로 첫 화면 높이가 바뀌어도 다시 그린다.
+	// 창 크기, 좁은 화면 전환(지도 띠), 글꼴 로딩 등으로 크기가 바뀌면 다시 그린다.
 	new ResizeObserver(resize).observe(canvas);
 	// 다크 모드 전환(사이트는 시스템 설정만 따름) 시 새 색으로 다시 그린다.
 	darkScheme.addEventListener('change', draw);
 	reduceMotion.addEventListener('change', draw);
 
-	FIRST_LANDINGS.forEach(([landIndex, slot], i) => {
-		setTimeout(
-			() => {
-				const l = lands[landIndex];
-				shoot(l.cx + (slot - 1) * l.rx * 0.25, l.cy + (slot % 2 ? -1 : 1) * l.ry * 0.15, landIndex);
-			},
-			reduceMotion.matches ? 0 : 500 + i * 380,
-		);
+	pickFirstLandings().forEach((spot, i) => {
+		setTimeout(() => shoot(spot), reduceMotion.matches ? 0 : 500 + i * 380);
 	});
 }
 

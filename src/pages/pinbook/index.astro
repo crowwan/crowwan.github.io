@@ -71,8 +71,8 @@ const PROMISES = [
 >
 	<div class="lp">
 		<!-- 1 · 지도 -->
+		<!-- 넓은 화면: 지도가 첫 화면 전체에 깔리고 카드·폰이 위에 뜸 / 좁은 화면: 카드 → 지도 띠 → 폰 -->
 		<section class="hero" id="hero">
-			<canvas id="map" role="img" aria-label="누르면 사진이 날아가 꽂히는 지도"></canvas>
 			<div class="w">
 				<div class="card">
 					<span class="eyebrow">iPhone 여행 도감 · 베타</span>
@@ -89,6 +89,9 @@ const PROMISES = [
 						<div><b id="sPhoto">0</b><span>사진</span></div>
 					</div>
 					<span class="tap"><i></i>지도를 눌러 사진을 꽂아 보세요</span>
+				</div>
+				<div class="map-band">
+					<canvas id="map" role="img" aria-label="누르면 사진이 날아가 꽂히는 지도"></canvas>
 				</div>
 				<div class="phone">
 					<img
@@ -238,7 +241,6 @@ const PROMISES = [
 		--lp-visited-line: #e9a68a;
 		--lp-land-line: #d5d2ca;
 		--lp-ink: #15191d;
-		--lp-mono: ui-monospace, 'SF Mono', Menlo, monospace;
 		--lp-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
 
 		color: var(--pb-fg);
@@ -292,12 +294,12 @@ const PROMISES = [
 		color: var(--pb-muted);
 		max-width: 34em;
 	}
-	/* 전역 .eyebrow(올캡스·굵게)를 시안 모양으로 되돌린다 */
+	/* 절 머리 라벨. 전역 .eyebrow 의 올캡스는 끄고, 한글이 벌어지지 않게 본문 글꼴로 */
 	.eyebrow {
 		text-transform: none;
-		font-weight: 400;
-		font-family: var(--lp-mono);
-		font-size: 12.5px;
+		font-family: inherit;
+		font-weight: 700;
+		font-size: 13px;
 		color: var(--pb-accent);
 		letter-spacing: 0.04em;
 	}
@@ -373,7 +375,13 @@ const PROMISES = [
 		overflow: hidden;
 		min-height: 640px;
 	}
-	.hero canvas {
+	/* 넓은 화면: 지도 띠가 첫 화면(.hero) 전체를 덮고, 카드·폰이 그 위에 뜬다 */
+	.map-band {
+		position: absolute;
+		inset: 0;
+		pointer-events: auto;
+	}
+	.map-band canvas {
 		position: absolute;
 		inset: 0;
 		width: 100%;
@@ -382,7 +390,6 @@ const PROMISES = [
 		touch-action: manipulation;
 	}
 	.hero .w {
-		position: relative;
 		display: grid;
 		grid-template-columns: 1.1fr 0.9fr;
 		gap: 32px;
@@ -392,6 +399,8 @@ const PROMISES = [
 		pointer-events: none;
 	}
 	.hero .card {
+		position: relative;
+		z-index: 1;
 		pointer-events: auto;
 		background: color-mix(in srgb, var(--pb-bg) 90%, transparent);
 		border-radius: 22px;
@@ -403,13 +412,37 @@ const PROMISES = [
 		box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
 	}
 	.hero .phone {
+		position: relative;
+		z-index: 1;
 		pointer-events: auto;
 		justify-self: center;
 	}
+	/* 좁은 화면: 카드가 지도를 덮지 않게 종이 바탕 카드 → 누를 수 있는 지도 띠 → 폰 순서로 쌓는다.
+	   780px 은 스크립트의 땅 배치 전환 기준(pinbook-landing.ts narrowLayout)과 같아야 한다. */
 	@media (max-width: 780px) {
+		.hero {
+			min-height: 0;
+			background: var(--pb-bg);
+		}
 		.hero .w {
 			grid-template-columns: 1fr;
-			padding-block: 32px 48px;
+			gap: 28px;
+			padding-block: 28px 48px;
+		}
+		.hero .card {
+			background: none;
+			padding: 0;
+			border-radius: 0;
+			box-shadow: none;
+			backdrop-filter: none;
+		}
+		.map-band {
+			position: relative;
+			inset: auto;
+			height: 320px;
+			/* 화면 양 끝까지 */
+			margin-inline: calc(-1 * max(20px, env(safe-area-inset-left, 0px)));
+			background: var(--pb-sea);
 		}
 		.hero .phone {
 			width: min(240px, 70%);
@@ -660,7 +693,8 @@ const PROMISES = [
 		border-left-color: var(--pb-accent);
 	}
 	.step .no {
-		font-family: var(--lp-mono);
+		font-weight: 700;
+		letter-spacing: 0.02em;
 		font-size: 13px;
 		color: var(--pb-accent);
 	}
