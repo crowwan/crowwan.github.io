@@ -17,21 +17,21 @@ const STEPS = [
 	{
 		no: '1 · 찾기',
 		title: '사진첩에서 지난 여행을 찾아요',
-		body: "사진에 담긴 위치와 날짜로 여행 후보를 찾고, 여행마다 사진을 6장까지 골라 둬요. 위치가 없는 사진은 '날짜로 찾기'에서 언제, 어디였는지 알려 주면 찾아요.",
+		body: "사진첩을 훑어 여행 후보를 찾고, 여행마다 사진을 6장까지 골라 둬요. 위치가 없는 사진은 '날짜로 찾기'에서 언제, 어디였는지 알려 주면 찾아요.",
 		img: '/pinbook/screens/found-trips.webp',
 		alt: '지난 여행 6개를 찾았다는 목록. 시드니·서귀포·오사카·파리·방콕 여행마다 날짜와 고른 사진 장수가 보이는 화면',
 	},
 	{
 		no: '2 · 칠하기',
 		title: '핀하면 다녀온 나라가 칠해져요',
-		body: '찾은 여행을 확인하고 핀하면 다녀온 나라가 지도에 칠해지고, 도시에는 사진 핀이 서요.',
+		body: '칠한 세계지도는 스토리 크기 한 장으로 공유해요.',
 		img: '/pinbook/screens/world-night.webp',
 		alt: '어두운 모드 세계지도. 다녀온 나라가 칠해져 있고 아래에 내 여행 6편이 보이는 화면',
 	},
 	{
 		no: '3 · 사진 열기',
 		title: '핀을 누르면 그 자리 사진이 열려요',
-		body: '도시의 사진 핀을 누르면 그 자리에서 찍은 사진이 열려요.',
+		body: '도시와 여행은 네 컷 사진으로 공유해요.',
 		img: '/pinbook/screens/photo-detail.webp',
 		alt: '오사카 지도에서 핀을 눌러 연 빨간 다리 사진. 아래에 오사카, 2026년 3월 5일 12:23 이 보이는 화면',
 	},
@@ -45,7 +45,7 @@ const STEPS = [
 ];
 
 const PROMISES = [
-	{ title: '내 iPhone 안에만', body: '사진과 기록은 기기에만 저장돼요. 서버로 보내지 않아요.' },
+	{ title: '내 iPhone 안에만', body: '사진과 사진에 담긴 위치는 iPhone 밖으로 보내지 않아요. 사진첩 전체 접근은 선택이에요.' },
 	{ title: '로그인 없이', body: '계정을 만들 필요가 없어요. 열면 바로 시작해요.' },
 	{ title: '비행기 안에서도', body: '인터넷이 없으면 내장 지도로 바뀌어 그대로 핀할 수 있어요.' },
 ];
@@ -150,7 +150,7 @@ const PROMISES = [
 		<section class="band closing-band">
 			<div class="w closing rise pre">
 				<h2>App Store에서 무료로 받아요</h2>
-				<p class="lead">가입과 광고 없이 무료예요.</p>
+				<p class="lead">가입도 광고도 없어요.</p>
 				<div class="cta">
 					<a class="btn" href={PINBOOK_APP_STORE_URL}>App Store에서 받기</a>
 					<a class="btn ghost" href="/pinbook/support">의견 보내기</a>

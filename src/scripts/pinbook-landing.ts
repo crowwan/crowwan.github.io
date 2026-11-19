@@ -28,8 +28,6 @@ interface Spot {
 interface Pin extends Spot {
 	photo: number;
 	t: number;
-	ring: number;
-	ringTo: number;
 }
 interface Flight extends Spot {
 	photo: number;
@@ -83,8 +81,6 @@ const LANDING_SPOTS: ReadonlyArray<readonly [number, number]> = [
 	[0, -0.3],
 	[0, 0],
 ];
-// 같은 핀에 사진이 이만큼 쌓이면 핀 둘레 링이 다 찬다.
-const PHOTOS_PER_RING = 6;
 // 이 거리 안에 떨어지면 같은 도시 핀에 쌓인다.
 const SAME_PIN_DISTANCE = 22;
 // 첫 착지 자리는 카드·폰 가장자리와 캔버스 끝에서 이만큼 떨어뜨린다.
@@ -255,12 +251,7 @@ function startMap(
 		for (const pin of pins) {
 			const { x, y } = spotPoint(pin);
 			const radius = 9 * (pin.t < 1 ? easeBack(pin.t) : 1);
-			// 핀 둘레 링: 이 핀에 쌓인 사진만큼
-			g.beginPath();
-			g.arc(x, y, radius + 5, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * Math.min(1, pin.ring));
-			g.strokeStyle = accent;
-			g.lineWidth = 2.5;
-			g.stroke();
+			// 앱 핀처럼 사진 동그라미 + 흰 테두리
 			g.save();
 			g.beginPath();
 			g.arc(x, y, radius, 0, Math.PI * 2);
@@ -310,10 +301,6 @@ function startMap(
 				pin.t = Math.min(1, pin.t + dt / 0.45);
 				busy = true;
 			}
-			if (pin.ring < pin.ringTo) {
-				pin.ring = Math.min(pin.ringTo, pin.ring + dt / 0.6);
-				busy = true;
-			}
 		}
 		for (const l of lands) {
 			if (l.visited && l.fill < 1) {
@@ -356,11 +343,11 @@ function startMap(
 			return Math.hypot(q.x - at.x, q.y - at.y) < SAME_PIN_DISTANCE;
 		});
 		if (near) {
-			near.ringTo = Math.min(1, near.ringTo + 1 / PHOTOS_PER_RING);
+			// 같은 핀에 쌓이면 새 사진으로 바꾸고 한 번 더 튄다
 			near.photo = photo;
 			near.t = 0.4;
 		} else {
-			pins.push({ ...spot, photo, t: 0, ring: 0, ringTo: 1 / PHOTOS_PER_RING });
+			pins.push({ ...spot, photo, t: 0 });
 		}
 		const firstVisit = !target.visited;
 		target.visited = true;
@@ -375,10 +362,7 @@ function startMap(
 			// 모션 없이 결과만: 바로 핀을 세우고 칠한다
 			land(spot, photo);
 			lands[spot.land].fill = 1;
-			for (const pin of pins) {
-				pin.t = 1;
-				pin.ring = pin.ringTo;
-			}
+			for (const pin of pins) pin.t = 1;
 			draw();
 			return;
 		}

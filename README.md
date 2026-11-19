@@ -98,8 +98,8 @@ npm run migrate
 좁은 화면(780px 이하)에서는 카드가 지도를 덮지 않게 카드 → 누를 수 있는 지도 띠(320px) → 폰 순서로 쌓는다.
 JS 가 없어도 문구·폰 화면은 HTML 로 보이고, 움직임 줄이기 설정이면 모션 없이 결과만 보인다.
 
-App Store 링크는 `src/data/pinbook.ts` 의 `PINBOOK_APP_STORE_ID`(App Store Connect 의 Apple ID 숫자) 하나로 만든다.
-이 값이 비어 있으면 `npm run build` 가 한글 메시지로 실패한다(dev 서버는 빈 값으로도 뜬다). 지원 페이지가 이 값을 쓰려고 `.mdx` 다.
+App Store 링크는 `src/data/pinbook.ts` 의 `PINBOOK_APP_STORE_ID`(App Store Connect 의 Apple ID, 9~10자리 숫자) 하나로 만든다.
+이 값이 비어 있거나 9~10자리 숫자가 아니면 `npm run build` 가 한글 메시지로 실패한다(dev 서버는 빈 값으로도 뜬다). 지원 페이지가 이 값을 쓰려고 `.mdx` 다.
 
 ## 발행일로 커밋 히스토리 만들기
 
