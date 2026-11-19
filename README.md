@@ -83,19 +83,23 @@ npm run migrate
     ├── content.config.ts          # 블로그 컬렉션 스키마(zod)
     ├── content/blog/*.md          # 글
     ├── pages/                     # 홈, 블로그 목록, about, rss
-    │   └── pinbook/               # 핀북 앱 페이지(소개 랜딩·베타 안내·지원·개인정보), 블로그 목록·RSS 에 안 나옴
+    │   └── pinbook/               # 핀북 앱 페이지(소개 랜딩·지원·개인정보·베타 테스터용 출시 안내), 블로그 목록·RSS 에 안 나옴
+    ├── data/pinbook.ts            # 핀북 App Store 앱 번호·링크(모든 핀북 페이지가 여기서 씀)
     ├── layouts/BlogPost.astro     # 글 레이아웃
     ├── layouts/PinbookPage.astro  # 핀북 페이지 레이아웃(전용 머리·꼬리, 앱과 같은 색·다크 모드, wide 옵션)
-    ├── scripts/pinbook-*.ts       # 핀북 소개 랜딩 인터랙션(지도·벌집·쓰는 법)과 사진 견본 색
+    ├── scripts/pinbook-*.ts       # 핀북 소개 랜딩 인터랙션(지도·쓰는 법)과 사진 견본 색
     └── components/                # Header, Footer 등
 ```
 
-핀북 소개 페이지(`/pinbook`)는 랜딩이다. 첫 화면은 누르면 사진이 날아가 꽂히는 지도(캔버스)와 앱 홈 화면,
-이어서 누르면 차는 도감 벌집, 스크롤 따라 폰 화면이 바뀌는 쓰는 법, 약속 세 가지, 베타 안내 순서다.
-앱 화면 이미지는 `public/pinbook/screens/*.webp`(시연 영상 프레임, 폭 600 = 2x).
+핀북 소개 페이지(`/pinbook`)는 랜딩이다. 첫 화면은 누르면 사진이 날아가 핀이 서는 지도(캔버스)와 앱 나라 지도 화면,
+이어서 스크롤 따라 폰 화면이 바뀌는 쓰는 법(찾기·칠하기·사진 열기·돌아보기), 약속 세 가지, App Store 받기 순서다.
+앱 화면 이미지는 `public/pinbook/screens/*.webp`(App Store 스크린샷 원본 1206×2622 을 같은 비율 600×1304 = 2x 로 줄인 것).
 레이아웃은 `wide` 로 본문을 화면 폭 전체로 펼치고 머리·꼬리를 1080px 에 맞춘다.
 좁은 화면(780px 이하)에서는 카드가 지도를 덮지 않게 카드 → 누를 수 있는 지도 띠(320px) → 폰 순서로 쌓는다.
-JS 가 없어도 문구·폰 화면·벌집 처음 상태는 HTML 로 보이고, 움직임 줄이기 설정이면 모션 없이 결과만 보인다.
+JS 가 없어도 문구·폰 화면은 HTML 로 보이고, 움직임 줄이기 설정이면 모션 없이 결과만 보인다.
+
+App Store 링크는 `src/data/pinbook.ts` 의 `PINBOOK_APP_STORE_ID`(App Store Connect 의 Apple ID 숫자) 하나로 만든다.
+이 값이 비어 있으면 `npm run build` 가 한글 메시지로 실패한다(dev 서버는 빈 값으로도 뜬다). 지원 페이지가 이 값을 쓰려고 `.mdx` 다.
 
 ## 발행일로 커밋 히스토리 만들기
 

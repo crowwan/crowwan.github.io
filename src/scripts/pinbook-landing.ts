@@ -1,6 +1,6 @@
 // 핀북 소개 페이지(/pinbook) 인터랙션.
-// 1 지도: 누르면 사진이 날아가 꽂히고 나라가 칠해짐 / 2 벌집: 빈 칸을 누르면 참 /
-// 3 쓰는 법: 스크롤 따라 폰 화면이 바뀜 / 화면에 들어오면 살짝 떠오름.
+// 1 지도: 누르면 사진이 날아가 핀이 서고 나라가 칠해짐 /
+// 2 쓰는 법: 스크롤 따라 폰 화면이 바뀜 / 화면에 들어오면 살짝 떠오름.
 // 움직임 줄이기 설정이면 모션 없이 결과만 보여 준다.
 import { paintPhoto } from './pinbook-photos';
 
@@ -18,7 +18,7 @@ interface Land {
 	fill: number;
 	visited: boolean;
 }
-// 사진이 꽂힐 자리. 땅 중심에서 (u·가로 반지름, v·세로 반지름) 만큼 떨어진 곳.
+// 사진 핀이 설 자리. 땅 중심에서 (u·가로 반지름, v·세로 반지름) 만큼 떨어진 곳.
 // 땅 기준이라 화면 크기나 땅 배치(넓은 화면 ↔ 좁은 화면)가 바뀌어도 제 땅에 남는다.
 interface Spot {
 	land: number;
@@ -75,7 +75,7 @@ const BAND_LANDS: readonly LandShape[] = [
 // CSS 의 좁은 화면 기준과 같아야 한다(index.astro).
 const narrowLayout = matchMedia('(max-width: 780px)');
 
-// 한 땅 안에서 사진이 꽂힐 수 있는 자리 후보
+// 한 땅 안에서 사진 핀이 설 수 있는 자리 후보
 // (좁은 화면의 작은 땅에서도 두 자리가 핀 하나로 합쳐지지 않을 만큼 벌린다)
 const LANDING_SPOTS: ReadonlyArray<readonly [number, number]> = [
 	[-0.4, 0.15],
@@ -83,7 +83,8 @@ const LANDING_SPOTS: ReadonlyArray<readonly [number, number]> = [
 	[0, -0.3],
 	[0, 0],
 ];
-const THEMES_PER_CITY = 6;
+// 같은 핀에 사진이 이만큼 쌓이면 핀 둘레 링이 다 찬다.
+const PHOTOS_PER_RING = 6;
 // 이 거리 안에 떨어지면 같은 도시 핀에 쌓인다.
 const SAME_PIN_DISTANCE = 22;
 // 첫 착지 자리는 카드·폰 가장자리와 캔버스 끝에서 이만큼 떨어뜨린다.
@@ -254,7 +255,7 @@ function startMap(
 		for (const pin of pins) {
 			const { x, y } = spotPoint(pin);
 			const radius = 9 * (pin.t < 1 ? easeBack(pin.t) : 1);
-			// 도시 링: 채운 테마 칸만큼
+			// 핀 둘레 링: 이 핀에 쌓인 사진만큼
 			g.beginPath();
 			g.arc(x, y, radius + 5, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * Math.min(1, pin.ring));
 			g.strokeStyle = accent;
@@ -355,11 +356,11 @@ function startMap(
 			return Math.hypot(q.x - at.x, q.y - at.y) < SAME_PIN_DISTANCE;
 		});
 		if (near) {
-			near.ringTo = Math.min(1, near.ringTo + 1 / THEMES_PER_CITY);
+			near.ringTo = Math.min(1, near.ringTo + 1 / PHOTOS_PER_RING);
 			near.photo = photo;
 			near.t = 0.4;
 		} else {
-			pins.push({ ...spot, photo, t: 0, ring: 0, ringTo: 1 / THEMES_PER_CITY });
+			pins.push({ ...spot, photo, t: 0, ring: 0, ringTo: 1 / PHOTOS_PER_RING });
 		}
 		const firstVisit = !target.visited;
 		target.visited = true;
@@ -371,7 +372,7 @@ function startMap(
 	function shoot(spot: Spot) {
 		const photo = photoCount + flights.length;
 		if (reduceMotion.matches) {
-			// 모션 없이 결과만: 바로 꽂고 칠한다
+			// 모션 없이 결과만: 바로 핀을 세우고 칠한다
 			land(spot, photo);
 			lands[spot.land].fill = 1;
 			for (const pin of pins) {
@@ -424,63 +425,7 @@ function startMap(
 	});
 }
 
-// ── 2 · 벌집 ──
-
-const RING_LENGTH = 289;
-const CELL_COUNT = 6;
-
-function setupHive(root: HTMLElement) {
-	const hive = root.querySelector('#hive');
-	const ring = root.querySelector('#ring');
-	const countEl = root.querySelector('#dexCount');
-	const msg = root.querySelector('#dexMsg');
-	const resetButton = root.querySelector('#dexReset');
-	if (!(hive instanceof HTMLElement) || !(ring instanceof SVGElement) || !countEl || !msg) return;
-	if (!(resetButton instanceof HTMLButtonElement)) return;
-	startHive(hive, ring, countEl, msg, resetButton);
-}
-
-function startHive(hive: HTMLElement, ring: SVGElement, countEl: Element, msg: Element, resetButton: HTMLButtonElement) {
-	const cells = Array.from(hive.querySelectorAll<HTMLButtonElement>('.hx'));
-	// 처음부터 차 있던 칸(다시 하기에서 남겨 둔다)
-	const initiallyFull = new Set(cells.filter((c) => c.classList.contains('full')));
-
-	function update() {
-		const filled = cells.filter((c) => c.classList.contains('full')).length;
-		countEl.textContent = `${filled}/${CELL_COUNT}`;
-		ring.style.strokeDashoffset = String(RING_LENGTH * (1 - filled / CELL_COUNT));
-		for (const cell of cells) {
-			const theme = cell.dataset.t ?? '';
-			cell.setAttribute('aria-label', cell.classList.contains('full') ? `${theme}, 사진 있음` : `${theme}에 사진 넣기`);
-		}
-		if (filled === CELL_COUNT) {
-			hive.classList.add('done');
-			countEl.textContent = '완성!';
-			msg.textContent = '오사카 완성! 이제 다른 도시로';
-			resetButton.hidden = false;
-		} else {
-			msg.textContent = filled > 2 ? `${CELL_COUNT - filled}칸 남았어요` : '빈 칸을 눌러 채워 보세요';
-		}
-	}
-
-	hive.addEventListener('click', (e) => {
-		const cell = e.target instanceof Element ? e.target.closest('.hx') : null;
-		if (!cell || cell.classList.contains('full')) return;
-		cell.classList.add('full');
-		update();
-	});
-	resetButton.addEventListener('click', () => {
-		hive.classList.remove('done');
-		for (const cell of cells) {
-			if (!initiallyFull.has(cell)) cell.classList.remove('full');
-		}
-		resetButton.hidden = true;
-		update();
-	});
-	update();
-}
-
-// ── 3 · 쓰는 법 ──
+// ── 2 · 쓰는 법 ──
 
 function setupHow(root: HTMLElement) {
 	const stickImg = root.querySelector('#stickImg');
@@ -539,6 +484,5 @@ const landingRoot = document.querySelector('.lp');
 if (landingRoot instanceof HTMLElement) {
 	setupRise(landingRoot);
 	setupMap(landingRoot);
-	setupHive(landingRoot);
 	setupHow(landingRoot);
 }
