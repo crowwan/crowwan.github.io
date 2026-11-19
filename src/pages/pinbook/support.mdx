@@ -4,9 +4,12 @@ title: 핀북 지원
 description: 핀북 iOS 앱 지원·문의와 자주 묻는 질문
 ---
 
+{/* App Store 링크는 모든 핀북 페이지가 한 곳(src/data/pinbook.ts)에서 가져다 쓴다. 그래서 .md 가 아닌 .mdx 다. */}
+import { PINBOOK_APP_STORE_URL } from '../../data/pinbook';
+
 # 핀북 지원
 
-핀북은 여행 사진을 내 세계지도에 핀해 다녀온 나라를 칠하고, 여행을 다시 돌아보는 iOS 앱입니다.
+핀북은 여행 사진을 내 세계지도에 핀해 다녀온 나라를 칠하고, 여행을 다시 돌아보는 iOS 앱입니다. <a href={PINBOOK_APP_STORE_URL}>App Store</a>에서 무료로 받을 수 있습니다.
 
 ## 문의
 
@@ -17,12 +20,8 @@ description: 핀북 iOS 앱 지원·문의와 자주 묻는 질문
 오류를 알려 주실 때는 아래 내용을 함께 적어 주시면 도움이 됩니다.
 
 - iPhone 기종과 iOS 버전
-- 앱 버전 (App Store 또는 TestFlight 앱의 핀북 화면에 보입니다)
+- 앱 버전 (핀북의 내 핀북 › 설정에서 **앱 정보 · 데이터 출처** 줄 오른쪽에 보입니다)
 - 어떤 화면에서 무엇을 했을 때 생겼는지, 가능하면 스크린샷
-
-TestFlight로 테스트 중이시면 TestFlight 앱의 "피드백 보내기"나 스크린샷 공유로 보내셔도 됩니다.
-
-설치 방법은 [베타 설치 안내](/pinbook/beta)를 보세요.
 
 ## 자주 묻는 질문
 
@@ -58,4 +57,4 @@ TestFlight로 테스트 중이시면 TestFlight 앱의 "피드백 보내기"나 
 - iCloud 백업이 꺼져 있거나 저장 공간이 부족해 백업되지 않은 상태에서 iPhone을 잃어버렸을 때
 - Android 폰으로 옮길 때
 
-TestFlight로 테스트하다가 App Store 버전으로 바꿀 때는 TestFlight 앱을 지우지 말고 App Store 버전을 그대로 덮어 설치해 주세요. 기록이 이어집니다. 사진과 기록을 파일로 내보내는 기능은 준비 중입니다.
+베타(TestFlight)로 쓰시던 분은 핀북을 지우지 말고 App Store 버전을 덮어 설치하면 기록이 이어집니다. 사진과 기록을 파일로 내보내는 기능은 준비 중입니다.

@@ -11,7 +11,7 @@ export default defineConfig({
 	integrations: [
 		mdx(),
 		sitemap({
-			// 핀북 베타 안내는 지인에게만 주소를 보내는 페이지라 사이트맵에서 뺀다(페이지에도 noindex).
+			// /pinbook/beta 는 베타 테스터에게만 보낸 주소(지금은 출시 안내)라 사이트맵에서 뺀다(페이지에도 noindex).
 			filter: (page) => new URL(page).pathname.replace(/\/$/, '') !== '/pinbook/beta',
 		}),
 	],

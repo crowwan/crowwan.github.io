@@ -1,5 +1,5 @@
 ---
-// 핀북 앱 공개 페이지(소개·베타 안내·지원·개인정보 처리방침) 레이아웃.
+// 핀북 앱 공개 페이지(소개·지원·개인정보 처리방침, 베타 테스터용 출시 안내) 레이아웃.
 // App Store Connect 의 지원 URL·개인정보 처리방침 URL 로 쓰이므로
 // 블로그 content collection 과 분리된 일반 페이지로 둔다(글 목록·RSS·시리즈에 노출되지 않음).
 // 블로그 머리·꼬리 대신 핀북 전용 머리·꼬리를 쓰고, 색은 앱과 같은 토큰(Paper / Night)을 쓴다.
@@ -13,12 +13,12 @@ interface Props {
 	frontmatter: {
 		title: string;
 		description: string;
-		// 검색엔진에 안 보이게 할 페이지(베타 안내)만 true.
+		// 검색엔진에 안 보이게 할 페이지(베타 테스터용 출시 안내)만 true.
 		noindex?: boolean;
 		// 링크 미리보기(og:image) 이미지. 1200×630 PNG, 없으면 공용 /pinbook/og.png.
 		image?: string;
 	};
-	// 본문을 블로그 .prose 글 타이포로 감쌀지. 자체 디자인이 있는 페이지(베타 안내)는 false.
+	// 본문을 블로그 .prose 글 타이포로 감쌀지. 자체 디자인이 있는 페이지(소개·출시 안내)는 false.
 	prose?: boolean;
 	// 랜딩(소개)처럼 화면 폭을 다 쓰는 페이지만 true.
 	// 본문은 폭·여백 없이 펼치고, 머리·꼬리는 넓은 폭(1080px)에 맞춘다.
@@ -28,15 +28,14 @@ interface Props {
 const { frontmatter, prose = true, wide = false } = Astro.props;
 const { title, description, noindex = false, image = DEFAULT_OG_IMAGE } = frontmatter;
 
+// 베타 테스터용 출시 안내(/pinbook/beta)는 테스터에게 보낸 주소라 메뉴에 두지 않는다.
 const HEADER_LINKS = [
-	{ href: '/pinbook/beta', label: '베타' },
 	{ href: '/pinbook/support', label: '지원' },
 	{ href: '/pinbook/privacy', label: '개인정보' },
 ];
 
 const FOOTER_LINKS = [
 	{ href: '/pinbook', label: '핀북 소개' },
-	{ href: '/pinbook/beta', label: '베타' },
 	{ href: '/pinbook/support', label: '지원' },
 	{ href: '/pinbook/privacy', label: '개인정보 처리방침' },
 ];

@@ -1,5 +1,5 @@
 // 핀북 소개 페이지의 사진 견본: 앱 견본처럼 하늘 그라데이션 + 산.
-// 지도 캔버스(날아가는 사진·핀)와 벌집 칸(CSS 배경)이 같은 색을 쓴다.
+// 첫 화면 지도 캔버스(날아가는 사진·핀)가 쓴다.
 
 // [하늘 위, 하늘 아래, 산]
 type Palette = readonly [string, string, string];
@@ -33,10 +33,4 @@ export function paintPhoto(g: CanvasRenderingContext2D, x: number, y: number, si
 	g.lineTo(x + size, y + size);
 	g.closePath();
 	g.fill();
-}
-
-// 같은 견본을 CSS background 값으로 (벌집 칸용, 빌드 때 HTML 에 넣는다).
-export function photoBackground(photo: number): string {
-	const [skyTop, skyBottom, mountain] = paletteOf(photo);
-	return `linear-gradient(162deg, transparent 0 55%, ${mountain} 55.5% 100%) bottom/100% 60% no-repeat, linear-gradient(${skyTop}, ${skyBottom})`;
 }
